@@ -1,3 +1,6 @@
+import { HomePage } from './pages/HomePage';
+import './styles/styles.css';
+
 export const App: React.FC = () => {
-  return <h1>Hello World</h1>;
+  return <HomePage />;
 };

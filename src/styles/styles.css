@@ -1,0 +1,12 @@
+* {
+    padding: 0;
+    margin: 0;
+
+    font-family: 'Poppins';
+    font-style: 500px;
+    color: #0D2F59;
+}
+
+button {
+    cursor: pointer;
+} 
