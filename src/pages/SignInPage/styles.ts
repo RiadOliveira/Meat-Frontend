@@ -1,3 +1,4 @@
+import { palette } from '../../assets/colors/palette';
 import styled from 'styled-components';
 
 interface SectionProps {
@@ -40,6 +41,10 @@ export const Section = styled.section<SectionProps>`
 
   @media (max-width: 600px) {
     width: 100%;
-    height: 280px;
+    height: 340px;
+
+    &[id='sign-up'] {
+      height: 540px;
+    }
   }
 `;

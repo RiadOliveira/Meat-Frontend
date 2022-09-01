@@ -24,5 +24,15 @@ export const Input = styled.input`
 
   @media (max-width: 800px) {
     width: 80%;
+    height: 40px;
+
+    font-size: 16px;
+  }
+
+  @media (max-width: 600px) {
+    width: 80%;
+    height: 48px;
+
+    font-size: 20px;
   }
 `;
