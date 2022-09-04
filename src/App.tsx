@@ -1,8 +1,12 @@
-import { HomePage } from './pages/HomePage';
-import { SignInPage } from './pages/SignInPage';
+import { Header } from 'components/Header';
+import { Routes } from 'routes';
 import './styles/styles.css';
 
 export const App: React.FC = () => {
-  // return <HomePage />;
-  return <SignInPage />;
+  return (
+    <>
+      <Header />
+      <Routes />
+    </>
+  );
 };
