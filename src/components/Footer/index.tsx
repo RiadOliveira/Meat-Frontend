@@ -1,7 +1,7 @@
 import { Container } from './styles';
-import logoGlobo from '../../assets/img/logoGlobo.svg';
-import nameMeat from '../../assets/img/nameMeat.svg';
-import github from '../../assets/img/github.svg';
+import logoGlobo from 'assets/img/logoGlobo.svg';
+import nameMeat from 'assets/img/nameMeat.svg';
+import github from 'assets/img/github.svg';
 
 export const Footer: React.FC = () => {
   return (

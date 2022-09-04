@@ -1,9 +1,9 @@
 import { Container, Section } from './styles';
-import { Header } from '../../components/Header';
-import { palette } from '../../assets/colors/palette';
-import { Footer } from '../../components/Footer';
-import { Input } from '../../components/Input/styles';
-import { Button } from '../../components/Button/styles';
+import { Header } from 'components/Header';
+import { palette } from 'assets/colors/palette';
+import { Footer } from 'components/Footer';
+import { Input } from 'components/Input/styles';
+import { Button } from 'components/Button/styles';
 
 export const SignInPage: React.FC = () => {
   return (

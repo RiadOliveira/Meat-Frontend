@@ -28,6 +28,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "prettier": "^2.7.1",
     "typescript": "*",
-    "vite": "^3.0.7"
+    "vite": "^3.0.7",
+    "vite-tsconfig-paths": "^3.5.0"
   }
 }

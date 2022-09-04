@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { palette } from '../../assets/colors/palette';
+import { palette } from 'assets/colors/palette';
 
 interface ButtonProps {
   backgroundColor?: string;

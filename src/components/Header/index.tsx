@@ -1,5 +1,5 @@
 import { Container } from './styles';
-import logoMeat from '../../assets/img/logoMeat.svg';
+import logoMeat from 'assets/img/logoMeat.svg';
 
 export const Header: React.FC = () => {
   return (
