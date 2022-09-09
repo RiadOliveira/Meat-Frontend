@@ -20,7 +20,7 @@ export const Container = styled.div`
 
 export const Section = styled.section<SectionProps>`
   width: 50%;
-  height: 60vh;
+  height: 57.2vh;
 
   background: ${({ backgroundColor }) => backgroundColor};
 
