@@ -10,7 +10,13 @@ export const Container = styled.header`
   position: relative;
   z-index: 1;
 
-  img {
+  button {
     margin-top: 0.5%;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+  }
+
+  img {
   }
 `;

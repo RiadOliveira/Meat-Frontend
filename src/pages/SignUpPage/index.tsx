@@ -4,7 +4,7 @@ import { Footer } from 'components/Footer';
 import { Input } from 'components/Input/styles';
 import { Button } from 'components/Button/styles';
 
-export const SignInPage: React.FC = () => {
+export const SignUpPage: React.FC = () => {
   return (
     <Container>
       <main>

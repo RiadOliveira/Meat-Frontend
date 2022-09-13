@@ -13,23 +13,31 @@ export const HomePage: React.FC = () => {
     <Container>
       <main>
         <Section backgroundColor={palette.blueLow}>
-          <h2>Rastreie o que você esta CONSUMINDO!</h2>
+          <h2>Rastreie o que você está CONSUMINDO!</h2>
 
           <Input placeholder="Digite seu código"></Input>
           <Button type="submit">Buscar</Button>
         </Section>
 
         <Section backgroundColor={palette.background}>
-          <h2>Faça seu Login</h2>
-          <h2>ou cadastre-se</h2>
+          <h2>Faça seu login</h2>
+
+          <Input placeholder="Email"></Input>
+          <Input type="password" placeholder="Senha"></Input>
+          <Button
+            id="sign-up"
+            type="button"
+            onClick={() => history.push(routesAddresses.signUp)}
+          >
+            Cadastre-se
+          </Button>
 
           <Button
-            type="button"
+            type="submit"
             backgroundColor={palette.pinkLow}
             hoverColor={palette.pinkHigh}
-            onClick={() => history.push(routesAddresses.signIn)}
           >
-            Login
+            Entrar
           </Button>
         </Section>
       </main>

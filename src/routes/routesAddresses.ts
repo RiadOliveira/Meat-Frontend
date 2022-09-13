@@ -1,4 +1,4 @@
 export const routesAddresses = {
   homePage: '/',
-  signIn: '/sign-in',
+  signUp: '/sign-up',
 };
