@@ -6,6 +6,7 @@ interface SectionProps {
 }
 
 export const Container = styled.div`
+  background-color: ${palette.greenLow};
   font-size: 10px;
 
   main {
@@ -20,12 +21,11 @@ export const Container = styled.div`
 
 export const Section = styled.section<SectionProps>`
   width: 50%;
-  height: 55vh;
-  padding-top: 15px;
+  height: calc(60vh - 16px);
+  max-height: 60vh;
+  padding-top: 16px;
 
   background: ${({ backgroundColor }) => backgroundColor};
-
-  padding: 20px;
 
   display: flex;
   flex-direction: column;

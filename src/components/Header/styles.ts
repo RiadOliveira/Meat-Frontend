@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.header`
   width: 100%;
   height: 15vh;
+  max-height: 15vh;
 
   background: ${palette.pinkLow};
   text-align: center;

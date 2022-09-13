@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.footer`
   width: 100%;
-  min-height: 24.5vh;
+  min-height: calc(25vh - 4px);
 
   background: ${palette.greenLow};
   border-top: 4px solid ${palette.yellow};
@@ -52,9 +52,9 @@ export const Container = styled.footer`
   }
 
   a {
+    width: min-content;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-inline: auto;
 
     gap: 8px;
 
