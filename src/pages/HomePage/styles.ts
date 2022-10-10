@@ -45,7 +45,7 @@ export const Section = styled.section<SectionProps>`
   #sign-up {
     margin-top: -20px;
     background-color: transparent;
-    color: ${palette.greenLow};
+    color: ${palette.greenHigh};
     box-shadow: 0px 0px 0px;
     font-size: 18px;
   }

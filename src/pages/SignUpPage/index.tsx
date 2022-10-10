@@ -9,21 +9,19 @@ export const SignUpPage: React.FC = () => {
     <Container>
       <main>
         <Section backgroundColor={palette.blueLow}>
-          <h2>Faça seu login</h2>
-
-          <Input placeholder="Email"></Input>
-          <Input type="password" placeholder="Senha"></Input>
-          <Button type="submit">Entrar</Button>
-        </Section>
-
-        <Section id="sign-up" backgroundColor={palette.background}>
-          <h2>Cadastre-se</h2>
+          <h2>Cadastre o Responsável</h2>
 
           <Input placeholder="Nome"></Input>
           <Input placeholder="Email"></Input>
           <Input type="password" placeholder="Senha"></Input>
           <Input type="password" placeholder="Confirme a senha"></Input>
+        </Section>
 
+        <Section id="company" backgroundColor={palette.background}>
+          <h2>Cadastre a Empresa</h2>
+
+          <Input placeholder="Nome"></Input>
+          <Input placeholder="CNPJ"></Input>
           <Button
             type="button"
             backgroundColor={palette.pinkLow}

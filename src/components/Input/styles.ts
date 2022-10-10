@@ -22,7 +22,7 @@ export const Input = styled.input`
     color: rgba(13, 47, 89, 0.7);
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 840px) {
     width: 80%;
     height: 40px;
 
