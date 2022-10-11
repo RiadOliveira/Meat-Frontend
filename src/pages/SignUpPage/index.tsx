@@ -3,10 +3,12 @@ import { palette } from 'assets/colors/palette';
 import { Footer } from 'components/Footer';
 import { Input } from 'components/Input/styles';
 import { Button } from 'components/Button/styles';
+import { Header } from 'components/Header';
 
 export const SignUpPage: React.FC = () => {
   return (
     <Container>
+      <Header hasArrow />
       <main>
         <Section backgroundColor={palette.blueLow}>
           <h2>Cadastre o Responsável</h2>

@@ -5,12 +5,14 @@ import { Input } from 'components/Input/styles';
 import { Footer } from 'components/Footer';
 import { useHistory } from 'react-router-dom';
 import { routesAddresses } from 'routes/routesAddresses';
+import { Header } from 'components/Header';
 
 export const HomePage: React.FC = () => {
   const history = useHistory();
 
   return (
     <Container>
+      <Header />
       <main>
         <Section backgroundColor={palette.blueLow}>
           <h2>Rastreie o que você está CONSUMINDO!</h2>
@@ -36,6 +38,7 @@ export const HomePage: React.FC = () => {
             type="submit"
             backgroundColor={palette.pinkLow}
             hoverColor={palette.pinkHigh}
+            onClick={() => history.push(routesAddresses.batch)}
           >
             Entrar
           </Button>

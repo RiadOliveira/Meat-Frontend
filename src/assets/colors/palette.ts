@@ -9,7 +9,8 @@ export const palette = {
   pinkHigh: '#FF4755',
 
   greenLow: '#4CE166',
-  greenHigh: '#23D140',
+  greenHigh: '#2EDC4B',
+  // greenHigh: '#23D140',
 
   yellow: '#FFDB56',
 };

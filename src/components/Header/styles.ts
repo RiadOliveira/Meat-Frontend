@@ -11,13 +11,24 @@ export const Container = styled.header`
   position: relative;
   z-index: 1;
 
+  #return-arrow {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
   button {
-    margin-top: 0.5%;
     background-color: transparent;
     border: 0;
     outline: 0;
   }
 
   img {
+    margin-top: 0.5%;
   }
 `;

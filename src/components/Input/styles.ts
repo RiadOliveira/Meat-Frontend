@@ -19,7 +19,7 @@ export const Input = styled.input`
   }
 
   &::placeholder {
-    color: rgba(13, 47, 89, 0.7);
+    color: ${palette.blueHigh};
   }
 
   @media (max-width: 840px) {

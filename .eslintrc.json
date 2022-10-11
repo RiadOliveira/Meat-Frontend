@@ -37,7 +37,8 @@
       "no-use-before-define": "off",
       "@typescript-eslint/no-use-before-define": [
         "error"
-      ],
+    ],
+      "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "import/extensions": [
         "error",
@@ -47,7 +48,12 @@
           "tsx": "never"
         }
      ],
-     "prettier/prettier": "error"
+     "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+    ]
   },
   "settings": {
     "import/resolver": {
