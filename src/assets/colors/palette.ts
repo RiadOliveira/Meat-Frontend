@@ -6,6 +6,7 @@ export const palette = {
   blue: '#215DA7',
   blueHigh: '#0D2F59',
 
+  pinkLow: '#FFB4BD',
   pink: '#FF7B8B',
   pinkHigh: '#FF4755',
 

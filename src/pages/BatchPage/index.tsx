@@ -90,7 +90,7 @@ export const BatchPage: React.FC = () => {
 
   return (
     <Container>
-      <UserHeader />
+      <UserHeader pageBatch />
       <main>
         <Button id="new-batch">
           <img src={iconBatch} alt="Icone Lote" />

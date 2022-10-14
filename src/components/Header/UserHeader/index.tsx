@@ -1,11 +1,23 @@
-import { Container, HeaderBar, HeaderToolsBar } from './styles';
+//import { Container, HeaderBar, HeaderToolsBar, ToolsBarButton, UserOptionsButton } from './styles';
 import logoMeat from 'assets/img/logoMeat.svg';
 import returnArrow from 'assets/img/returnArrow.svg';
 import iconUser from 'assets/img/iconUser.svg';
+import { palette } from 'assets/colors/palette';
 import { routesAddresses } from 'routes/routesAddresses';
 import { useHistory } from 'react-router-dom';
+import {
+  Container,
+  HeaderBar,
+  HeaderToolsBar,
+  UserOptionsButton,
+  ToolsBarButton,
+} from './styles';
 
-export const UserHeader: React.FC = () => {
+interface PageBatch {
+  pageBatch?: boolean;
+}
+
+export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
   const history = useHistory();
 
   return (
@@ -23,27 +35,47 @@ export const UserHeader: React.FC = () => {
           <img id="logo-meat" src={logoMeat} alt="Logo Meat" />
         </div>
         <HeaderToolsBar>
-          <button id="user-options-button" type="button">
+          <UserOptionsButton type="button">
             <img src={iconUser} alt="Icone do usuario"></img>
             <div>
               <span id="user-name">Mari Fernandes</span>
 
               <h2 id="user-role">Responsável</h2>
             </div>
-          </button>
+          </UserOptionsButton>
           <div id="tools-button">
-            <button
-              id="batch-button"
-              onClick={() => history.push(routesAddresses.batch)}
-            >
-              Lotes
-            </button>
-            <button
-              id="member-button"
-              onClick={() => history.push(routesAddresses.batch)}
-            >
-              Membros
-            </button>
+            {pageBatch ? (
+              <ToolsBarButton
+                id="batch-button"
+                backgroundColor={palette.pinkLow}
+                onClick={() => history.push(routesAddresses.batch)}
+              >
+                Lotes
+              </ToolsBarButton>
+            ) : (
+              <ToolsBarButton
+                id="batch-button"
+                onClick={() => history.push(routesAddresses.batch)}
+              >
+                Lotes
+              </ToolsBarButton>
+            )}
+            {pageBatch ? (
+              <ToolsBarButton
+                id="member-button"
+                onClick={() => history.push(routesAddresses.batch)}
+              >
+                Membros
+              </ToolsBarButton>
+            ) : (
+              <ToolsBarButton
+                id="member-button"
+                backgroundColor={palette.pinkLow}
+                onClick={() => history.push(routesAddresses.batch)}
+              >
+                Membros
+              </ToolsBarButton>
+            )}
           </div>
         </HeaderToolsBar>
       </HeaderBar>
