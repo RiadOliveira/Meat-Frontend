@@ -15,7 +15,7 @@ export const Input = styled.input`
 
   transition: 0.3s;
   &:hover {
-    border: 2px solid ${palette.pinkLow};
+    border: 2px solid ${palette.pink};
   }
 
   &::placeholder {

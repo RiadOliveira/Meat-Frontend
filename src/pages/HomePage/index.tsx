@@ -36,7 +36,7 @@ export const HomePage: React.FC = () => {
 
           <Button
             type="submit"
-            backgroundColor={palette.pinkLow}
+            backgroundColor={palette.pink}
             hoverColor={palette.pinkHigh}
             onClick={() => history.push(routesAddresses.batch)}
           >

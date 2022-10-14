@@ -1,5 +1,5 @@
 import { Container } from './styles';
-import logoGlobo from 'assets/img/logoGlobo.svg';
+import logoGlobe from 'assets/img/logoGlobe.svg';
 import nameMeat from 'assets/img/nameMeat.svg';
 import github from 'assets/img/github.svg';
 
@@ -7,17 +7,18 @@ export const Footer: React.FC = () => {
   return (
     <Container>
       <section>
-        <img src={logoGlobo} alt="Logo Meat Globo" />
+        <img src={logoGlobe} alt="Logo Meat Globo" />
         <div>
           <img src={nameMeat} alt="Nome MEAT" />
           <h3>
-            Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
-            tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrum exercitationem ullam corporis suscipit
-            laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute
-            iure reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt
-            in culpa qui officia deserunt mollit anim id est laborum.
+            Em um mundo que busca mais qualidade de vida, começa-se por meio de
+            uma melhor alimentação, e para isso busca-se cada vez mais uma
+            melhor qualidade em alimentos comprados. Esta plataforma se
+            apresenta como uma alternativa de transparência para ser verificado
+            a qualidade dos produtos de proveniência animal, por meio de um
+            código toda a vida animal de que este produto derivou é apresentada,
+            permitindo que o consumidor final possa ter uma melhor clareza e
+            escolha o produto que mais lhe agrade.
           </h3>
         </div>
       </section>

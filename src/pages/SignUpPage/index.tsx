@@ -26,7 +26,7 @@ export const SignUpPage: React.FC = () => {
           <Input placeholder="CNPJ"></Input>
           <Button
             type="button"
-            backgroundColor={palette.pinkLow}
+            backgroundColor={palette.pink}
             hoverColor={palette.pinkHigh}
           >
             Cadastrar

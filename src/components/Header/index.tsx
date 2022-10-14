@@ -1,6 +1,6 @@
 import { Container } from './styles';
 import logoMeat from 'assets/img/logoMeat.svg';
-import setaVoltar from 'assets/img/setaVoltar.svg';
+import returnArrow from 'assets/img/returnArrow.svg';
 import { routesAddresses } from 'routes/routesAddresses';
 import { useHistory } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ hasArrow }) => {
           type="button"
           onClick={() => history.push(routesAddresses.homePage)}
         >
-          <img src={setaVoltar} alt="Voltar" />
+          <img src={returnArrow} alt="Voltar" />
         </button>
       )}
 

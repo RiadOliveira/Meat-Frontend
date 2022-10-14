@@ -6,7 +6,7 @@ export const Container = styled.header`
   height: 15vh;
   max-height: 15vh;
 
-  background: ${palette.pinkLow};
+  background: ${palette.pink};
   text-align: center;
   position: relative;
   z-index: 1;
