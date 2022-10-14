@@ -12,7 +12,7 @@ export const Container = styled.div`
     align-items: center;
     min-height: 85vh;
 
-    Button {
+    #new-batch {
       width: 400px;
       height: 72px;
       display: flex;
@@ -20,17 +20,46 @@ export const Container = styled.div`
       align-items: center;
       gap: 50px;
       font-size: 32px;
-
       margin: 24px;
+
+      img {
+        width: 72px;
+        height: 72px;
+      }
+
+      @media (min-width: 960px) {
+        width: 340px;
+        height: 64px;
+        margin: 20px;
+        font-size: 30px;
+
+        img {
+          width: 64px;
+          height: 64px;
+        }
+      }
     }
-    /* 
-    @media (max-width: 600px) {
-      flex-direction: column;
-    } */
   }
 `;
 
 export const CardsBatch = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 960px) {
+    min-width: 880px;
+    width: 880px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 1320px) {
+    width: 1240px;
+  }
+
   button {
     width: 400px;
     min-height: 200px;
@@ -38,6 +67,15 @@ export const CardsBatch = styled.section`
     border-radius: 12px;
     border: 0;
     outline: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px;
+
+    #image {
+      width: 72px;
+      height: 72px;
+    }
 
     #title {
       font-size: 22px;
@@ -52,11 +90,27 @@ export const CardsBatch = styled.section`
     #data {
       font-size: 20px;
     }
-  }
-  @media (max-width: 600px) {
-    flex-direction: row;
-    display: flex;
-    justify-content: space-between;
+
+    @media (min-width: 960px) {
+      width: 340px;
+      min-height: 170px;
+      margin: 20px;
+      #image {
+        width: 64px;
+        height: 64px;
+      }
+      #title {
+        font-size: 18px;
+      }
+
+      #subtitle {
+        font-size: 16px;
+      }
+
+      #data {
+        font-size: 16px;
+      }
+    }
   }
 `;
 

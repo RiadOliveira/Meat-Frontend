@@ -92,7 +92,7 @@ export const BatchPage: React.FC = () => {
     <Container>
       <UserHeader />
       <main>
-        <Button>
+        <Button id="new-batch">
           <img src={iconBatch} alt="Icone Lote" />
           Novo Lote
         </Button>
@@ -112,7 +112,7 @@ export const BatchPage: React.FC = () => {
               <button key={id}>
                 <BatchData>
                   <BatchHeader>
-                    <img src={iconPig} alt="Icone de Porco" />
+                    <img id="image" src={iconPig} alt="Icone de Porco" />
                     <BatchTextTitle>
                       <span id="title">{name}</span>
                       <BatchSpacingTextLine>
