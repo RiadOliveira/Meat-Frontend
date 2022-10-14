@@ -7,11 +7,14 @@ export const Container = styled.header`
   max-height: 269px;
 
   background: ${palette.pink};
-  display: flex;
-  flex-direction: column;
+
   align-items: center;
   position: relative;
   z-index: 1;
+
+  @media (min-width: 1064px) {
+    max-height: 15vh;
+  }
 
   #return-arrow {
     position: absolute;
@@ -26,11 +29,46 @@ export const Container = styled.header`
       height: 28px;
     }
   }
+`;
+
+export const HeaderBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 1064px) {
+    margin-left: 5%;
+    margin-right: 5%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0px;
+  }
 
   #logo-meat {
-    height: 120px;
-    width: 243px;
-    margin-top: 0.5%;
+    width: 200px;
+    height: 100px;
+    margin-top: 2vh;
+  }
+
+  #logo {
+    @media (min-width: 1064px) {
+      min-width: calc(50% - 160px);
+    }
+  }
+`;
+
+export const HeaderToolsBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 1064px) {
+    width: calc(50% + 160px);
+    min-width: 640px;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: -16px;
   }
 
   #user-options-button {
@@ -44,11 +82,21 @@ export const Container = styled.header`
     align-items: center;
     margin-top: 24px;
 
+    @media (min-width: 1064px) {
+      margin-top: 0;
+    }
+
     div {
       flex: 1;
     }
 
-    #role {
+    #user-name {
+      color: ${palette.blueHigh};
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    #user-role {
       color: ${palette.blue};
       font-size: 18px;
       font-weight: 500;

@@ -3,13 +3,16 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   width: 100%;
-  height: 15vh;
   max-height: 15vh;
 
   background: ${palette.pink};
   text-align: center;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 600px) {
+    height: 100px;
+  }
 
   #return-arrow {
     position: absolute;
@@ -29,6 +32,13 @@ export const Container = styled.header`
   }
 
   img {
-    margin-top: 0.5%;
+    width: 200px;
+    height: 100px;
+    margin-top: 2vh;
+
+    @media (max-width: 600px) {
+      width: 180px;
+      height: 90px;
+    }
   }
 `;
