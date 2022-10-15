@@ -87,6 +87,7 @@ export const CardsBatch = styled.section`
       font-size: 20px;
       color: ${palette.grey};
     }
+
     #data {
       font-size: 20px;
     }
@@ -120,7 +121,7 @@ export const BatchData = styled.div`
   align-items: stretch;
 `;
 
-export const BatchHeader = styled.div`
+export const BatchCardsHeader = styled.div`
   display: flex;
   gap: 16px;
 `;

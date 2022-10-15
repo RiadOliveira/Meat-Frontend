@@ -1,21 +1,19 @@
 import {
-  BatchData,
   BatchCardsHeader,
+  BatchData,
+  BatchDetailsHeader,
   BatchModification,
   BatchSpacingTextLine,
   BatchStatus,
   BatchSubtitle,
   BatchTextLine,
   BatchTextTitle,
-  CardsBatch,
+  CardBatch,
   Container,
 } from './styles';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'components/Button/styles';
-import iconBatch from 'assets/img/iconBatch.svg';
-import iconPig from 'assets/animalIcons/iconPig.svg';
 import { UserHeader } from 'components/Header/UserHeader';
-import { routesAddresses } from 'routes/routesAddresses';
+import iconPig from 'assets/animalIcons/iconPig.svg';
 
 const TESTE = [
   {
@@ -29,75 +27,16 @@ const TESTE = [
     createDate: '05/04/2022',
     endingDate: '11/12/2022',
   },
-  // {
-  //   id: 2,
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
 ];
 
-export const BatchPage: React.FC = () => {
+export const BatchDetails: React.FC = () => {
   const history = useHistory();
 
   return (
     <Container>
-      <UserHeader pageBatch />
+      <UserHeader pageBatch></UserHeader>
       <main>
-        <Button id="new-batch">
-          <img src={iconBatch} alt="Icone Lote" />
-          Novo Lote
-        </Button>
-        <CardsBatch>
+        <CardBatch>
           {TESTE.map(
             ({
               id,
@@ -110,14 +49,11 @@ export const BatchPage: React.FC = () => {
               createDate,
               endingDate,
             }) => (
-              <button
-                key={id}
-                onClick={() => history.push(routesAddresses.batchDetails)}
-              >
+              <BatchDetailsHeader key={id}>
                 <BatchData>
                   <BatchCardsHeader>
                     <img id="image" src={iconPig} alt="Icone de Porco" />
-                    <BatchTextTitle>
+                    <BatchTextTitle id="header-title">
                       <span id="title">{name}</span>
                       <BatchSpacingTextLine>
                         <span id="data">{race}</span>
@@ -151,10 +87,10 @@ export const BatchPage: React.FC = () => {
                     </BatchSpacingTextLine>
                   </BatchStatus>
                 </BatchData>
-              </button>
+              </BatchDetailsHeader>
             ),
           )}
-        </CardsBatch>
+        </CardBatch>
       </main>
     </Container>
   );
