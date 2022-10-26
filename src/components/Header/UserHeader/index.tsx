@@ -38,7 +38,7 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
           <UserOptionsButton type="button">
             <img src={iconUser} alt="Icone do usuario"></img>
             <div>
-              <span id="user-name">Mari Fernandes</span>
+              <span id="user-name">Mari Fernandez</span>
 
               <h2 id="user-role">Responsável</h2>
             </div>

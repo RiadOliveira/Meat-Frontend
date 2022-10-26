@@ -18,6 +18,7 @@ export const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      /* color: ${palette.white}; */
       gap: 50px;
       font-size: 32px;
       margin: 24px;

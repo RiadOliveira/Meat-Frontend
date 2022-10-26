@@ -11,11 +11,10 @@ import {
   CardBatch,
   Container,
 } from './styles';
-import { useHistory } from 'react-router-dom';
 import { UserHeader } from 'components/Header/UserHeader';
 import iconPig from 'assets/animalIcons/iconPig.svg';
 
-const TESTE = [
+const Batch = [
   {
     id: 1,
     name: 'Fazenda Feliz - Porcos 24',
@@ -29,15 +28,15 @@ const TESTE = [
   },
 ];
 
+//const  = [{}];
+//CoronaVac 1º Dose - #FF7B8B - 12/06/2022
 export const BatchDetails: React.FC = () => {
-  const history = useHistory();
-
   return (
     <Container>
       <UserHeader pageBatch></UserHeader>
       <main>
         <CardBatch>
-          {TESTE.map(
+          {Batch.map(
             ({
               id,
               name,

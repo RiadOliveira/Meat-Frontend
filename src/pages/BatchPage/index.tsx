@@ -16,10 +16,12 @@ import iconBatch from 'assets/img/iconBatch.svg';
 import iconPig from 'assets/animalIcons/iconPig.svg';
 import { UserHeader } from 'components/Header/UserHeader';
 import { routesAddresses } from 'routes/routesAddresses';
+import { AnimalIcon, getIcon } from 'assets/animalIcons/animalIcons';
 
 const TESTE = [
   {
     id: 1,
+    animal: 'PIG',
     name: 'Fazenda Feliz - Porcos 24',
     race: 'Suino',
     city: 'Limoeiro',
@@ -29,8 +31,21 @@ const TESTE = [
     createDate: '05/04/2022',
     endingDate: '11/12/2022',
   },
+  {
+    id: 2,
+    animal: 'COW',
+    name: 'peixe',
+    race: 'Suino',
+    city: 'Limoeiro',
+    state: 'PE',
+    lastModification: 'João Gomes',
+    lastDateModification: '13/12/2022',
+    createDate: '05/04/2022',
+    endingDate: '13/12/2022',
+  },
   // {
   //   id: 2,
+  //   AnimalIcon: 'PIG',
   //   name: 'Fazenda Feliz - Porcos 69',
   //   race: 'Suino',
   //   city: 'Limoeiro',
@@ -42,6 +57,7 @@ const TESTE = [
   // },
   // {
   //   id: 2,
+  //   AnimalIcon: 'PIG',
   //   name: 'Fazenda Feliz - Porcos 69',
   //   race: 'Suino',
   //   city: 'Limoeiro',
@@ -53,17 +69,7 @@ const TESTE = [
   // },
   // {
   //   id: 2,
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
+  //   AnimalIcon: 'PIG',
   //   name: 'Fazenda Feliz - Porcos 69',
   //   race: 'Suino',
   //   city: 'Limoeiro',
@@ -101,6 +107,7 @@ export const BatchPage: React.FC = () => {
           {TESTE.map(
             ({
               id,
+              animal,
               name,
               race,
               city,
@@ -116,7 +123,7 @@ export const BatchPage: React.FC = () => {
               >
                 <BatchData>
                   <BatchCardsHeader>
-                    <img id="image" src={iconPig} alt="Icone de Porco" />
+                    <img id="image" src={getIcon(animal)} alt="Icone Animal" />
                     <BatchTextTitle>
                       <span id="title">{name}</span>
                       <BatchSpacingTextLine>

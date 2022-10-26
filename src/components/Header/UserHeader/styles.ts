@@ -42,8 +42,8 @@ export const HeaderBar = styled.div`
   justify-content: center;
 
   @media (min-width: 1064px) {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 10vw;
+    margin-right: 10vw;
     flex-direction: row;
     justify-content: space-between;
     gap: 0px;

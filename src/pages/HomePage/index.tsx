@@ -1,4 +1,4 @@
-import { Container, Section } from './styles';
+import { Container, Section, SearchInput } from './styles';
 import { Button } from 'components/Button/styles';
 import { palette } from 'assets/colors/palette';
 import { Input } from 'components/Input/styles';
@@ -15,10 +15,14 @@ export const HomePage: React.FC = () => {
       <Header />
       <main>
         <Section backgroundColor={palette.blueLow}>
+          <div>
+            <button></button>
+          </div>
           <h2>Rastreie o que você está CONSUMINDO!</h2>
-
-          <Input placeholder="Digite seu código"></Input>
-          <Button type="submit">Buscar</Button>
+          <SearchInput>
+            <Input placeholder="Digite seu código"></Input>
+            <Button type="submit">Buscar</Button>
+          </SearchInput>
         </Section>
 
         <Section backgroundColor={palette.background}>

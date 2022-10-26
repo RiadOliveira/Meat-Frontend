@@ -3,7 +3,7 @@ import { palette } from 'assets/colors/palette';
 
 export const Input = styled.input`
   width: 360px;
-  height: 48px;
+  height: 44px;
 
   background: ${palette.white};
   border: 2px solid transparent;
@@ -24,14 +24,14 @@ export const Input = styled.input`
 
   @media (max-width: 840px) {
     width: 80%;
-    height: 40px;
+    height: 36px;
 
     font-size: 16px;
   }
 
   @media (max-width: 600px) {
     width: 80%;
-    height: 48px;
+    height: 44px;
 
     font-size: 20px;
   }

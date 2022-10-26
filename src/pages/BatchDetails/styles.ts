@@ -74,7 +74,7 @@ export const BatchDetailsHeader = styled.div`
   height: 200px;
 
   border-radius: 12px 12px 0px 0px;
-  background-color: #fce2e5;
+  background-color: ${palette.backgroundLow};
 
   display: flex;
   justify-content: center;

@@ -55,3 +55,19 @@ export const Section = styled.section<SectionProps>`
     height: 320px;
   }
 `;
+
+export const SearchInput = styled.div`
+  display: flex;
+  align-items: center;
+  justify-items: center;
+
+  input {
+    width: 75%;
+    border-radius: 12px 0px 0px 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  button {
+    border-radius: 0px 12px 12px 0px;
+  }
+`;
