@@ -3,4 +3,6 @@ export const routesAddresses = {
   signUp: '/sign-up',
   batch: '/batch',
   batchDetails: '/batch/details',
+  members: '/members',
+  memberDetails: '/members/details'
 };

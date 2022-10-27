@@ -63,7 +63,7 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
             {pageBatch ? (
               <ToolsBarButton
                 id="member-button"
-                onClick={() => history.push(routesAddresses.batch)}
+                onClick={() => history.push(routesAddresses.members)}
               >
                 Membros
               </ToolsBarButton>
@@ -71,7 +71,7 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
               <ToolsBarButton
                 id="member-button"
                 backgroundColor={palette.pinkLow}
-                onClick={() => history.push(routesAddresses.batch)}
+                onClick={() => history.push(routesAddresses.members)}
               >
                 Membros
               </ToolsBarButton>
