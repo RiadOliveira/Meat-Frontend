@@ -1,3 +1,4 @@
+import { palette } from 'assets/colors/palette';
 import styled from 'styled-components';
 
 interface SectionProps {
@@ -22,6 +23,7 @@ export const Section = styled.section<SectionProps>`
   height: calc(60vh - 16px);
   max-height: 60vh;
   padding-top: 16px;
+  color: ${palette.blueHigh};
 
   background: ${({ backgroundColor }) => backgroundColor};
 

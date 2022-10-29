@@ -9,10 +9,10 @@ export const MembersPage: React.FC = () => {
 
   return (
     <Container>
-      <UserHeader/>
+      <UserHeader />
       <main>
         <Button id="new-member">
-          <img src={iconMember} alt="Icone Membro"/>
+          <img src={iconMember} alt="Icone Membro" />
           Novo Membro
         </Button>
       </main>

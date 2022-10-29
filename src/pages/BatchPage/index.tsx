@@ -9,87 +9,77 @@ import {
   BatchTextTitle,
   CardsBatch,
   Container,
+  Title,
 } from './styles';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'components/Button/styles';
 import iconBatch from 'assets/img/iconBatch.svg';
-import iconPig from 'assets/animalIcons/iconPig.svg';
 import { UserHeader } from 'components/Header/UserHeader';
 import { routesAddresses } from 'routes/routesAddresses';
-import { AnimalIcon, getIcon } from 'assets/animalIcons/animalIcons';
+import { animalIcons } from 'assets/animalIcons/animalIcons';
+import { AnimalType } from 'types/AnimalType';
 
 const TESTE = [
   {
     id: 1,
-    animal: 'PIG',
+    animal: AnimalType.PIG,
     name: 'Fazenda Feliz - Porcos 24',
     race: 'Suino',
     city: 'Limoeiro',
     state: 'PE',
     lastModification: 'João Gomes',
-    lastDateModification: '13/12/2022',
+    updatedAt: '13/12/2022',
     createDate: '05/04/2022',
     endingDate: '11/12/2022',
   },
   {
     id: 2,
-    animal: 'COW',
+    animal: AnimalType.COW,
     name: 'peixe',
     race: 'Suino',
     city: 'Limoeiro',
     state: 'PE',
     lastModification: 'João Gomes',
-    lastDateModification: '13/12/2022',
+    updatedAt: '13/12/2022',
     createDate: '05/04/2022',
     endingDate: '13/12/2022',
   },
-  // {
-  //   id: 2,
-  //   AnimalIcon: 'PIG',
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
-  //   AnimalIcon: 'PIG',
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
-  //   AnimalIcon: 'PIG',
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
-  // {
-  //   id: 2,
-  //   name: 'Fazenda Feliz - Porcos 69',
-  //   race: 'Suino',
-  //   city: 'Limoeiro',
-  //   state: 'PE',
-  //   lastModification: 'João Gomes',
-  //   lastDateModification: '13/12/2022',
-  //   createDate: '05/04/2022',
-  //   endingDate: '13/12/2022',
-  // },
+  {
+    id: 2,
+    animal: AnimalType.CHICKEN,
+    name: 'Fazenda Feliz - Porcos 69',
+    race: 'Suino',
+    city: 'Limoeiro',
+    state: 'PE',
+    lastModification: 'João Gomes',
+    updatedAt: '13/12/2022',
+    createDate: '05/04/2022',
+    endingDate: '13/12/2022',
+  },
+  {
+    id: 2,
+    animal: AnimalType.FISH,
+    name: 'Fazenda Feliz - Porcos 69',
+    race: 'Suino',
+    city: 'Limoeiro',
+    state: 'PE',
+    lastModification: 'João Gomes',
+    updatedAt: '13/12/2022',
+    createDate: '05/04/2022',
+    endingDate: '13/12/2022',
+  },
+  {
+    id: 2,
+    animal: AnimalType.OTHER,
+    name: 'Fazenda Feliz - Porcos 69',
+    race: 'Suino',
+    city: 'Limoeiro',
+    state: 'PE',
+    lastModification: 'João Gomes',
+    updatedAt: '13/12/2022',
+    createDate: '05/04/2022',
+    endingDate: '13/12/2022',
+  },
 ];
 
 export const BatchPage: React.FC = () => {
@@ -113,7 +103,7 @@ export const BatchPage: React.FC = () => {
               city,
               state,
               lastModification,
-              lastDateModification,
+              updatedAt,
               createDate,
               endingDate,
             }) => (
@@ -123,9 +113,15 @@ export const BatchPage: React.FC = () => {
               >
                 <BatchData>
                   <BatchCardsHeader>
-                    <img id="image" src={getIcon(animal)} alt="Icone Animal" />
+                    <img
+                      id="image"
+                      src={animalIcons[animal].icon}
+                      alt="Icone Animal"
+                    />
                     <BatchTextTitle>
-                      <span id="title">{name}</span>
+                      <Title id="title" fontColor={animalIcons[animal].color}>
+                        {name}
+                      </Title>
                       <BatchSpacingTextLine>
                         <span id="data">{race}</span>
                         <BatchTextLine>
@@ -142,7 +138,7 @@ export const BatchPage: React.FC = () => {
                     </BatchSubtitle>
                     <BatchSpacingTextLine>
                       <span id="data">{lastModification}</span>
-                      <span id="data">{lastDateModification}</span>
+                      <span id="data">{updatedAt}</span>
                     </BatchSpacingTextLine>
                   </BatchModification>
                   <BatchStatus>

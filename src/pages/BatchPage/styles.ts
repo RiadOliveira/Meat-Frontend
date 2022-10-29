@@ -5,6 +5,7 @@ export const Container = styled.div`
   background-color: ${palette.blueLow};
   width: 100%;
   font-size: 10px;
+  color: ${palette.blueHigh};
 
   main {
     display: flex;
@@ -43,6 +44,10 @@ export const Container = styled.div`
   }
 `;
 
+interface TitleProps {
+  fontColor?: string;
+}
+
 export const CardsBatch = styled.section`
   display: flex;
   flex-direction: column;
@@ -64,6 +69,7 @@ export const CardsBatch = styled.section`
   button {
     width: 400px;
     min-height: 200px;
+    max-height: 200px;
     background-color: ${palette.white};
     border-radius: 12px;
     border: 0;
@@ -78,12 +84,6 @@ export const CardsBatch = styled.section`
       height: 72px;
     }
 
-    #title {
-      font-size: 22px;
-      font-weight: 700;
-      color: ${palette.pink};
-    }
-
     #subtitle {
       font-size: 20px;
       color: ${palette.grey};
@@ -96,6 +96,7 @@ export const CardsBatch = styled.section`
     @media (min-width: 960px) {
       width: 340px;
       min-height: 170px;
+      max-height: 170px;
       margin: 20px;
       #image {
         width: 64px;
@@ -116,22 +117,32 @@ export const CardsBatch = styled.section`
   }
 `;
 
+export const Title = styled.span<TitleProps>`
+  font-size: 22px;
+  font-weight: 700;
+  color: ${({ fontColor }) => fontColor || palette.pink};
+`;
+
 export const BatchData = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  width: 90%;
 `;
 
 export const BatchCardsHeader = styled.div`
   display: flex;
   gap: 16px;
+  flex: 1;
 `;
 
 export const BatchTextTitle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 `;
+
 export const BatchSpacingTextLine = styled.div`
   display: flex;
   justify-content: space-between;

@@ -8,6 +8,7 @@ interface SectionProps {
 export const Container = styled.div`
   background-color: ${palette.greenLow};
   font-size: 10px;
+  color: ${palette.blueHigh};
 
   main {
     display: flex;
