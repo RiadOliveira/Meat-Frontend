@@ -70,12 +70,21 @@ export const CardBatch = styled.div`
   }
 `;
 
-export const BatchDetailsHeader = styled.div`
+interface TitleProps {
+  fontColor?: string;
+}
+
+export const Title = styled.span<TitleProps>`
+  font-size: 22px;
+  font-weight: 700;
+  color: ${({ fontColor }) => fontColor || palette.pink};
+`;
+
+export const BatchDetailsHeader = styled.section`
   width: 400px;
   height: 200px;
 
   border-radius: 12px 12px 0px 0px;
-  background-color: ${palette.backgroundLow};
 
   display: flex;
   justify-content: center;
@@ -83,16 +92,22 @@ export const BatchDetailsHeader = styled.div`
 
   @media (min-width: 960px) {
     min-width: 80vw;
+    height: 180px;
+
+    #desktopAdjustment {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 `;
 
-export const BatchData = styled.div`
+export const BatchData = styled.section`
   display: flex;
   flex-direction: column;
   align-items: stretch;
 
   @media (min-width: 960px) {
-    min-width: 70vw;
+    min-width: 95%;
     gap: 8px;
     #header-title {
       flex: 1;
@@ -117,6 +132,13 @@ export const BatchTextTitle = styled.div`
 export const BatchSpacingTextLine = styled.div`
   display: flex;
   justify-content: space-between;
+
+  #desktopAdjustment {
+    @media (min-width: 960px) {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
 `;
 export const BatchSubtitle = styled.div`
   display: flex;
@@ -126,6 +148,120 @@ export const BatchSubtitle = styled.div`
 export const BatchTextLine = styled.div`
   display: flex;
 `;
+
 export const BatchModification = styled.div``;
 
-export const BatchStatus = styled.div``;
+export const BatchStatus = styled.div`
+  @media (min-width: 960px) {
+    width: 50%;
+  }
+`;
+
+export const BatchAtributeTable = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  #slaughter {
+    #slaughter-data {
+    }
+    #topic {
+      color: ${palette.grey};
+      font-weight: 500;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+`;
+
+interface BatchTableProps {
+  backgroundcolor?: string;
+}
+
+export const TitleBatchTable = styled.div<BatchTableProps>`
+  height: 64px;
+  background: ${({ backgroundcolor }) => backgroundcolor || palette.yellow};
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding-left: 32px;
+
+  img {
+    width: 48px;
+    height: 48px;
+  }
+
+  #title {
+    color: ${palette.blueHigh};
+    font-size: 24px;
+    font-weight: 500;
+  }
+`;
+
+export const LineBatchTable = styled.div`
+  height: 47px;
+  border-bottom: 1px solid ${palette.blueHigh};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 36px;
+  padding-right: 32px;
+
+  span {
+    color: ${palette.blue};
+  }
+
+  div {
+    width: 64px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-items: space-between;
+  }
+
+  button {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+
+    &:hover {
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    img {
+      width: 28px;
+      height: 28px;
+
+      transition: 0.2s;
+    }
+  }
+`;
+
+export const ButtonAdd = styled.div`
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    width: 360px;
+    height: 40px;
+    border: 0;
+    outline: 0;
+
+    color: ${palette.blue};
+  }
+`;

@@ -5,7 +5,7 @@ export const Container = styled.footer`
   width: 100%;
   min-height: calc(25vh - 4px);
 
-  background: ${palette.greenLow};
+  background: ${palette.green};
   border-top: 4px solid ${palette.yellow};
 
   section {

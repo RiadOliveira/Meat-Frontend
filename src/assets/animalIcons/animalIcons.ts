@@ -9,7 +9,7 @@ import iconOther from 'assets/animalIcons/iconOther.svg';
 export const animalIcons = {
   [AnimalType.PIG]: { icon: iconPig, color: palette.pink },
   [AnimalType.CHICKEN]: { icon: iconChicken, color: palette.yellow },
-  [AnimalType.COW]: { icon: iconCow, color: palette.greenLow },
+  [AnimalType.COW]: { icon: iconCow, color: palette.green },
   [AnimalType.FISH]: { icon: iconFish, color: palette.blueLow },
   [AnimalType.OTHER]: { icon: iconOther, color: palette.brown },
 };

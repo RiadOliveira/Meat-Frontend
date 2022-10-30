@@ -6,7 +6,7 @@ interface SectionProps {
 }
 
 export const Container = styled.div`
-  background-color: ${palette.greenLow};
+  background-color: ${palette.green};
   font-size: 10px;
   color: ${palette.blueHigh};
 
@@ -46,7 +46,7 @@ export const Section = styled.section<SectionProps>`
   #sign-up {
     margin-top: -20px;
     background-color: transparent;
-    color: ${palette.greenHigh};
+    color: ${palette.green};
     box-shadow: 0px 0px 0px;
     font-size: 18px;
   }

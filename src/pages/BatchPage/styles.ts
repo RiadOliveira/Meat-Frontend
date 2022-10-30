@@ -44,10 +44,6 @@ export const Container = styled.div`
   }
 `;
 
-interface TitleProps {
-  fontColor?: string;
-}
-
 export const CardsBatch = styled.section`
   display: flex;
   flex-direction: column;
@@ -93,6 +89,12 @@ export const CardsBatch = styled.section`
       font-size: 20px;
     }
 
+    transition: 0.2s;
+
+    &:hover {
+      box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
+    }
+
     @media (min-width: 960px) {
       width: 340px;
       min-height: 170px;
@@ -116,6 +118,10 @@ export const CardsBatch = styled.section`
     }
   }
 `;
+
+interface TitleProps {
+  fontColor?: string;
+}
 
 export const Title = styled.span<TitleProps>`
   font-size: 22px;

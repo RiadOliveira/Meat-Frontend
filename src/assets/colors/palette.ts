@@ -1,8 +1,8 @@
 export const palette = {
   white: '#FFFDF7',
 
-  backgroundLow: '#F0ECE4',
-  background: '#F4E9D3',
+  //backgroundLow: '#F0ECE4',
+  beige: '#F4E9D3',
 
   blueLow: '#A8EEFC',
   blue: '#215DA7',
@@ -12,9 +12,8 @@ export const palette = {
   pink: '#FF7B8B',
   pinkHigh: '#FF4755',
 
-  greenLow: '#4CE166',
-  greenHigh: '#2EDC4B',
-  // greenHigh: '#23D140',
+  green: '#4CE166',
+  // greenHigh: '#2EDC4B',
 
   yellow: '#FFDB56',
   grey: '#96948F',
