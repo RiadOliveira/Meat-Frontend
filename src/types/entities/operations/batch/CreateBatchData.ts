@@ -1,5 +1,5 @@
 import { IBatch } from 'types/entities/IBatch';
-import { OmitDefaultEntityProperties } from 'types/OmitDefaultEntityProperties';
+import { OmitDefaultEntityProperties } from 'types/entities/OmitDefaultEntityProperties';
 
 type BatchData = Omit<
   OmitDefaultEntityProperties<IBatch>,

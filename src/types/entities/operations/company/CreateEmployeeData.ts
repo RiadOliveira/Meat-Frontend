@@ -1,5 +1,5 @@
 import { IUser } from 'types/entities/IUser';
-import { OmitDefaultEntityProperties } from 'types/OmitDefaultEntityProperties';
+import { OmitDefaultEntityProperties } from 'types/entities/OmitDefaultEntityProperties';
 
 type EmployeeData = Omit<OmitDefaultEntityProperties<IUser>, 'companyId'>;
 
