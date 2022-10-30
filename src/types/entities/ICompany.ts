@@ -5,4 +5,5 @@ export interface ICompany extends IEntity {
   cnpj: string;
   city: string;
   state: string;
+  producerId: string;
 }
