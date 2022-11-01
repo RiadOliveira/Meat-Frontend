@@ -4,6 +4,7 @@ import { BatchPage } from 'pages/BatchPage';
 import { BatchDetails } from 'pages/BatchDetails';
 import { MembersPage } from 'pages/MembersPage';
 import { MemberDetails } from 'pages/MemberDetails';
+import { ExposeBatch } from 'pages/ExposeBatch';
 
 import { Switch } from 'react-router-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -27,6 +28,11 @@ export const Routes: React.FC = () => {
           path={routesAddresses.memberDetails}
           exact
           component={MemberDetails}
+        />
+        <Route
+          path={routesAddresses.exposeBatch}
+          exact
+          component={ExposeBatch}
         />
         <Route path="*" exact component={MissingRoute} />
       </Switch>

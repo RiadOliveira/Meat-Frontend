@@ -4,5 +4,6 @@ export const routesAddresses = {
   batch: '/batch',
   batchDetails: '/batch/details',
   members: '/members',
-  memberDetails: '/members/details'
+  memberDetails: '/members/details',
+  exposeBatch: '/exposeBatch',
 };

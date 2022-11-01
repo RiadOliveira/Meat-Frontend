@@ -21,7 +21,12 @@ export const HomePage: React.FC = () => {
           <h2>Rastreie o que você está CONSUMINDO!</h2>
           <SearchInput>
             <Input placeholder="Digite seu código"></Input>
-            <Button type="submit">Buscar</Button>
+            <Button
+              type="submit"
+              onClick={() => history.push(routesAddresses.exposeBatch)}
+            >
+              Buscar
+            </Button>
           </SearchInput>
         </Section>
 

@@ -15,40 +15,14 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    #finish-batch {
-      width: 400px;
-      height: 72px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 36px;
-      font-size: 32px;
-      margin: 24px;
-
-      img {
-        width: 72px;
-        height: 72px;
-      }
-
-      @media (min-width: 960px) {
-        width: 340px;
-        height: 64px;
-        margin: 20px;
-        font-size: 30px;
-
-        img {
-          width: 64px;
-          height: 64px;
-        }
-      }
-    }
+    margin: 24px;
+    margin-bottom: 56px;
   }
 `;
 
 export const CardBatch = styled.div`
   width: 400px;
-  min-height: 800px;
+  min-height: 640px;
 
   background-color: ${palette.white};
   border-radius: 12px;
@@ -57,6 +31,7 @@ export const CardBatch = styled.div`
   flex-direction: column;
   align-items: center;
   flex: 1;
+  border: 1px solid ${palette.white};
 
   @media (min-width: 960px) {
     min-width: 80vw;
@@ -107,14 +82,17 @@ export const Title = styled.span<TitleProps>`
 `;
 
 export const BatchDetailsHeader = styled.section`
-  width: 400px;
+  width: 100%;
   height: 200px;
 
   border-radius: 12px 12px 0px 0px;
 
+  padding-bottom: 8px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 8px;
 
   @media (min-width: 960px) {
     min-width: 80vw;
@@ -123,6 +101,21 @@ export const BatchDetailsHeader = styled.section`
     #desktopAdjustment {
       display: flex;
       justify-content: space-between;
+    }
+  }
+
+  #card-code-title {
+    width: 100%;
+    border-radius: 12px 12px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+
+    #card-code {
+      color: ${palette.white};
+      font-size: 24px;
+      font-weight: 700;
     }
   }
 `;
@@ -263,28 +256,11 @@ export const LineBatchTable = styled.div`
     }
   }
 `;
-
-export const ButtonAdd = styled.div`
-  height: 64px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  button {
-    width: 360px;
-    height: 40px;
-    border: 0;
-    outline: 0;
-
-    color: ${palette.blue};
-  }
-`;
-
 export const SlaughterData = styled.div`
   padding-left: 32px;
   padding-right: 32px;
   padding-top: 8px;
+  margin-bottom: 16px;
 
   span {
     color: ${palette.blue};

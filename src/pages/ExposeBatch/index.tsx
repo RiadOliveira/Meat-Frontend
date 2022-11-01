@@ -9,7 +9,6 @@ import {
   BatchSubtitle,
   BatchTextLine,
   BatchTextTitle,
-  ButtonAdd,
   CardBatch,
   Container,
   LineBatchTable,
@@ -17,22 +16,21 @@ import {
   Title,
   TitleBatchTable,
 } from './styles';
-import { UserHeader } from 'components/Header/UserHeader';
+import { Header } from 'components/Header';
+import { Footer } from 'components/Footer';
 import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { AnimalType } from 'types/AnimalType';
+import { palette } from 'assets/colors/palette';
+
 import iconPortion from 'assets/img/iconPortion.svg';
 import iconVaccination from 'assets/img/iconVaccination.svg';
 import iconSlaughter from 'assets/img/iconSlaughter.svg';
-import iconEdit from 'assets/img/iconEdit.svg';
-import iconDelete from 'assets/img/iconDelete.svg';
-import { palette } from 'assets/colors/palette';
-import { Button } from 'components/Button/styles';
-import iconBatch from 'assets/img/iconBatch.svg';
 
 const Batch = [
   {
     id: 1,
-    animal: AnimalType.FISH,
+    codeBatch: '0AA8SDSA4DAS4',
+    animal: AnimalType.COW,
     name: 'Fazenda Feliz - Porcos 24',
     race: 'Suino',
     city: 'Limoeiro',
@@ -77,19 +75,16 @@ const Slaughter = [
   },
 ];
 
-export const BatchDetails: React.FC = () => {
+export const ExposeBatch: React.FC = () => {
   return (
     <Container>
-      <UserHeader pageBatch></UserHeader>
+      <Header hasArrow />
       <main>
-        <Button id="finish-batch">
-          <img src={iconBatch} alt="Icone Lote" />
-          Finalizar Lote
-        </Button>
         <CardBatch>
           {Batch.map(
             ({
               id,
+              codeBatch,
               animal,
               name,
               race,
@@ -101,6 +96,12 @@ export const BatchDetails: React.FC = () => {
               endingDate,
             }) => (
               <BatchDetailsHeader key={id}>
+                <TitleBatchTable
+                  id="card-code-title"
+                  backgroundcolor={animalIcons[animal].color}
+                >
+                  <span id="card-code">{codeBatch}</span>
+                </TitleBatchTable>
                 <BatchData>
                   <BatchCardsHeader>
                     <img
@@ -161,19 +162,8 @@ export const BatchDetails: React.FC = () => {
                 <span>{name}</span>
                 <span>-</span>
                 <span>{portionBatch}</span>
-                <div>
-                  <button>
-                    <img src={iconEdit} alt="Icone Editar"></img>
-                  </button>
-                  <button>
-                    <img src={iconDelete} alt="Icone Deletar"></img>
-                  </button>
-                </div>
               </LineBatchTable>
             ))}
-            <ButtonAdd>
-              <Button backgroundColor={palette.beige}>Adicionar</Button>
-            </ButtonAdd>
           </BatchAtributeTable>
 
           <BatchAtributeTable id="vaccination">
@@ -186,19 +176,8 @@ export const BatchDetails: React.FC = () => {
                 <span>{name}</span>
                 <span>-</span>
                 <span>{vaccinationBatch}</span>
-                <div>
-                  <button>
-                    <img src={iconEdit} alt="Icone Editar"></img>
-                  </button>
-                  <button>
-                    <img src={iconDelete} alt="Icone Deletar"></img>
-                  </button>
-                </div>
               </LineBatchTable>
             ))}
-            <ButtonAdd>
-              <Button backgroundColor={palette.beige}>Adicionar</Button>
-            </ButtonAdd>
           </BatchAtributeTable>
 
           <BatchAtributeTable id="slaughter">
@@ -226,12 +205,10 @@ export const BatchDetails: React.FC = () => {
                 </div>
               ),
             )}
-            <ButtonAdd>
-              <Button backgroundColor={palette.beige}>Adicionar</Button>
-            </ButtonAdd>
           </BatchAtributeTable>
         </CardBatch>
       </main>
+      <Footer />
     </Container>
   );
 };
