@@ -145,31 +145,7 @@ export const BatchDetails: React.FC = () => {
             ),
           )}
 
-          <BatchAtributeTable id="portion">
-            <TitleBatchTable backgroundcolor={palette.yellow}>
-              <img src={iconPortion} alt="Icone Rações" />
-              <span id="title">Rações</span>
-            </TitleBatchTable>
-            {Portion.map(({ id, name, portionBatch, batchId }) => (
-              <LineBatchTable key={id}>
-                <span>{name}</span>
-                <span>-</span>
-                <span>{portionBatch}</span>
-                <div>
-                  <button>
-                    <img src={iconEdit} alt="Icone Editar"></img>
-                  </button>
-                  <button>
-                    <img src={iconDelete} alt="Icone Deletar"></img>
-                  </button>
-                </div>
-              </LineBatchTable>
-            ))}
-            <ButtonAdd>
-              <Button backgroundColor={palette.beige}>Adicionar</Button>
-            </ButtonAdd>
-          </BatchAtributeTable>
-
+          git
           <BatchAtributeTable id="vaccination">
             <TitleBatchTable backgroundcolor={palette.green}>
               <img src={iconVaccination} alt="Icone Vacinas" />
