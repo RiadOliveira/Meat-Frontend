@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,8 +12,38 @@ export const Container = styled.div`
   main {
     min-height: calc(100% - 269px);
     display: flex;
+    flex-direction: column;
+    align-items: center;
 
     margin: 24px;
+
+    #finish-batch {
+      width: 400px;
+      height: 72px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 36px;
+      font-size: 32px;
+      margin: 24px;
+
+      img {
+        width: 72px;
+        height: 72px;
+      }
+
+      @media (min-width: 960px) {
+        width: 340px;
+        height: 64px;
+        margin: 20px;
+        font-size: 30px;
+
+        img {
+          width: 64px;
+          height: 64px;
+        }
+      }
+    }
   }
 
   background: ${palette.blueLow};
@@ -21,7 +52,6 @@ export const Container = styled.div`
 export const CardBatch = styled.div`
   width: 400px;
   min-height: 800px;
-  height: 800px;
 
   background-color: ${palette.white};
   border-radius: 12px;
@@ -161,17 +191,6 @@ export const BatchAtributeTable = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  #slaughter {
-    #slaughter-data {
-    }
-    #topic {
-      color: ${palette.grey};
-      font-weight: 500;
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-  }
 `;
 
 interface BatchTableProps {
@@ -263,5 +282,24 @@ export const ButtonAdd = styled.div`
     outline: 0;
 
     color: ${palette.blue};
+  }
+`;
+
+export const SlaughterData = styled.div`
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 8px;
+
+  span {
+    color: ${palette.blue};
+  }
+
+  #slaughter-data {
+    min-height: 32px;
+  }
+
+  #topic {
+    color: ${palette.blueHigh};
+    font-weight: 500;
   }
 `;

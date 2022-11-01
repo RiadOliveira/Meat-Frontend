@@ -13,6 +13,7 @@ import {
   CardBatch,
   Container,
   LineBatchTable,
+  SlaughterData,
   Title,
   TitleBatchTable,
 } from './styles';
@@ -26,7 +27,7 @@ import iconEdit from 'assets/img/iconEdit.svg';
 import iconDelete from 'assets/img/iconDelete.svg';
 import { palette } from 'assets/colors/palette';
 import { Button } from 'components/Button/styles';
-import { shade } from 'polished';
+import iconBatch from 'assets/img/iconBatch.svg';
 
 const Batch = [
   {
@@ -69,6 +70,7 @@ const Slaughter = [
   {
     id: 1,
     method: 'Pancada',
+    slaughterDate: '13/12/2022',
     description:
       'O suíno pode ser abatido com uma pancada na cabeça ou através do uso do aparelho insensibilizador, que é considerado mais conveniente e dentro das normas de abate civilizado e de proteção aos animais. Após o abate, é feita a depilação com água quente ou utilizando um lança-chamas.',
     batchId: '',
@@ -80,6 +82,10 @@ export const BatchDetails: React.FC = () => {
     <Container>
       <UserHeader pageBatch></UserHeader>
       <main>
+        <Button id="finish-batch">
+          <img src={iconBatch} alt="Icone Lote" />
+          Finalizar Lote
+        </Button>
         <CardBatch>
           {Batch.map(
             ({
@@ -200,18 +206,26 @@ export const BatchDetails: React.FC = () => {
               <img src={iconSlaughter} alt="Icone Abate" />
               <span id="title">Abate</span>
             </TitleBatchTable>
-            {Slaughter.map(({ id, method, description, batchId }) => (
-              <div key={id} id="slaughter-data">
-                <div>
-                  <span id="topic">Metodo de Abate: </span>
-                  {/* <span>{method}</span> */}
+            {Slaughter.map(
+              ({ id, method, slaughterDate, description, batchId }) => (
+                <div key={id}>
+                  <SlaughterData>
+                    <BatchTextLine id="slaughter-data">
+                      <span id="topic">Metodo de Abate: &nbsp;</span>
+                      <span>{method}</span>
+                    </BatchTextLine>
+                    <BatchTextLine id="slaughter-data">
+                      <span id="topic">Data do Abate: &nbsp;</span>
+                      <span>{slaughterDate}</span>
+                    </BatchTextLine>
+                    <div id="slaughter-data">
+                      <span id="topic">Descrição: &nbsp;</span>
+                      <span>{description}</span>
+                    </div>
+                  </SlaughterData>
                 </div>
-                <div id="topic">
-                  <span>Descrição: </span>
-                  {/* <span>{description}</span> */}
-                </div>
-              </div>
-            ))}
+              ),
+            )}
             <ButtonAdd>
               <Button backgroundColor={palette.beige}>Adicionar</Button>
             </ButtonAdd>
