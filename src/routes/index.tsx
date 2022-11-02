@@ -3,7 +3,6 @@ import { SignUpPage } from 'pages/SignUpPage';
 import { BatchPage } from 'pages/BatchPage';
 import { BatchDetails } from 'pages/BatchDetails';
 import { MembersPage } from 'pages/MembersPage';
-import { MemberDetails } from 'pages/MemberDetails';
 import { ExposeBatch } from 'pages/ExposeBatch';
 
 import { Switch } from 'react-router-dom';
@@ -24,11 +23,6 @@ export const Routes: React.FC = () => {
           component={BatchDetails}
         />
         <Route path={routesAddresses.members} exact component={MembersPage} />
-        <Route
-          path={routesAddresses.memberDetails}
-          exact
-          component={MemberDetails}
-        />
         <Route
           path={routesAddresses.exposeBatch}
           exact
