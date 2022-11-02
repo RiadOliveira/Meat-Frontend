@@ -43,7 +43,7 @@ export const Container = styled.div`
 `;
 
 export const MembersLine = styled.section`
-  height: px;
+  height: 55px;
   border-bottom: 1px solid ${palette.blueHigh};
   display: flex;
   align-items: center;
@@ -55,10 +55,9 @@ export const MembersLine = styled.section`
   }
 
   div {
-    width: 64px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     justify-items: space-between;
   }
 
@@ -90,21 +89,19 @@ export const MembersLine = styled.section`
 
   #name {
     color: ${palette.blueHigh};
-    font-size: 20pt;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 500;
   }
 
   #accountType {
     color: ${palette.blue};
-    font-size: 14pt;
+    font-size: 16px;
   }
 `;
 
 export const MembersLineText = styled.section`
-  span {
-    display: block;
-    padding-bottom: 0;
-  }
+  display: flex;
+  flex-direction: column;
 `;
 
 export const MembersTable = styled.section`
@@ -114,11 +111,15 @@ export const MembersTable = styled.section`
   margin-bottom: 10px;
   background-color: ${palette.white};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-radius: 12px;
+  padding-bottom: 12px;
 
   #producer {
     background-color: ${palette.beige};
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
   }
 
   @media (max-width: 600px) {
@@ -126,13 +127,9 @@ export const MembersTable = styled.section`
   }
 `;
 
-interface MembersTableProps {
-  backgroundcolor?: string;
-}
-
-export const MembersHeader = styled.section<MembersTableProps>`
+export const MembersHeader = styled.section`
   height: 64px;
-  background: ${({ backgroundcolor }) => backgroundcolor || palette.beige};
+  background: ${palette.beige};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,8 +140,8 @@ export const MembersHeader = styled.section<MembersTableProps>`
   border-bottom: 1px solid ${palette.blueHigh};
 
   #companyName {
-    font-size: 24pt;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 700;
     color: ${palette.blueHigh};
   }
 `;

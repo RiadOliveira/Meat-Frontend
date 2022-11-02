@@ -12,6 +12,7 @@ import iconMember from 'assets/img/iconMember.svg';
 import iconEdit from 'assets/img/iconEdit.svg';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import iconUser from 'assets/img/iconUser.svg';
 
 Modal.setAppElement('#root');
 
@@ -64,6 +65,7 @@ export const MembersPage: React.FC = () => {
             <span id="companyName">{HeaderInfo.companyName}</span>
           </MembersHeader>
           <MembersLine id="producer">
+            <img src={iconUser} alt="Icone do usuario"></img>
             <MembersLineText>
               <span id="name">{HeaderInfo.producer}</span>
               <span id="accountType">{HeaderInfo.producerAccountType}</span>
@@ -71,16 +73,16 @@ export const MembersPage: React.FC = () => {
           </MembersLine>
           {Members.map(({ id, name, accountType }) => (
             <MembersLine key={id}>
-              <MembersLineText>
-                <span id="name">{name}</span>
-                <span id="accountType">{accountType}</span>
-              </MembersLineText>
-              <div>
-                <button>
-                  <img src={iconEdit} alt="Icone Editar" />
-                </button>
-                
+              <div id="member">
+                <img src={iconUser} alt="Icone do usuario"></img>
+                <MembersLineText>
+                  <span id="name">{name}</span>
+                  <span id="accountType">{accountType}</span>
+                </MembersLineText>
               </div>
+              <button>
+                <img src={iconEdit} alt="Icone Editar" />
+              </button>
             </MembersLine>
           ))}
         </MembersTable>
