@@ -31,10 +31,14 @@ export const Container = styled.section`
     gap: 28px;
     max-width: 320;
     #city {
-      width: 164px;
+      input {
+        width: 164px;
+      }
     }
     #state {
-      width: 64px;
+      input {
+        width: 64px;
+      }
     }
   }
 `;

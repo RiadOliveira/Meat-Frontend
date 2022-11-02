@@ -24,6 +24,9 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
 
   return (
     <Container>
+      {/* <Modal>
+        <UserOptions />
+      </Modal> */}
       <button
         id="return-arrow"
         type="button"
@@ -45,9 +48,7 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
               <h2 id="user-role">Responsável</h2>
             </div>
           </UserOptionsButton>
-          <Modal>
-            <UserOptions />
-          </Modal>
+
           <div id="tools-button">
             {pageBatch ? (
               <ToolsBarButton

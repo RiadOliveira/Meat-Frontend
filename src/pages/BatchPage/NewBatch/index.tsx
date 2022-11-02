@@ -1,9 +1,11 @@
 import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { Button } from 'components/Button/styles';
-import { InputForm } from 'components/Input/InputForm/styles';
+import { FormField } from 'components/FormField';
 import { AnimalType } from 'types/AnimalType';
 import { Container, ImgSelect } from './styles';
 import v from 'assets/img/v.svg';
+import { FormSelect } from 'components/FormField/FormSelect/styles';
+
 export const NewBatch: React.FC = () => {
   return (
     <Container>
@@ -20,35 +22,23 @@ export const NewBatch: React.FC = () => {
             <img id="image" src={v} alt="Icone seta" />
           </button>
         </ImgSelect>
-        <InputForm>
-          <select>
-            <option>Sua Mãe</option>
-            <option>Seu Pai</option>
-          </select>
-          <label>Como</label>
-        </InputForm>
-        <InputForm>
-          <input type="text"></input>
-          <label>Nome</label>
-        </InputForm>
-        <InputForm>
-          <input type="text"></input>
-          <label>Raça</label>
-        </InputForm>
+        <FormField label="Nome" />
+        <FormField label="Raça" />
         <div id="in-line">
-          <InputForm>
-            <input type="text" id="city"></input>
-            <label>Cidade</label>
-          </InputForm>
-          <InputForm>
-            <input type="text" id="state"></input>
-            <label>Estado</label>
-          </InputForm>
+          <div id="city">
+            <FormField id="city" label="Cidade" />
+          </div>
+          <div id="state">
+            <FormField id="state" label="Estado" />
+          </div>
         </div>
-        <InputForm>
-          <input type="date"></input>
-          <label id="label-top">Data de inicio</label>
-        </InputForm>
+        <FormSelect>
+          <select>
+            <option>1</option>
+          </select>
+          <label>Estado</label>
+        </FormSelect>
+        <FormField type="date" label="Data de inicio" />
       </form>
       <Button type="submit">Cadastrar</Button>
     </Container>

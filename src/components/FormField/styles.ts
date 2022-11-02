@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { palette } from 'assets/colors/palette';
 
-export const InputForm = styled.div`
+interface LabelProps {
+  inputNull?: boolean;
+}
+
+export const Container = styled.div<LabelProps>`
   position: relative;
   input {
     border: 0;
@@ -28,25 +32,6 @@ export const InputForm = styled.div`
   input:focus ~ label {
     transform: translateY(-50%) scale(0.8);
     background-color: transparent;
-    padding: 0 0.2em;
-    color: ${palette.blueHigh};
-  }
-  select {
-    outline: none;
-    border: 0;
-    border-bottom: solid 2.5px ${palette.blueHigh};
-    background: transparent;
-    padding: 1rem;
-    font-size: 1rem;
-    color: ${palette.blue};
-    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  select:focus {
-    outline: none;
-    border-bottom: solid 2.5px ${palette.pinkHigh};
-  }
-  select:focus ~ label {
-    transform: translateY(-50%) scale(0.8);
     padding: 0 0.2em;
     color: ${palette.blueHigh};
   }

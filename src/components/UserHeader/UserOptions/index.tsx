@@ -1,4 +1,3 @@
-import { InputForm } from 'components/Input/InputForm/styles';
 import { Container, OptionButton, UserOptionsHeader } from './styles';
 import iconUser from 'assets/img/iconUser.svg';
 

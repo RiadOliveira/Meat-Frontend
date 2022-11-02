@@ -16,11 +16,10 @@ button {
 
 ::-webkit-scrollbar-track {
     position: absolute;
-    background-color: transparent;
-    border-radius: 50px;
+    background-color: #A8EEFC;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #FFDB56;
+    background-color: #F4E9D3;
     border-radius: 50px;
 }

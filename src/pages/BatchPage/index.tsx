@@ -20,6 +20,7 @@ import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { AnimalType } from 'types/AnimalType';
 import { Modal } from 'components/Modal';
 import { NewBatch } from 'pages/BatchPage/NewBatch';
+import { DeleteMesage } from '../../components/DeleteMesage';
 
 const TESTE = [
   {
@@ -90,7 +91,7 @@ export const BatchPage: React.FC = () => {
   return (
     <Container>
       <Modal isVisible>
-        <NewBatch />
+        <DeleteMesage />
       </Modal>
       <UserHeader pageBatch />
       <main>
