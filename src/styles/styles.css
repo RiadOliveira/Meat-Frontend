@@ -9,3 +9,18 @@
 button {
     cursor: pointer;
 } 
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    position: absolute;
+    background-color: transparent;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #FFDB56;
+    border-radius: 50px;
+}
