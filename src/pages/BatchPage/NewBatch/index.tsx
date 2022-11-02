@@ -1,17 +1,31 @@
+import { animalIcons } from 'assets/animalIcons/animalIcons';
+import { Button } from 'components/Button/styles';
 import { InputForm } from 'components/Input/InputForm/styles';
-import { Container } from './styles';
-
+import { AnimalType } from 'types/AnimalType';
+import { Container, ImgSelect } from './styles';
+import v from 'assets/img/v.svg';
 export const NewBatch: React.FC = () => {
   return (
     <Container>
       <form>
+        <ImgSelect>
+          <div id="background">
+            <img
+              id="image"
+              src={animalIcons[AnimalType.OTHER].icon}
+              alt="Icone Animal"
+            />
+          </div>
+          <button>
+            <img id="image" src={v} alt="Icone seta" />
+          </button>
+        </ImgSelect>
         <InputForm>
           <select>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+            <option>Sua Mãe</option>
+            <option>Seu Pai</option>
           </select>
+          <label>Como</label>
         </InputForm>
         <InputForm>
           <input type="text"></input>
@@ -22,13 +36,13 @@ export const NewBatch: React.FC = () => {
           <label>Raça</label>
         </InputForm>
         <div id="in-line">
-          <InputForm id="city">
+          <InputForm>
             <input type="text" id="city"></input>
-            <label id="city">Cidade</label>
+            <label>Cidade</label>
           </InputForm>
-          <InputForm id="state">
+          <InputForm>
             <input type="text" id="state"></input>
-            <label id="state">Estado</label>
+            <label>Estado</label>
           </InputForm>
         </div>
         <InputForm>
@@ -36,6 +50,7 @@ export const NewBatch: React.FC = () => {
           <label id="label-top">Data de inicio</label>
         </InputForm>
       </form>
+      <Button type="submit">Cadastrar</Button>
     </Container>
   );
 };

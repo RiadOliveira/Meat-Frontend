@@ -20,7 +20,6 @@ import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { AnimalType } from 'types/AnimalType';
 import { Modal } from 'components/Modal';
 import { NewBatch } from 'pages/BatchPage/NewBatch';
-import { InputForm } from 'components/Input/InputForm/styles';
 
 const TESTE = [
   {
@@ -90,6 +89,9 @@ export const BatchPage: React.FC = () => {
 
   return (
     <Container>
+      <Modal isVisible>
+        <NewBatch />
+      </Modal>
       <UserHeader pageBatch />
       <main>
         <Button id="new-batch">
@@ -161,11 +163,6 @@ export const BatchPage: React.FC = () => {
             ),
           )}
         </CardsBatch>
-
-        {/* isVisible */}
-        <Modal isVisible>
-          <NewBatch />
-        </Modal>
       </main>
     </Container>
   );
