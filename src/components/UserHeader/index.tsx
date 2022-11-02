@@ -12,6 +12,8 @@ import {
   UserOptionsButton,
   ToolsBarButton,
 } from './styles';
+import { Modal } from 'components/Modal';
+import { UserOptions } from './UserOptions';
 
 interface PageBatch {
   pageBatch?: boolean;
@@ -43,6 +45,9 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
               <h2 id="user-role">Responsável</h2>
             </div>
           </UserOptionsButton>
+          <Modal>
+            <UserOptions />
+          </Modal>
           <div id="tools-button">
             {pageBatch ? (
               <ToolsBarButton

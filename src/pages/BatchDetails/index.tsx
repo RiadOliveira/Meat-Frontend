@@ -17,7 +17,7 @@ import {
   Title,
   TitleBatchTable,
 } from './styles';
-import { UserHeader } from 'components/Header/UserHeader';
+import { UserHeader } from 'components/UserHeader';
 import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { AnimalType } from 'types/AnimalType';
 import iconPortion from 'assets/img/iconPortion.svg';

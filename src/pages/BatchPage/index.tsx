@@ -14,10 +14,13 @@ import {
 import { useHistory } from 'react-router-dom';
 import { Button } from 'components/Button/styles';
 import iconBatch from 'assets/img/iconBatch.svg';
-import { UserHeader } from 'components/Header/UserHeader';
+import { UserHeader } from 'components/UserHeader';
 import { routesAddresses } from 'routes/routesAddresses';
 import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { AnimalType } from 'types/AnimalType';
+import { Modal } from 'components/Modal';
+import { NewBatch } from 'pages/BatchPage/NewBatch';
+import { InputForm } from 'components/Input/InputForm/styles';
 
 const TESTE = [
   {
@@ -158,6 +161,11 @@ export const BatchPage: React.FC = () => {
             ),
           )}
         </CardsBatch>
+
+        {/* isVisible */}
+        <Modal isVisible>
+          <NewBatch />
+        </Modal>
       </main>
     </Container>
   );

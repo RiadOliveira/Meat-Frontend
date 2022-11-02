@@ -5,7 +5,7 @@ import {
   MembersLineText,
   MembersTable,
 } from './styles';
-import { UserHeader } from 'components/Header/UserHeader';
+import { UserHeader } from 'components/UserHeader';
 import { Button } from 'components/Button/styles';
 import Modal from 'react-modal';
 import iconMember from 'assets/img/iconMember.svg';
