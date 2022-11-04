@@ -10,7 +10,7 @@ export const FormField: React.FC<FormFieldProps> = ({ label, type }) => {
   const [text, setText] = useState('');
 
   return (
-    <Container isFilled={text.length > 0}>
+    <Container labelOnTop={type === 'date' || text.length > 0}>
       <input
         type={type}
         value={text}

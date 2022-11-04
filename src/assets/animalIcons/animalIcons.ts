@@ -6,7 +6,14 @@ import iconCow from 'assets/animalIcons/iconCow.svg';
 import iconFish from 'assets/animalIcons/iconFish.svg';
 import iconOther from 'assets/animalIcons/iconOther.svg';
 
-export const animalIcons = {
+type IAnimalIcons = {
+  [key in AnimalType]: {
+    icon: string;
+    color: string;
+  };
+};
+
+export const animalIcons: IAnimalIcons = {
   [AnimalType.PIG]: { icon: iconPig, color: palette.pink },
   [AnimalType.CHICKEN]: { icon: iconChicken, color: palette.yellow },
   [AnimalType.COW]: { icon: iconCow, color: palette.green },

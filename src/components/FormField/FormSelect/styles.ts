@@ -5,7 +5,6 @@ export const FormSelect = styled.div`
   position: relative;
 
   select {
-    width: 64px;
     outline: none;
     border: transparent;
     border-bottom: solid 2.5px ${palette.blueHigh};

@@ -3,13 +3,11 @@ import iconDelete from 'assets/img/iconDelete.svg';
 import { Button } from 'components/Button/styles';
 import { palette } from 'assets/colors/palette';
 
-interface DeleteMessageProps {
+interface DeleteModalProps {
   handleCancel: () => void;
 }
 
-export const DeleteMessage: React.FC<DeleteMessageProps> = ({
-  handleCancel,
-}) => {
+export const DeleteModal: React.FC<DeleteModalProps> = ({ handleCancel }) => {
   return (
     <Container>
       <main>

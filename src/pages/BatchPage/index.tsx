@@ -20,7 +20,7 @@ import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { AnimalType } from 'types/AnimalType';
 import { Modal } from 'components/Modal';
 import { NewBatch } from 'pages/BatchPage/NewBatch';
-import { DeleteMessage } from '../../components/DeleteMessage';
+import { DeleteModal } from '../../components/DeleteModal';
 import { useState } from 'react';
 
 const TESTE = [
@@ -93,7 +93,7 @@ export const BatchPage: React.FC = () => {
   return (
     <Container>
       <Modal isVisible={isModalVisible}>
-        <DeleteMessage handleCancel={() => setIsModalVisible(false)} />
+        <NewBatch handleCancel={() => setIsModalVisible(false)} />
       </Modal>
       <UserHeader pageBatch />
       <main>

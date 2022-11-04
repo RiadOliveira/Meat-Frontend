@@ -25,7 +25,7 @@ export const Button = styled.button<ButtonProps>`
       shade(0.1, backgroundColor || palette.green)};
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 840px) {
     width: 132;
     height: 40px;
 

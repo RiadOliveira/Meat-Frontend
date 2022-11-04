@@ -2,42 +2,122 @@ import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { Button } from 'components/Button/styles';
 import { FormField } from 'components/FormField';
 import { AnimalType } from 'types/AnimalType';
-import { Container, ImgSelect } from './styles';
-import dawnArrow from 'assets/img/dawnArrow.svg';
+import { Container, ImgSelect, ImgSelectOptions } from './styles';
+import downArrow from 'assets/img/downArrow.svg';
+import close from 'assets/img/close.svg';
 import { FormSelect } from 'components/FormField/FormSelect/styles';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export const NewBatch: React.FC = () => {
+interface NewBatchProps {
+  handleCancel: () => void;
+}
+
+interface IState {
+  id: number;
+  sigla: string;
+}
+
+interface ICity {
+  id: number;
+  nome: string;
+}
+
+const ANIMAL_ICONS_ENTRIES = Object.entries(animalIcons);
+
+export const NewBatch: React.FC<NewBatchProps> = ({ handleCancel }) => {
+  const [states, setStates] = useState<IState[]>([]);
+  const [cities, setCities] = useState<ICity[]>([]);
+  const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
+
+  const [selectedAnimalType, setSelectedAnimalType] = useState<AnimalType>(
+    AnimalType.OTHER,
+  );
+
+  const [isVisibleOptions, setIsVisibleOptions] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get<IState[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
+      )
+      .then(({ data }) => {
+        setStates(data);
+        setSelectedStateId(data[0].id);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (states.length === 0) return;
+
+    axios
+      .get<ICity[]>(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedStateId}/municipios`,
+      )
+      .then(({ data }) => setCities(data));
+  }, [selectedStateId, states]);
+
   return (
     <Container>
+      <button onClick={handleCancel} id="close-button">
+        <img src={close} alt="botão de fechar" />
+      </button>
+      <ImgSelectOptions isVisibleOptions={isVisibleOptions}>
+        {ANIMAL_ICONS_ENTRIES.map(([key, { icon }]) => (
+          <button
+            key={key}
+            id="optionButton"
+            type="button"
+            onClick={() => setSelectedAnimalType(key as unknown as AnimalType)}
+          >
+            <img src={icon} alt={key} />
+          </button>
+        ))}
+      </ImgSelectOptions>
       <form>
         <ImgSelect>
-          <div id="background">
-            <img
-              id="image"
-              src={animalIcons[AnimalType.OTHER].icon}
-              alt="Icone Animal"
-            />
-          </div>
-          <button>
-            <img id="image" src={dawnArrow} alt="Icone seta" />
+          <img
+            id="image"
+            src={animalIcons[selectedAnimalType].icon}
+            alt="Icone Animal"
+          />
+          <button
+            type="button"
+            id="OpenOptionButton"
+            onClick={() => setIsVisibleOptions(true)}
+          >
+            <img id="image" src={downArrow} alt="Icone seta" />
           </button>
         </ImgSelect>
         <FormField label="Nome" />
         <FormField label="Raça" />
         <div id="in-line">
-          <div id="city">
-            <FormField id="city" label="Cidade" />
-          </div>
-          <div id="state">
-            <FormField id="state" label="Estado" />
-          </div>
+          <FormSelect id="city">
+            <select>
+              {cities.map(({ id, nome }) => (
+                <option key={id} value={id}>
+                  {nome}
+                </option>
+              ))}
+            </select>
+            <label>Cidade</label>
+          </FormSelect>
+          <FormSelect id="state">
+            <select
+              onChange={({ target: { value } }) =>
+                setSelectedStateId(Number(value))
+              }
+            >
+              {states.map(({ id, sigla }) => (
+                <option key={id} value={id}>
+                  {sigla}
+                </option>
+              ))}
+            </select>
+            <label>Estado</label>
+          </FormSelect>
         </div>
-        <FormSelect>
-          <select>
-            <option>1</option>
-          </select>
-          <label>Estado</label>
-        </FormSelect>
+
         <FormField type="date" label="Data de inicio" />
       </form>
       <Button type="submit">Cadastrar</Button>

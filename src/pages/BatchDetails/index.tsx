@@ -28,6 +28,9 @@ import iconDelete from 'assets/img/iconDelete.svg';
 import { palette } from 'assets/colors/palette';
 import { Button } from 'components/Button/styles';
 import iconBatch from 'assets/img/iconBatch.svg';
+import { Modal } from 'components/Modal';
+import { DeleteModal } from 'components/DeleteModal';
+import { useState } from 'react';
 
 const Batch = [
   {
@@ -78,8 +81,13 @@ const Slaughter = [
 ];
 
 export const BatchDetails: React.FC = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <Container>
+      <Modal isVisible={isModalVisible}>
+        <DeleteModal handleCancel={() => setIsModalVisible(false)} />
+      </Modal>
       <UserHeader pageBatch></UserHeader>
       <main>
         <Button id="finish-batch">
@@ -165,7 +173,7 @@ export const BatchDetails: React.FC = () => {
                   <button>
                     <img src={iconEdit} alt="Icone Editar"></img>
                   </button>
-                  <button>
+                  <button onClick={() => setIsModalVisible(true)}>
                     <img src={iconDelete} alt="Icone Deletar"></img>
                   </button>
                 </div>
@@ -190,7 +198,7 @@ export const BatchDetails: React.FC = () => {
                   <button>
                     <img src={iconEdit} alt="Icone Editar"></img>
                   </button>
-                  <button>
+                  <button onClick={() => setIsModalVisible(true)}>
                     <img src={iconDelete} alt="Icone Deletar"></img>
                   </button>
                 </div>

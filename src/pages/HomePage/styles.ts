@@ -14,7 +14,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
 
-    @media (max-width: 600px) {
+    @media (max-width: 840px) {
       flex-direction: column;
     }
   }
@@ -51,7 +51,7 @@ export const Section = styled.section<SectionProps>`
     font-size: 18px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 840px) {
     width: 100%;
     height: 320px;
   }

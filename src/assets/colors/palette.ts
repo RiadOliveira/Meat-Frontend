@@ -1,7 +1,7 @@
 export const palette = {
   white: '#FFFDF7',
 
-  //backgroundLow: '#F0ECE4',
+  backgroundLow: '#F0ECE4',
   beige: '#F4E9D3',
 
   blueLow: '#A8EEFC',

@@ -1,5 +1,6 @@
 import { palette } from 'assets/colors/palette';
-import styled from 'styled-components';
+import styled, { css, withTheme } from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.section`
   width: 400px;
@@ -25,30 +26,47 @@ export const Container = styled.section`
     align-items: center;
     gap: 20px;
   }
+  #close-button {
+    position: absolute;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+
+    margin-left: 302px;
+
+    &:hover {
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
   #in-line {
     display: flex;
     align-items: center;
     gap: 28px;
     max-width: 320;
     #city {
-      input {
-        width: 164px;
+      select {
+        width: 196px;
       }
     }
     #state {
-      input {
-        width: 64px;
+      select {
+        width: 96px;
       }
     }
   }
 `;
 
 export const ImgSelect = styled.section`
-  width: 112px;
-  height: 112px;
-  background-color: ${palette.beige};
+  width: 96px;
+  height: 96px;
+  background-color: transparent;
   border-radius: 72px;
   margin-bottom: 24px;
+  border: 8px solid ${palette.beige};
 
   display: flex;
   align-items: center;
@@ -57,7 +75,7 @@ export const ImgSelect = styled.section`
     width: 96px;
     height: 96px;
   }
-  button {
+  #OpenOptionButton {
     width: 36px;
     height: 36px;
 
@@ -69,6 +87,7 @@ export const ImgSelect = styled.section`
     border-radius: 32px;
     border-color: transparent;
     background-color: ${palette.beige};
+    transition: 0.2s;
 
     display: flex;
     align-items: center;
@@ -77,5 +96,78 @@ export const ImgSelect = styled.section`
       width: 16px;
       height: 16px;
     }
+    &:hover {
+      background-color: ${shade(0.1, palette.beige)};
+      img {
+        width: 18px;
+        height: 18px;
+        transition: 0.2s;
+      }
+    }
   }
+`;
+
+interface SelectOptionsProps {
+  isVisibleOptions: boolean;
+}
+
+export const ImgSelectOptions = styled.div<SelectOptionsProps>`
+  margin-top: 118px;
+  width: 300px;
+  height: 200px;
+  background: ${palette.white};
+  position: absolute;
+  z-index: 1;
+
+  border: 1px solid ${palette.grey};
+  border-radius: 12px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  img {
+    width: 72px;
+    height: 72px;
+    filter: brightness(0%);
+  }
+
+  #optionButton {
+    width: 88px;
+    height: 88px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: transparent;
+
+    outline: 0;
+    border: 0;
+    &:hover {
+      background-color: ${palette.beige};
+    }
+  }
+
+  transition: 0.5s;
+  z-index: 10;
+
+  ${({ isVisibleOptions }) =>
+    isVisibleOptions
+      ? css`
+          visibility: visible;
+          opacity: 1;
+        `
+      : css`
+          visibility: hidden;
+          opacity: 0;
+
+          & > * {
+            max-height: 100vh;
+            overflow-y: hidden;
+          }
+        `}
 `;

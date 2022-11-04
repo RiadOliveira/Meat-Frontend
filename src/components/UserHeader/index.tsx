@@ -14,6 +14,7 @@ import {
 } from './styles';
 import { Modal } from 'components/Modal';
 import { UserOptions } from './UserOptions';
+import { useState } from 'react';
 
 interface PageBatch {
   pageBatch?: boolean;
@@ -21,12 +22,13 @@ interface PageBatch {
 
 export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
   const history = useHistory();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <Container>
-      {/* <Modal>
-        <UserOptions />
-      </Modal> */}
+      <Modal isVisible={isModalVisible}>
+        <UserOptions handleCancel={() => setIsModalVisible(false)} />
+      </Modal>
       <button id="return-arrow" type="button" onClick={history.goBack}>
         <img src={returnArrow} alt="Voltar" />
       </button>
@@ -36,7 +38,10 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
           <img id="logo-meat" src={logoMeat} alt="Logo Meat" />
         </div>
         <HeaderToolsBar>
-          <UserOptionsButton type="button">
+          <UserOptionsButton
+            type="button"
+            onClick={() => setIsModalVisible(true)}
+          >
             <img src={iconUser} alt="Icone do usuario"></img>
             <div>
               <span id="user-name">Mari Fernandez</span>

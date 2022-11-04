@@ -14,11 +14,7 @@ export const Header: React.FC<HeaderProps> = ({ hasArrow }) => {
   return (
     <Container>
       {hasArrow && (
-        <button
-          id="return-arrow"
-          type="button"
-          onClick={() => history.push(routesAddresses.homePage)}
-        >
+        <button id="return-arrow" type="button" onClick={history.goBack}>
           <img src={returnArrow} alt="Voltar" />
         </button>
       )}
