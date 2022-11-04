@@ -3,7 +3,7 @@ import { Button } from 'components/Button/styles';
 import { FormField } from 'components/FormField';
 import { AnimalType } from 'types/AnimalType';
 import { Container, ImgSelect } from './styles';
-import v from 'assets/img/v.svg';
+import dawnArrow from 'assets/img/dawnArrow.svg';
 import { FormSelect } from 'components/FormField/FormSelect/styles';
 
 export const NewBatch: React.FC = () => {
@@ -19,7 +19,7 @@ export const NewBatch: React.FC = () => {
             />
           </div>
           <button>
-            <img id="image" src={v} alt="Icone seta" />
+            <img id="image" src={dawnArrow} alt="Icone seta" />
           </button>
         </ImgSelect>
         <FormField label="Nome" />

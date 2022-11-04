@@ -20,7 +20,8 @@ import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { AnimalType } from 'types/AnimalType';
 import { Modal } from 'components/Modal';
 import { NewBatch } from 'pages/BatchPage/NewBatch';
-import { DeleteMesage } from '../../components/DeleteMesage';
+import { DeleteMessage } from '../../components/DeleteMessage';
+import { useState } from 'react';
 
 const TESTE = [
   {
@@ -87,15 +88,16 @@ const TESTE = [
 
 export const BatchPage: React.FC = () => {
   const history = useHistory();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <Container>
-      <Modal isVisible>
-        <DeleteMesage />
+      <Modal isVisible={isModalVisible}>
+        <DeleteMessage handleCancel={() => setIsModalVisible(false)} />
       </Modal>
       <UserHeader pageBatch />
       <main>
-        <Button id="new-batch">
+        <Button id="new-batch" onClick={() => setIsModalVisible(true)}>
           <img src={iconBatch} alt="Icone Lote" />
           Novo Lote
         </Button>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { palette } from 'assets/colors/palette';
 
 interface LabelProps {
-  inputNull?: boolean;
+  isFilled: boolean;
 }
 
 export const Container = styled.div<LabelProps>`
@@ -22,7 +22,8 @@ export const Container = styled.div<LabelProps>`
     left: 16px;
     color: ${palette.blue};
     pointer-events: none;
-    transform: translateY(1rem);
+    transform: ${({ isFilled }) =>
+      isFilled ? 'translateY(-50%) scale(0.8)' : 'translateY(1rem)'};
     transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   input:focus {

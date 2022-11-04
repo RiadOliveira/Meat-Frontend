@@ -27,11 +27,7 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
       {/* <Modal>
         <UserOptions />
       </Modal> */}
-      <button
-        id="return-arrow"
-        type="button"
-        onClick={() => history.push(routesAddresses.homePage)}
-      >
+      <button id="return-arrow" type="button" onClick={history.goBack}>
         <img src={returnArrow} alt="Voltar" />
       </button>
 
