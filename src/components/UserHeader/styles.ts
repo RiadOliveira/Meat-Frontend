@@ -79,8 +79,11 @@ export const HeaderToolsBar = styled.div`
   #tools-button {
     width: 340px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 8px;
+    @media (min-width: 1064px) {
+      justify-content: space-between;
+    }
   }
 `;
 
@@ -94,6 +97,8 @@ export const UserButton = styled.button`
   display: flex;
   align-items: center;
   margin-top: 24px;
+  z-index: 3;
+  position: relative;
 
   @media (min-width: 1064px) {
     width: 200px;
@@ -145,17 +150,17 @@ interface UserOptionsProps {
 export const UserOptions = styled.div<UserOptionsProps>`
   width: 320px;
   position: absolute;
+  z-index: 1;
   background: ${palette.white};
-  border-radius: 0px 0px 12px 12px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 8px;
-  margin-top: 170px;
+  padding: 27px 0px 8px 0px;
 
   @media (min-width: 1064px) {
     width: 200px;
-    margin-top: 54px;
+    padding: 27px 0px 8px 0px;
   }
 
   #logout {
@@ -193,16 +198,15 @@ export const UserOptions = styled.div<UserOptionsProps>`
       ? css`
           visibility: visible;
           opacity: 1;
-          margin-top: 170px;
-          @media (min-width: 1064px) {
-            margin-top: 170px;
-          }
+          margin-top: -27px;
         `
       : css`
           visibility: hidden;
           opacity: 0;
-          margin-top: 150px;
-
+          margin-top: -76px;
+          @media (min-width: 1064px) {
+            margin-top: -54px;
+          }
           & > * {
             max-height: 100vh;
             overflow-y: hidden;

@@ -13,8 +13,7 @@ export const Container = styled.section`
     align-items: space-between;
     justify-content: center;
     gap: 24px;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding: 0px 32px 0px 32px;
   }
 
   div {

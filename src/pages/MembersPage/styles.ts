@@ -31,7 +31,7 @@ export const Container = styled.div`
         width: 340px;
         height: 64px;
         margin: 20px;
-        font-size: 30px;
+        font-size: 24px;
 
         img {
           width: 64px;

@@ -14,6 +14,8 @@ import {
   UserOptions,
 } from './styles';
 import { useState } from 'react';
+import { Modal } from 'components/Modal';
+import { ChangePasswordModal } from './ChangePasswordModal';
 
 interface PageBatch {
   pageBatch?: boolean;
@@ -22,12 +24,14 @@ interface PageBatch {
 export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
   const history = useHistory();
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <Container>
-      {/* <Modal isVisible={isModalVisible}>
-        <UserOptions handleCancel={() => setIsModalVisible(false)} />
-      </Modal> */}
+      <Modal isVisible={isModalVisible}>
+        <ChangePasswordModal handleCancel={() => setIsModalVisible(false)} />
+      </Modal>
+
       <button id="return-arrow" type="button" onClick={history.goBack}>
         <img src={returnArrow} alt="Voltar" />
       </button>
@@ -37,21 +41,30 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
           <img id="logo-meat" src={logoMeat} alt="Logo Meat" />
         </div>
         <HeaderToolsBar>
-          <UserButton
-            type="button"
-            onClick={() => setIsVisible(isVisible => !isVisible)}
-          >
-            <img src={iconUser} alt="Icone do usuario"></img>
-            <div>
-              <span id="user-name">Mari Fernandez</span>
+          <div>
+            <UserButton
+              type="button"
+              onClick={() => setIsVisible(isVisible => !isVisible)}
+            >
+              <img src={iconUser} alt="Icone do usuario"></img>
+              <div>
+                <span id="user-name">Mari Fernandez</span>
 
-              <h2 id="user-role">Responsável</h2>
-            </div>
+                <h2 id="user-role">Responsável</h2>
+              </div>
+            </UserButton>
             <UserOptions isVisible={isVisible}>
-              <button>Trocar Senha</button>
-              <button id="logout">Sair</button>
+              <button onClick={() => setIsModalVisible(true)}>
+                Trocar Senha
+              </button>
+              <button
+                id="logout"
+                onClick={() => history.push(routesAddresses.homePage)}
+              >
+                Sair
+              </button>
             </UserOptions>
-          </UserButton>
+          </div>
 
           <div id="tools-button">
             {pageBatch ? (
