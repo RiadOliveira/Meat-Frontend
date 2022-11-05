@@ -8,8 +8,11 @@ import close from 'assets/img/close.svg';
 import { FormSelect } from 'components/FormField/FormSelect/styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import iconEdit from 'assets/img/iconEdit.svg';
+import iconDelete from 'assets/img/iconDelete.svg';
+import { palette } from 'assets/colors/palette';
 
-interface NewBatchProps {
+interface EditBatchProps {
   handleCancel: () => void;
 }
 
@@ -25,7 +28,7 @@ interface ICity {
 
 const ANIMAL_ICONS_ENTRIES = Object.entries(animalIcons);
 
-export const NewBatch: React.FC<NewBatchProps> = ({ handleCancel }) => {
+export const EditBatch: React.FC<EditBatchProps> = ({ handleCancel }) => {
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
@@ -125,11 +128,14 @@ export const NewBatch: React.FC<NewBatchProps> = ({ handleCancel }) => {
             <label>Cidade</label>
           </FormSelect>
         </div>
-
-        <FormField type="date" label="Data de inicio" />
-
         <div id="separator" />
-        <Button type="submit">Cadastrar</Button>
+
+        <div id="in-line">
+          <Button type="submit">Alterar</Button>
+          <Button type="submit" backgroundColor={palette.pink}>
+            Excluir
+          </Button>
+        </div>
       </form>
     </Container>
   );

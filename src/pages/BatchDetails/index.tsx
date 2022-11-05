@@ -31,12 +31,13 @@ import iconBatch from 'assets/img/iconBatch.svg';
 import { Modal } from 'components/Modal';
 import { DeleteModal } from 'components/DeleteModal';
 import { useState } from 'react';
+import { EditBatch } from './EditBatch';
 
 const Batch = [
   {
     id: 1,
-    animal: AnimalType.FISH,
-    name: 'Fazenda Feliz - Porcos 24',
+    animal: AnimalType.PIG,
+    name: 'Fazenda Feliz - Porcos ',
     race: 'Suino',
     city: 'Limoeiro',
     state: 'PE',
@@ -81,12 +82,16 @@ const Slaughter = [
 ];
 
 export const BatchDetails: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [DeleteModalIsVisible, setDeleteModalIsVisible] = useState(false);
+  const [setEditBatchIsVisible, setsetEditBatchIsVisible] = useState(false);
 
   return (
     <Container>
-      <Modal isVisible={isModalVisible}>
-        <DeleteModal handleCancel={() => setIsModalVisible(false)} />
+      <Modal isVisible={DeleteModalIsVisible}>
+        <DeleteModal handleCancel={() => setDeleteModalIsVisible(false)} />
+      </Modal>
+      <Modal isVisible={setEditBatchIsVisible}>
+        <EditBatch handleCancel={() => setsetEditBatchIsVisible(false)} />
       </Modal>
       <UserHeader pageBatch></UserHeader>
       <main>
@@ -117,9 +122,14 @@ export const BatchDetails: React.FC = () => {
                       alt="Icone de Porco"
                     />
                     <BatchTextTitle id="header-title">
-                      <Title id="title" fontColor={animalIcons[animal].color}>
-                        {name}
-                      </Title>
+                      <div>
+                        <Title id="title" fontColor={animalIcons[animal].color}>
+                          {name}
+                        </Title>
+                        <button onClick={() => setsetEditBatchIsVisible(true)}>
+                          <img src={iconEdit} alt="Icone Editar"></img>
+                        </button>
+                      </div>
                       <BatchSpacingTextLine>
                         <span id="data">{race}</span>
                         <BatchTextLine>
@@ -173,7 +183,7 @@ export const BatchDetails: React.FC = () => {
                   <button>
                     <img src={iconEdit} alt="Icone Editar"></img>
                   </button>
-                  <button onClick={() => setIsModalVisible(true)}>
+                  <button onClick={() => setDeleteModalIsVisible(true)}>
                     <img src={iconDelete} alt="Icone Deletar"></img>
                   </button>
                 </div>
@@ -198,7 +208,7 @@ export const BatchDetails: React.FC = () => {
                   <button>
                     <img src={iconEdit} alt="Icone Editar"></img>
                   </button>
-                  <button onClick={() => setIsModalVisible(true)}>
+                  <button onClick={() => setDeleteModalIsVisible(true)}>
                     <img src={iconDelete} alt="Icone Deletar"></img>
                   </button>
                 </div>

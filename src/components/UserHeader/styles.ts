@@ -18,7 +18,8 @@ export const Container = styled.header`
   z-index: 1;
 
   @media (min-width: 1064px) {
-    max-height: 15vh;
+    height: 15vh;
+    max-height: 132px;
   }
 
   #return-arrow {
@@ -156,7 +157,7 @@ export const UserOptions = styled.div<UserOptionsProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 27px 0px 8px 0px;
+  padding: 36px 0px 8px 0px;
 
   @media (min-width: 1064px) {
     width: 200px;
@@ -198,12 +199,15 @@ export const UserOptions = styled.div<UserOptionsProps>`
       ? css`
           visibility: visible;
           opacity: 1;
-          margin-top: -27px;
+          margin-top: -36px;
+          @media (min-width: 1064px) {
+            margin-top: -27px;
+          }
         `
       : css`
           visibility: hidden;
           opacity: 0;
-          margin-top: -76px;
+          margin-top: -72px;
           @media (min-width: 1064px) {
             margin-top: -54px;
           }

@@ -4,6 +4,7 @@ import { HTMLAttributes, useState } from 'react';
 interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
   label?: string;
   type?: string;
+  // textAlreadyExists?: string;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({ label, type }) => {

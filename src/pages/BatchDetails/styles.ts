@@ -155,6 +155,36 @@ export const BatchTextTitle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+  button {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+
+    &:hover {
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    img {
+      width: 28px;
+      height: 28px;
+
+      transition: 0.2s;
+    }
+  }
 `;
 export const BatchSpacingTextLine = styled.div`
   display: flex;
