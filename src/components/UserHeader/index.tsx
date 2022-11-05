@@ -9,11 +9,10 @@ import {
   Container,
   HeaderBar,
   HeaderToolsBar,
-  UserOptionsButton,
+  UserButton,
   ToolsBarButton,
+  UserOptions,
 } from './styles';
-import { Modal } from 'components/Modal';
-import { UserOptions } from './UserOptions';
 import { useState } from 'react';
 
 interface PageBatch {
@@ -22,13 +21,13 @@ interface PageBatch {
 
 export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
   const history = useHistory();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     <Container>
-      <Modal isVisible={isModalVisible}>
+      {/* <Modal isVisible={isModalVisible}>
         <UserOptions handleCancel={() => setIsModalVisible(false)} />
-      </Modal>
+      </Modal> */}
       <button id="return-arrow" type="button" onClick={history.goBack}>
         <img src={returnArrow} alt="Voltar" />
       </button>
@@ -38,9 +37,9 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
           <img id="logo-meat" src={logoMeat} alt="Logo Meat" />
         </div>
         <HeaderToolsBar>
-          <UserOptionsButton
+          <UserButton
             type="button"
-            onClick={() => setIsModalVisible(true)}
+            onClick={() => setIsVisible(isVisible => !isVisible)}
           >
             <img src={iconUser} alt="Icone do usuario"></img>
             <div>
@@ -48,7 +47,11 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
 
               <h2 id="user-role">Responsável</h2>
             </div>
-          </UserOptionsButton>
+            <UserOptions isVisible={isVisible}>
+              <button>Trocar Senha</button>
+              <button id="logout">Sair</button>
+            </UserOptions>
+          </UserButton>
 
           <div id="tools-button">
             {pageBatch ? (
