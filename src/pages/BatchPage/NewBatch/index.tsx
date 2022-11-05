@@ -62,18 +62,7 @@ export const NewBatch: React.FC<NewBatchProps> = ({ handleCancel }) => {
       <button onClick={handleCancel} id="close-button">
         <img src={close} alt="botão de fechar" />
       </button>
-      <ImgSelectOptions isVisibleOptions={isVisibleOptions}>
-        {ANIMAL_ICONS_ENTRIES.map(([key, { icon }]) => (
-          <button
-            key={key}
-            id="optionButton"
-            type="button"
-            onClick={() => setSelectedAnimalType(key as unknown as AnimalType)}
-          >
-            <img src={icon} alt={key} />
-          </button>
-        ))}
-      </ImgSelectOptions>
+
       <form>
         <ImgSelect>
           <img
@@ -84,24 +73,33 @@ export const NewBatch: React.FC<NewBatchProps> = ({ handleCancel }) => {
           <button
             type="button"
             id="OpenOptionButton"
-            onClick={() => setIsVisibleOptions(true)}
+            onClick={() =>
+              setIsVisibleOptions(isVisibleOptions => !isVisibleOptions)
+            }
           >
             <img id="image" src={downArrow} alt="Icone seta" />
           </button>
+          <ImgSelectOptions isVisibleOptions={isVisibleOptions}>
+            {ANIMAL_ICONS_ENTRIES.map(([key, { icon }]) => (
+              <button
+                key={key}
+                id="optionButton"
+                type="button"
+                onClick={() =>
+                  setIsVisibleOptions(
+                    false,
+                    setSelectedAnimalType(key as unknown as AnimalType),
+                  )
+                }
+              >
+                <img src={icon} alt={key} />
+              </button>
+            ))}
+          </ImgSelectOptions>
         </ImgSelect>
         <FormField label="Nome" />
         <FormField label="Raça" />
         <div id="in-line">
-          <FormSelect id="city">
-            <select>
-              {cities.map(({ id, nome }) => (
-                <option key={id} value={id}>
-                  {nome}
-                </option>
-              ))}
-            </select>
-            <label>Cidade</label>
-          </FormSelect>
           <FormSelect id="state">
             <select
               onChange={({ target: { value } }) =>
@@ -116,11 +114,21 @@ export const NewBatch: React.FC<NewBatchProps> = ({ handleCancel }) => {
             </select>
             <label>Estado</label>
           </FormSelect>
+          <FormSelect id="city">
+            <select>
+              {cities.map(({ id, nome }) => (
+                <option key={id} value={id}>
+                  {nome}
+                </option>
+              ))}
+            </select>
+            <label>Cidade</label>
+          </FormSelect>
         </div>
 
         <FormField type="date" label="Data de inicio" />
+        <Button type="submit">Cadastrar</Button>
       </form>
-      <Button type="submit">Cadastrar</Button>
     </Container>
   );
 };

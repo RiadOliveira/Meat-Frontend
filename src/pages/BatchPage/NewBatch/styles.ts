@@ -112,7 +112,6 @@ interface SelectOptionsProps {
 }
 
 export const ImgSelectOptions = styled.div<SelectOptionsProps>`
-  margin-top: 118px;
   width: 300px;
   height: 200px;
   background: ${palette.white};
@@ -131,7 +130,7 @@ export const ImgSelectOptions = styled.div<SelectOptionsProps>`
   img {
     width: 72px;
     height: 72px;
-    filter: brightness(0%);
+    /* filter: brightness(0%); */
   }
 
   #optionButton {
@@ -160,11 +159,12 @@ export const ImgSelectOptions = styled.div<SelectOptionsProps>`
       ? css`
           visibility: visible;
           opacity: 1;
+          margin-top: 320px;
         `
       : css`
           visibility: hidden;
           opacity: 0;
-
+          margin-top: 300px;
           & > * {
             max-height: 100vh;
             overflow-y: hidden;
