@@ -11,10 +11,10 @@ import iconMember from 'assets/img/iconMember.svg';
 import iconEdit from 'assets/img/iconEdit.svg';
 import { useHistory } from 'react-router-dom';
 import iconUser from 'assets/img/iconUser.svg';
-import { NewMember } from './NewMember';
-import { EditMember } from './EditMember';
 import { Modal } from 'components/Modal';
 import { DeleteMemberConfirmation } from './DeleteMemberConfirmation';
+import { NewMember } from './NewMember';
+import { EditMember } from './EditMember';
 
 const HeaderInfo = {
   companyName: 'Carne Boa',

@@ -7,6 +7,19 @@ interface ButtonProps {
 }
 
 export const Container = styled.section<ButtonProps>`
+  #closeButton {
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: transparent;
+    margin: 0px 0px 0px 300px;
+
+    img {
+      height: 24px;
+      width: 24px;
+    }
+  }
+
   width: 400px;
   min-height: 120px;
   background: ${palette.white};
@@ -34,6 +47,11 @@ export const Container = styled.section<ButtonProps>`
     flex-direction: column;
     align-items: center;
     gap: 20px;
+  }
+
+  select {
+    width: 320px;
+    margin: 10px 0px 0px 0px;
   }
 
   Button {

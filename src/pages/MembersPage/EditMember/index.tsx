@@ -3,11 +3,14 @@ import { Button } from 'components/Button/styles';
 import iconEditWhite from 'assets/img/iconEditWhite.svg';
 import iconUser from 'assets/img/iconUser.svg';
 import thrashWhite from 'assets/img/thrashWhite.svg';
+import x from 'assets/img/x.svg';
 import { FormField } from 'components/FormField';
+import { CloseButton } from 'components/CloseButton';
 
 export const EditMember: React.FC = () => {
   return (
     <Container>
+      <CloseButton />
       <img src={iconUser} alt="Icone novo membro" />
       <label>Alterar dados</label>
       <form>
@@ -17,11 +20,11 @@ export const EditMember: React.FC = () => {
         <FormField label="Confirme sua nova senha" />
       </form>
       <Button type="submit" id="updateMemberInfo">
-      <img src={iconEditWhite} alt="Icone alterar" />
+        <img src={iconEditWhite} alt="Icone alterar" />
         Alterar
       </Button>
       <Button type="submit" id="deleteMemberConfirm">
-      <img src={thrashWhite} alt="Icone alterar" />
+        <img src={thrashWhite} alt="Icone alterar" />
         Excluir conta
       </Button>
     </Container>

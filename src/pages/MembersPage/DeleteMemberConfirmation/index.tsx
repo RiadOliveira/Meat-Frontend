@@ -1,7 +1,5 @@
 import { Container } from './styles';
 import { Button } from 'components/Button/styles';
-import iconEdit from 'assets/img/iconEdit.svg';
-import iconUser from 'assets/img/iconUser.svg';
 import iconThrash from 'assets/img/thrash.svg';
 
 export const DeleteMemberConfirmation: React.FC = () => {
