@@ -27,13 +27,15 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
   const history = useHistory();
   const { userData, signOut } = useAuth();
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [userOptionsIsVisible, setUserOptionsIsVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <Container>
       <Modal isVisible={isModalVisible}>
-        <ChangePasswordModal handleCancel={() => setIsModalVisible(false)} />
+        <ChangePasswordModal
+          handleCloseModal={() => setIsModalVisible(false)}
+        />
       </Modal>
 
       <button id="return-arrow" type="button" onClick={history.goBack}>
@@ -48,7 +50,7 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
           <div>
             <UserButton
               type="button"
-              onClick={() => setIsVisible(isVisible => !isVisible)}
+              onClick={() => setUserOptionsIsVisible(value => !value)}
             >
               <img src={iconUser} alt="Ícone do usuario"></img>
               <div>
@@ -58,7 +60,10 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
                 </h2>
               </div>
             </UserButton>
-            <UserOptions isVisible={isVisible}>
+            <UserOptions
+              isVisible={userOptionsIsVisible}
+              onMouseLeave={() => setUserOptionsIsVisible(false)}
+            >
               <button onClick={() => setIsModalVisible(true)}>
                 Trocar Senha
               </button>
