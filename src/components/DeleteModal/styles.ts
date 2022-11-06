@@ -5,6 +5,7 @@ export const Container = styled.section`
   main {
     width: 336px;
     min-height: 220px;
+    height: 220px;
     background: ${palette.white};
     border-radius: 12px;
 

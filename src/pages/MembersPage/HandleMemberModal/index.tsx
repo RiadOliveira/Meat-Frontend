@@ -88,7 +88,6 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
         );
       }
 
-      handleCloseModal();
       formStates.forEach(({ mainState: { setFunction } }) => setFunction(''));
     } catch (error) {
       handleFormError(error as Error | yup.ValidationError, formStates);
@@ -96,7 +95,6 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
   }, [
     confirmPasswordStates,
     emailStates,
-    handleCloseModal,
     handleCreateMember,
     handleFormError,
     handleUpdateMember,

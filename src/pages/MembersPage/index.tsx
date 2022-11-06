@@ -1,5 +1,6 @@
 import iconMember from 'assets/img/iconMember.svg';
 import iconEdit from 'assets/img/iconEdit.svg';
+import iconDelete from 'assets/img/iconDelete.svg';
 import iconUser from 'assets/img/iconUser.svg';
 
 import {
@@ -27,7 +28,7 @@ import { ICompany } from 'types/entities/ICompany';
 import { AccountType } from 'types/AccountType';
 import { IUser } from 'types/entities/IUser';
 import { UpdateUserData } from 'types/entities/operations/user/UpdateUserData';
-import { updateUser } from 'services/userServices';
+import { deleteUser, updateUser } from 'services/userServices';
 
 export const MembersPage: React.FC = () => {
   const { userData } = useAuth();
@@ -54,6 +55,12 @@ export const MembersPage: React.FC = () => {
     );
   }, [userData]);
 
+  useEffect(() => {
+    setSelectedMemberIndex(null);
+    setIsDeleteModalVisible(false);
+    setIsHandleMemberModalVisible(false);
+  }, [companyMembers]);
+
   const handleCreateMember = useCallback(
     async (memberData: IUser) => {
       const createdMember = await createMember({
@@ -75,15 +82,28 @@ export const MembersPage: React.FC = () => {
           member.id === memberId ? updatedMember : member,
         ),
       );
-      setSelectedMemberIndex(null);
     },
     [],
   );
 
+  const handleDeleteMember = useCallback(async () => {
+    if (selectedMemberIndex === null) return;
+
+    const { id: memberToDeleteId } = companyMembers[selectedMemberIndex];
+    await deleteUser(memberToDeleteId);
+
+    setCompanyMembers(previousMembers =>
+      previousMembers.filter(({ id }) => id !== memberToDeleteId),
+    );
+  }, [companyMembers, selectedMemberIndex]);
+
   return (
     <Container>
       <Modal isVisible={isDeleteModalVisible}>
-        <DeleteModal handleCloseModal={() => setIsDeleteModalVisible(false)} />
+        <DeleteModal
+          handleDelete={handleDeleteMember}
+          handleCloseModal={() => setIsDeleteModalVisible(false)}
+        />
       </Modal>
 
       <Modal isVisible={isHandleMemberModalVisible}>
@@ -134,15 +154,27 @@ export const MembersPage: React.FC = () => {
 
               {accountType !== AccountType.PRODUCER &&
                 userData?.accountType === AccountType.PRODUCER && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedMemberIndex(index);
-                      setIsHandleMemberModalVisible(true);
-                    }}
-                  >
-                    <img src={iconEdit} alt="Ícone Editar" />
-                  </button>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedMemberIndex(index);
+                        setIsHandleMemberModalVisible(true);
+                      }}
+                    >
+                      <img src={iconEdit} alt="Ícone Editar" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedMemberIndex(index);
+                        setIsDeleteModalVisible(true);
+                      }}
+                    >
+                      <img src={iconDelete} alt="Ícone Editar" />
+                    </button>
+                  </div>
                 )}
             </MembersLine>
           ))}

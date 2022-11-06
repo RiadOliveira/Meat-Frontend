@@ -4,10 +4,12 @@ import { Button } from 'components/Button/styles';
 import { palette } from 'assets/colors/palette';
 
 interface DeleteModalProps {
+  handleDelete: () => Promise<void>;
   handleCloseModal: () => void;
 }
 
 export const DeleteModal: React.FC<DeleteModalProps> = ({
+  handleDelete,
   handleCloseModal,
 }) => {
   return (
@@ -18,8 +20,16 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
           <span>Tem certeza que deseja excluir?</span>
         </div>
         <div>
-          <Button onClick={handleCloseModal}>Cancelar</Button>
-          <Button backgroundColor={palette.pink}>Excluir</Button>
+          <Button type="button" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+          <Button
+            type="button"
+            backgroundColor={palette.pink}
+            onClick={handleDelete}
+          >
+            Excluir
+          </Button>
         </div>
       </main>
     </Container>
