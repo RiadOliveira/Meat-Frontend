@@ -9,6 +9,7 @@ import { FormSelect } from 'components/FormField/FormSelect/styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { palette } from 'assets/colors/palette';
+import { useInputStates } from 'utils/useInputStates';
 
 interface EditBatchModalProps {
   handleCloseModal: () => void;
@@ -29,6 +30,9 @@ const ANIMAL_ICONS_ENTRIES = Object.entries(animalIcons);
 export const EditBatchModal: React.FC<EditBatchModalProps> = ({
   handleCloseModal,
 }) => {
+  const nameStates = useInputStates('name');
+  const raceStates = useInputStates('race');
+
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
@@ -75,7 +79,7 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
           />
           <button
             type="button"
-            id="OpenOptionButton"
+            id="openOptionButton"
             onClick={() =>
               setIsVisibleOptions(isVisibleOptions => !isVisibleOptions)
             }
@@ -86,7 +90,7 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
             {ANIMAL_ICONS_ENTRIES.map(([key, { icon }]) => (
               <button
                 key={key}
-                id="optionButton"
+                className="optionButton"
                 type="button"
                 onClick={() => {
                   setIsVisibleOptions(false);
@@ -98,8 +102,8 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
             ))}
           </ImgSelectOptions>
         </ImgSelect>
-        <FormField label="Nome" />
-        <FormField label="Raça" />
+        <FormField states={nameStates} label="Nome" />
+        <FormField states={raceStates} label="Raça" />
         <div id="in-line">
           <FormSelect id="state">
             <select

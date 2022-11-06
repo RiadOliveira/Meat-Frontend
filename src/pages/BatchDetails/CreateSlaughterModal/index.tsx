@@ -4,6 +4,7 @@ import { FormField } from 'components/FormField';
 import { Button } from 'components/Button/styles';
 import iconSlaughter from 'assets/img/iconSlaughter.svg';
 import close from 'assets/img/close.svg';
+import { useInputStates } from 'utils/useInputStates';
 
 interface CreateSlaughterModalProps {
   handleCloseModal: () => void;
@@ -12,6 +13,10 @@ interface CreateSlaughterModalProps {
 export const CreateSlaughterModal: React.FC<CreateSlaughterModalProps> = ({
   handleCloseModal,
 }) => {
+  const slaughterDateStates = useInputStates('slaughterDate');
+  const methodStates = useInputStates('method');
+  const descriptionStates = useInputStates('description');
+
   return (
     <Container>
       <button onClick={handleCloseModal} id="close-button">
@@ -22,9 +27,13 @@ export const CreateSlaughterModal: React.FC<CreateSlaughterModalProps> = ({
         <span id="title">Editar Forma de Abate</span>
       </div>
       <form>
-        <FormField type="date" label="Data do Abate" />
-        <FormField label="Forma de Abate" />
-        <FormField label="Descrição" />
+        <FormField
+          states={slaughterDateStates}
+          type="date"
+          label="Data do Abate"
+        />
+        <FormField states={methodStates} label="Forma de Abate" />
+        <FormField states={descriptionStates} label="Descrição" />
         <div id="separator" />
         <div id="in-line">
           <Button

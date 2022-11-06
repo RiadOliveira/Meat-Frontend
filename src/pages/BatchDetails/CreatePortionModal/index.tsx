@@ -4,6 +4,7 @@ import { FormField } from 'components/FormField';
 import { Button } from 'components/Button/styles';
 import iconPortion from 'assets/img/iconPortion.svg';
 import close from 'assets/img/close.svg';
+import { useInputStates } from 'utils/useInputStates';
 
 interface CreatePortionModalProps {
   handleCloseModal: () => void;
@@ -12,6 +13,9 @@ interface CreatePortionModalProps {
 export const CreatePortionModal: React.FC<CreatePortionModalProps> = ({
   handleCloseModal,
 }) => {
+  const nameStates = useInputStates('name');
+  const portionBatchStates = useInputStates('portionBatch');
+
   return (
     <Container>
       <button onClick={handleCloseModal} id="close-button">
@@ -22,8 +26,8 @@ export const CreatePortionModal: React.FC<CreatePortionModalProps> = ({
         <span id="title">Adicionar Rações</span>
       </div>
       <form>
-        <FormField label="Nome" />
-        <FormField label="Lote Ração" />
+        <FormField states={nameStates} label="Nome" />
+        <FormField states={portionBatchStates} label="Lote Ração" />
         <div id="separator" />
         <div id="in-line">
           <Button

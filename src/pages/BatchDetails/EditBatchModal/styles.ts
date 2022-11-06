@@ -1,5 +1,5 @@
 import { palette } from 'assets/colors/palette';
-import styled, { css, withTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.section`
@@ -77,7 +77,7 @@ export const ImgSelect = styled.section`
     width: 96px;
     height: 96px;
   }
-  #OpenOptionButton {
+  #openOptionButton {
     width: 36px;
     height: 36px;
 
@@ -135,7 +135,7 @@ export const ImgSelectOptions = styled.div<SelectOptionsProps>`
     /* filter: brightness(0%); */
   }
 
-  #optionButton {
+  .optionButton {
     width: 88px;
     height: 88px;
 

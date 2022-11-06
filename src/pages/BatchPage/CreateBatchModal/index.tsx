@@ -172,7 +172,7 @@ export const CreateBatchModal: React.FC<CreateBatchModalProps> = ({
             {ANIMAL_ICONS_ENTRIES.map(([key, { icon }]) => (
               <button
                 key={key}
-                id="optionButton"
+                className="optionButton"
                 type="button"
                 onClick={() => {
                   setIsVisibleOptions(false);

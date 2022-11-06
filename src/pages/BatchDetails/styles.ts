@@ -214,7 +214,7 @@ export const BatchStatus = styled.div`
   }
 `;
 
-export const BatchAtributeTable = styled.section`
+export const BatchTableAttribute = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;

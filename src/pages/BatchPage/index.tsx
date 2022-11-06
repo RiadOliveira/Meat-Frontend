@@ -85,7 +85,7 @@ export const BatchPage: React.FC = () => {
             }) => (
               <button
                 key={id}
-                onClick={() => history.push(routesAddresses.batchDetails)}
+                onClick={() => history.push(routesAddresses.batch + `/${id}`)}
               >
                 <BatchData>
                   <BatchCardsHeader>

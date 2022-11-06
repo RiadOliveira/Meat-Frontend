@@ -138,7 +138,7 @@ export const ImgSelectOptions = styled.div<SelectOptionsProps>`
     /* filter: brightness(0%); */
   }
 
-  #optionButton {
+  .optionButton {
     width: 88px;
     height: 88px;
 
