@@ -75,7 +75,6 @@ export const HomePage: React.FC = () => {
             </Button>
           </SearchInput>
         </Section>
-
         <Section backgroundColor={palette.beige}>
           <h2>Faça seu login</h2>
 

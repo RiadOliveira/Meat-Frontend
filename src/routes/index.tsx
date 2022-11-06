@@ -4,6 +4,7 @@ import { BatchPage } from 'pages/BatchPage';
 import { BatchDetails } from 'pages/BatchDetails';
 import { MembersPage } from 'pages/MembersPage';
 import { ExposeBatch } from 'pages/ExposeBatch';
+import { QRCodePage } from 'pages/QRCodePage';
 import { Switch } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { MissingRoute } from './MissingRoute';
@@ -16,6 +17,7 @@ export const Routes: React.FC = () => {
       <Switch>
         <Route path={routesAddresses.homePage} exact component={HomePage} />
         <Route path={routesAddresses.signUp} exact component={SignUpPage} />
+        <Route path={routesAddresses.qrCodePage} exact component={QRCodePage} />
         <Route
           exact
           isPrivate
