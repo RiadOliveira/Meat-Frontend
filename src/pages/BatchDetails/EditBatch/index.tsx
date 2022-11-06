@@ -127,10 +127,10 @@ export const EditBatch: React.FC<EditBatchProps> = ({ handleCancel }) => {
         <div id="separator" />
 
         <div id="in-line">
-          <Button type="submit">Alterar</Button>
           <Button type="submit" backgroundColor={palette.pink}>
             Excluir
           </Button>
+          <Button type="submit">Alterar</Button>
         </div>
       </form>
     </Container>

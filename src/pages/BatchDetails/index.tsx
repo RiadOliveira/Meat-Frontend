@@ -33,6 +33,7 @@ import { DeleteModal } from 'components/DeleteModal';
 import { useState } from 'react';
 import { EditBatch } from './EditBatch';
 import { SlaughterADD } from './SlaughterADD';
+import { PortionADD } from './PortionADD';
 
 const Batch = [
   {
@@ -85,6 +86,8 @@ const Slaughter = [
 export const BatchDetails: React.FC = () => {
   const [DeleteModalIsVisible, setDeleteModalIsVisible] = useState(false);
   const [editBatchIsVisible, setsetEditBatchIsVisible] = useState(false);
+
+  const [portionADDIsVisible, setPortionADDIsVisible] = useState(false);
   const [slaughterADDIsVisible, setSlaughterADDIsVisible] = useState(false);
 
   return (
@@ -192,8 +195,18 @@ export const BatchDetails: React.FC = () => {
               </LineBatchTable>
             ))}
             <ButtonAdd>
-              <Button backgroundColor={palette.beige}>Adicionar</Button>
+              <Button
+                backgroundColor={palette.beige}
+                onClick={() => setPortionADDIsVisible(true)}
+              >
+                Adicionar
+              </Button>
             </ButtonAdd>
+            <Modal isVisible={portionADDIsVisible}>
+              <PortionADD
+                handleCancel={() => setPortionADDIsVisible(false)}
+              ></PortionADD>
+            </Modal>
           </BatchAtributeTable>
 
           <BatchAtributeTable id="vaccination">
