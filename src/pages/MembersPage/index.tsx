@@ -7,14 +7,14 @@ import {
 } from './styles';
 import { UserHeader } from 'components/UserHeader';
 import { Button } from 'components/Button/styles';
-import Modal from 'react-modal';
 import iconMember from 'assets/img/iconMember.svg';
 import iconEdit from 'assets/img/iconEdit.svg';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
 import iconUser from 'assets/img/iconUser.svg';
-
-Modal.setAppElement('#root');
+import { Modal } from 'components/Modal';
+import { DeleteMemberConfirmation } from './DeleteMemberConfirmation';
+import { NewMember } from './NewMember';
+import { EditMember } from './EditMember';
 
 const HeaderInfo = {
   companyName: 'Carne Boa',
@@ -42,18 +42,12 @@ const Members = [
 
 export const MembersPage: React.FC = () => {
   const history = useHistory();
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   return (
     <Container>
+      <Modal isVisible>
+        <NewMember />
+      </Modal>
       <UserHeader />
       <main>
         <Button id="new-member">
