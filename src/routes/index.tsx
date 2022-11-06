@@ -4,11 +4,11 @@ import { BatchPage } from 'pages/BatchPage';
 import { BatchDetails } from 'pages/BatchDetails';
 import { MembersPage } from 'pages/MembersPage';
 import { ExposeBatch } from 'pages/ExposeBatch';
-
 import { Switch } from 'react-router-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { MissingRoute } from './MissingRoute';
 import { routesAddresses } from './routesAddresses';
+import { Route } from './Route';
 
 export const Routes: React.FC = () => {
   return (
@@ -16,13 +16,24 @@ export const Routes: React.FC = () => {
       <Switch>
         <Route path={routesAddresses.homePage} exact component={HomePage} />
         <Route path={routesAddresses.signUp} exact component={SignUpPage} />
-        <Route path={routesAddresses.batch} exact component={BatchPage} />
         <Route
-          path={routesAddresses.batchDetails}
           exact
+          isPrivate
+          path={routesAddresses.batch}
+          component={BatchPage}
+        />
+        <Route
+          exact
+          isPrivate
+          path={routesAddresses.batchDetails}
           component={BatchDetails}
         />
-        <Route path={routesAddresses.members} exact component={MembersPage} />
+        <Route
+          exact
+          isPrivate
+          path={routesAddresses.members}
+          component={MembersPage}
+        />
         <Route
           path={routesAddresses.exposeBatch}
           exact

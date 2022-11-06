@@ -1,8 +1,8 @@
 export const routesAddresses = {
   homePage: '/',
   signUp: '/sign-up',
-  batch: '/batch',
-  batchDetails: '/batch/details',
-  members: '/members',
+  batch: '/dashboard/batch',
+  batchDetails: '/dashboard/batch/details',
+  members: '/dashboard/members',
   exposeBatch: '/exposeBatch',
 };

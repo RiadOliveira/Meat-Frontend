@@ -1,22 +1,33 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { palette } from 'assets/colors/palette';
 
-export const Input = styled.input`
+interface InputStyleProps {
+  borderColor?: string;
+}
+
+export const InputStyles = styled.input<InputStyleProps>`
   width: 360px;
   height: 44px;
 
   background: ${palette.white};
-  border: 2px solid transparent;
   border-radius: 12px;
   outline: none;
   text-align: center;
   font-size: 20px;
   display: inline-block;
-
   transition: 0.3s;
-  &:hover {
-    border: 2px solid ${palette.pink};
-  }
+
+  ${({ borderColor }) => {
+    const borderStyle = `border: 2px solid ${borderColor || 'transparent'};`;
+
+    return css`
+      ${borderStyle}
+
+      &:hover {
+        border: 2px solid ${palette.pink};
+      }
+    `;
+  }}
 
   &::placeholder {
     color: ${palette.blueHigh};
@@ -35,4 +46,10 @@ export const Input = styled.input`
 
     font-size: 20px;
   }
+`;
+
+export const InputErrorMessageStyle = styled.p`
+  text-align: center;
+  color: ${palette.pinkHigh};
+  font-size: 12px;
 `;
