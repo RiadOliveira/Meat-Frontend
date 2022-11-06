@@ -1,3 +1,5 @@
+import iconBatch from 'assets/img/iconBatch.svg';
+
 import {
   BatchData,
   BatchCardsHeader,
@@ -13,12 +15,11 @@ import {
 } from './styles';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'components/Button/styles';
-import iconBatch from 'assets/img/iconBatch.svg';
 import { UserHeader } from 'components/UserHeader';
 import { routesAddresses } from 'routes/routesAddresses';
 import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { Modal } from 'components/Modal';
-import { NewBatchModal } from 'pages/BatchPage/NewBatchModal';
+import { CreateBatchModal } from 'pages/BatchPage/CreateBatchModal';
 import { useCallback, useEffect, useState } from 'react';
 import { createBatch, listBatchesFromCompany } from 'services/batchServices';
 import { useAuth } from 'hooks/auth';
@@ -51,7 +52,7 @@ export const BatchPage: React.FC = () => {
   return (
     <Container>
       <Modal isVisible={isModalVisible}>
-        <NewBatchModal
+        <CreateBatchModal
           handleCreateNewBatch={handleCreateNewBatch}
           handleCloseModal={() => setIsModalVisible(false)}
           handleCancel={() => setIsModalVisible(false)}

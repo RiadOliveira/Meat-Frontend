@@ -5,14 +5,16 @@ import { Button } from 'components/Button/styles';
 import iconSlaughter from 'assets/img/iconSlaughter.svg';
 import close from 'assets/img/close.svg';
 
-interface SlaughterADDProps {
-  handleCancel: () => void;
+interface CreateSlaughterModalProps {
+  handleCloseModal: () => void;
 }
 
-export const SlaughterADD: React.FC<SlaughterADDProps> = ({ handleCancel }) => {
+export const CreateSlaughterModal: React.FC<CreateSlaughterModalProps> = ({
+  handleCloseModal,
+}) => {
   return (
     <Container>
-      <button onClick={handleCancel} id="close-button">
+      <button onClick={handleCloseModal} id="close-button">
         <img src={close} alt="botão de fechar" />
       </button>
       <div id="header">
@@ -28,7 +30,7 @@ export const SlaughterADD: React.FC<SlaughterADDProps> = ({ handleCancel }) => {
           <Button
             type="button"
             backgroundColor={palette.pink}
-            onClick={handleCancel}
+            onClick={handleCloseModal}
           >
             Cancelar
           </Button>

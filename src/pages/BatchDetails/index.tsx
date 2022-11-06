@@ -31,9 +31,9 @@ import iconBatch from 'assets/img/iconBatch.svg';
 import { Modal } from 'components/Modal';
 import { DeleteModal } from 'components/DeleteModal';
 import { useState } from 'react';
-import { EditBatch } from './EditBatch';
-import { SlaughterADD } from './SlaughterADD';
-import { PortionADD } from './PortionADD';
+import { CreatePortionModal } from './CreatePortionModal';
+import { CreateSlaughterModal } from './CreateSlaughterModal';
+import { EditBatchModal } from './EditBatchModal';
 
 const Batch = [
   {
@@ -84,19 +84,21 @@ const Slaughter = [
 ];
 
 export const BatchDetails: React.FC = () => {
-  const [DeleteModalIsVisible, setDeleteModalIsVisible] = useState(false);
+  const [deleteModalIsVisible, setDeleteModalIsVisible] = useState(false);
   const [editBatchIsVisible, setsetEditBatchIsVisible] = useState(false);
 
-  const [portionADDIsVisible, setPortionADDIsVisible] = useState(false);
-  const [slaughterADDIsVisible, setSlaughterADDIsVisible] = useState(false);
+  const [createPortionModalIsVisible, setCreatePortionModalIsVisible] =
+    useState(false);
+  const [createSlaughterModalIsVisible, setCreateSlaughterModalIsVisible] =
+    useState(false);
 
   return (
     <Container>
-      <Modal isVisible={DeleteModalIsVisible}>
-        <DeleteModal handleCancel={() => setDeleteModalIsVisible(false)} />
+      <Modal isVisible={deleteModalIsVisible}>
+        <DeleteModal handleCloseModal={() => setDeleteModalIsVisible(false)} />
       </Modal>
       <Modal isVisible={editBatchIsVisible}>
-        <EditBatch handleCancel={() => setsetEditBatchIsVisible(false)} />
+        <EditBatchModal handleCancel={() => setsetEditBatchIsVisible(false)} />
       </Modal>
       <UserHeader pageBatch></UserHeader>
       <main>
@@ -179,7 +181,7 @@ export const BatchDetails: React.FC = () => {
               <img src={iconPortion} alt="Ícone Rações" />
               <span id="title">Rações</span>
             </TitleBatchTable>
-            {Portion.map(({ id, name, portionBatch, batchId }) => (
+            {Portion.map(({ id, name, portionBatch }) => (
               <LineBatchTable key={id}>
                 <span>{name}</span>
                 <span>-</span>
@@ -197,15 +199,15 @@ export const BatchDetails: React.FC = () => {
             <ButtonAdd>
               <Button
                 backgroundColor={palette.beige}
-                onClick={() => setPortionADDIsVisible(true)}
+                onClick={() => setCreatePortionModalIsVisible(true)}
               >
                 Adicionar
               </Button>
             </ButtonAdd>
-            <Modal isVisible={portionADDIsVisible}>
-              <PortionADD
-                handleCancel={() => setPortionADDIsVisible(false)}
-              ></PortionADD>
+            <Modal isVisible={createPortionModalIsVisible}>
+              <CreatePortionModal
+                handleCancel={() => setCreatePortionModalIsVisible(false)}
+              />
             </Modal>
           </BatchAtributeTable>
 
@@ -214,7 +216,7 @@ export const BatchDetails: React.FC = () => {
               <img src={iconVaccination} alt="Ícone Vacinas" />
               <span id="title">Vacinas</span>
             </TitleBatchTable>
-            {Vaccination.map(({ id, name, vaccinationBatch, batchId }) => (
+            {Vaccination.map(({ id, name, vaccinationBatch }) => (
               <LineBatchTable key={id}>
                 <span>{name}</span>
                 <span>-</span>
@@ -239,35 +241,35 @@ export const BatchDetails: React.FC = () => {
               <img src={iconSlaughter} alt="Ícone Abate" />
               <span id="title">Abate</span>
             </TitleBatchTable>
-            {Slaughter.map(
-              ({ id, method, slaughterDate, description, batchId }) => (
-                <div key={id}>
-                  <SlaughterData>
-                    <div id="separate">
-                      <BatchTextLine id="slaughter-data">
-                        <span id="topic">Data do Abate: &nbsp;</span>
-                        <span>{slaughterDate}</span>
-                      </BatchTextLine>
-                      <button onClick={() => setSlaughterADDIsVisible(true)}>
-                        <img src={iconEdit} alt="Ícone Editar"></img>
-                      </button>
-                    </div>
+            {Slaughter.map(({ id, method, slaughterDate, description }) => (
+              <div key={id}>
+                <SlaughterData>
+                  <div id="separate">
                     <BatchTextLine id="slaughter-data">
-                      <span id="topic">Metodo de Abate: &nbsp;</span>
-                      <span>{method}</span>
+                      <span id="topic">Data do Abate: &nbsp;</span>
+                      <span>{slaughterDate}</span>
                     </BatchTextLine>
-                    <div id="slaughter-data">
-                      <span id="topic">Descrição: &nbsp;</span>
-                      <span>{description}</span>
-                    </div>
-                  </SlaughterData>
-                </div>
-              ),
-            )}
-            <Modal isVisible={slaughterADDIsVisible}>
-              <SlaughterADD
-                handleCancel={() => setSlaughterADDIsVisible(false)}
-              ></SlaughterADD>
+                    <button
+                      onClick={() => setCreateSlaughterModalIsVisible(true)}
+                    >
+                      <img src={iconEdit} alt="Ícone Editar"></img>
+                    </button>
+                  </div>
+                  <BatchTextLine id="slaughter-data">
+                    <span id="topic">Metodo de Abate: &nbsp;</span>
+                    <span>{method}</span>
+                  </BatchTextLine>
+                  <div id="slaughter-data">
+                    <span id="topic">Descrição: &nbsp;</span>
+                    <span>{description}</span>
+                  </div>
+                </SlaughterData>
+              </div>
+            ))}
+            <Modal isVisible={createSlaughterModalIsVisible}>
+              <CreateSlaughterModal
+                handleCancel={() => setCreateSlaughterModalIsVisible(false)}
+              />
             </Modal>
           </BatchAtributeTable>
         </CardBatch>

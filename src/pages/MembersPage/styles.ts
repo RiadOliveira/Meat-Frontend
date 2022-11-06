@@ -1,6 +1,10 @@
 import { palette } from 'assets/colors/palette';
 import styled from 'styled-components';
 
+interface MembersLineProps {
+  isProducer: boolean;
+}
+
 export const Container = styled.div`
   background-color: ${palette.blueLow};
   width: 100%;
@@ -42,13 +46,16 @@ export const Container = styled.div`
   }
 `;
 
-export const MembersLine = styled.section`
+export const MembersLine = styled.section<MembersLineProps>`
   height: 55px;
   border-bottom: 1px solid ${palette.blueHigh};
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 5px 10px 5px 30px;
+
+  background-color: ${({ isProducer }) =>
+    isProducer ? palette.beige : '#ffffff'};
 
   span {
     color: ${palette.blue};
@@ -113,14 +120,6 @@ export const MembersTable = styled.section`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   padding-bottom: 12px;
-
-  #producer {
-    background-color: ${palette.beige};
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-  }
 
   @media (max-width: 600px) {
     width: 90%;

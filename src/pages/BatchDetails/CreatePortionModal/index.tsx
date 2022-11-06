@@ -5,14 +5,16 @@ import { Button } from 'components/Button/styles';
 import iconPortion from 'assets/img/iconPortion.svg';
 import close from 'assets/img/close.svg';
 
-interface PortionADDProps {
-  handleCancel: () => void;
+interface CreatePortionModalProps {
+  handleCloseModal: () => void;
 }
 
-export const PortionADD: React.FC<PortionADDProps> = ({ handleCancel }) => {
+export const CreatePortionModal: React.FC<CreatePortionModalProps> = ({
+  handleCloseModal,
+}) => {
   return (
     <Container>
-      <button onClick={handleCancel} id="close-button">
+      <button onClick={handleCloseModal} id="close-button">
         <img src={close} alt="botão de fechar" />
       </button>
       <div id="header">
@@ -27,7 +29,7 @@ export const PortionADD: React.FC<PortionADDProps> = ({ handleCancel }) => {
           <Button
             type="button"
             backgroundColor={palette.pink}
-            onClick={handleCancel}
+            onClick={handleCloseModal}
           >
             Cancelar
           </Button>

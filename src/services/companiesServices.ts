@@ -1,6 +1,6 @@
 import { ICompany } from 'types/entities/ICompany';
 import { CreateCompanyData } from 'types/entities/operations/company/CreateCompanyData';
-import { CreateEmployeeData } from 'types/entities/operations/company/CreateEmployeeData';
+import { CreateMemberData } from 'types/entities/operations/company/CreateMemberData';
 import { UpdateCompanyData } from 'types/entities/operations/company/UpdateCompanyData';
 import { UserWithoutPassword } from 'types/entities/UserWithoutPassword';
 import { api } from './api';
@@ -14,12 +14,12 @@ export const createCompany = async (
   return data;
 };
 
-export const createEmployee = async (
-  createEmployeeData: CreateEmployeeData,
+export const createMember = async (
+  createMemberData: CreateMemberData,
 ): Promise<UserWithoutPassword> => {
   const { data } = await api.post<UserWithoutPassword>(
-    `${servicesPrefix}/create-employee`,
-    createEmployeeData,
+    `${servicesPrefix}/create-member`,
+    createMemberData,
   );
 
   return data;
@@ -30,11 +30,11 @@ export const findCompanyById = async (companyId: string): Promise<ICompany> => {
   return data;
 };
 
-export const listEmployeesFromCompany = async (
+export const listMembersFromCompany = async (
   companyId: string,
 ): Promise<UserWithoutPassword[]> => {
   const { data } = await api.get<UserWithoutPassword[]>(
-    `${servicesPrefix}/list-employees/${companyId}`,
+    `${servicesPrefix}/list-members/${companyId}`,
   );
   return data;
 };
@@ -51,11 +51,11 @@ export const updateCompany = async (
   return data;
 };
 
-export const deleteEmployee = async (
-  employeeId: string,
+export const deleteMember = async (
+  MemberId: string,
   producerId: string,
 ): Promise<void> => {
-  await api.delete(`${servicesPrefix}/delete-employee/${employeeId}`, {
+  await api.delete(`${servicesPrefix}/delete-member/${MemberId}`, {
     data: { producerId },
   });
 };

@@ -21,7 +21,7 @@ import { yupRequiredStringField } from 'types/yupRequiredStringField';
 import { getInputStateValue } from 'utils/getInputStateValue';
 import { useFormError } from 'errors/useFormError';
 
-interface NewBatchModalProps {
+interface CreateBatchModalProps {
   handleCreateNewBatch: (
     newBatchData: Omit<CreateBatchData, 'userId'>,
   ) => Promise<void>;
@@ -41,7 +41,7 @@ interface ICity {
 
 const ANIMAL_ICONS_ENTRIES = Object.entries(animalIcons);
 
-export const NewBatchModal: React.FC<NewBatchModalProps> = ({
+export const CreateBatchModal: React.FC<CreateBatchModalProps> = ({
   handleCreateNewBatch,
   handleCancel,
   handleCloseModal,
@@ -82,21 +82,19 @@ export const NewBatchModal: React.FC<NewBatchModalProps> = ({
       .then(({ data }) => setCities(data));
   }, [selectedStateIndex, states]);
 
-  const handleOnChangeStateSelect = useCallback(
-    (stateId: number) => {
-      const stateIndex = states.findIndex(({ id }) => id === stateId);
-      setSelectedStateIndex(stateIndex);
-    },
-    [states],
-  );
+  const clearInputsStates = useCallback(() => {
+    nameStates.mainState.setFunction('');
+    raceStates.mainState.setFunction('');
+    creationDateStates.mainState.setFunction('');
 
-  const handleOnChangeCitySelect = useCallback(
-    (cityId: number) => {
-      const cityIndex = cities.findIndex(({ id }) => id === cityId);
-      setSelectedCityIndex(cityIndex);
-    },
-    [cities],
-  );
+    setSelectedAnimalType(AnimalType.OTHER);
+    setSelectedStateIndex(0);
+    setSelectedCityIndex(0);
+  }, [
+    creationDateStates.mainState,
+    nameStates.mainState,
+    raceStates.mainState,
+  ]);
 
   const handleRegisterBatchButtonClick = useCallback(async () => {
     const schema = yup.object().shape({
@@ -125,6 +123,7 @@ export const NewBatchModal: React.FC<NewBatchModalProps> = ({
       await handleCreateNewBatch(parsedBatchData);
 
       handleCloseModal();
+      clearInputsStates();
     } catch (error) {
       handleFormError(error as Error | yup.ValidationError, [
         nameStates,
@@ -134,6 +133,7 @@ export const NewBatchModal: React.FC<NewBatchModalProps> = ({
     }
   }, [
     cities,
+    clearInputsStates,
     creationDateStates,
     handleCloseModal,
     handleCreateNewBatch,
@@ -190,12 +190,13 @@ export const NewBatchModal: React.FC<NewBatchModalProps> = ({
         <div id="in-line">
           <FormSelect id="state">
             <select
+              value={selectedStateIndex}
               onChange={({ target: { value } }) =>
-                handleOnChangeStateSelect(Number(value))
+                setSelectedStateIndex(Number(value))
               }
             >
-              {states.map(({ id, sigla }) => (
-                <option key={id} value={id}>
+              {states.map(({ id, sigla }, index) => (
+                <option key={id} value={index}>
                   {sigla}
                 </option>
               ))}
@@ -204,12 +205,13 @@ export const NewBatchModal: React.FC<NewBatchModalProps> = ({
           </FormSelect>
           <FormSelect id="city">
             <select
+              value={selectedCityIndex}
               onChange={({ target: { value } }) =>
-                handleOnChangeCitySelect(Number(value))
+                setSelectedCityIndex(Number(value))
               }
             >
-              {cities.map(({ id, nome }) => (
-                <option key={id} value={id}>
+              {cities.map(({ id, nome }, index) => (
+                <option key={id} value={index}>
                   {nome}
                 </option>
               ))}

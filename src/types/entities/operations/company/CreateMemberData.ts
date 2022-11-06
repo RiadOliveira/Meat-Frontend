@@ -1,8 +1,8 @@
 import { IUser } from 'types/entities/IUser';
 import { OmitDefaultEntityProperties } from 'types/entities/OmitDefaultEntityProperties';
 
-type EmployeeData = Omit<OmitDefaultEntityProperties<IUser>, 'companyId'>;
+type MemberData = Omit<OmitDefaultEntityProperties<IUser>, 'companyId'>;
 
-export interface CreateEmployeeData extends EmployeeData {
+export interface CreateMemberData extends MemberData {
   producerId: string;
 }

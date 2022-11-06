@@ -4,10 +4,12 @@ import { Button } from 'components/Button/styles';
 import { palette } from 'assets/colors/palette';
 
 interface DeleteModalProps {
-  handleCancel: () => void;
+  handleCloseModal: () => void;
 }
 
-export const DeleteModal: React.FC<DeleteModalProps> = ({ handleCancel }) => {
+export const DeleteModal: React.FC<DeleteModalProps> = ({
+  handleCloseModal,
+}) => {
   return (
     <Container>
       <main>
@@ -16,7 +18,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({ handleCancel }) => {
           <span>Tem certeza que deseja excluir?</span>
         </div>
         <div>
-          <Button onClick={handleCancel}>Cancelar</Button>
+          <Button onClick={handleCloseModal}>Cancelar</Button>
           <Button backgroundColor={palette.pink}>Excluir</Button>
         </div>
       </main>

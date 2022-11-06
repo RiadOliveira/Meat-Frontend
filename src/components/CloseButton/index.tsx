@@ -1,8 +1,12 @@
 import closeIcon from 'assets/img/close.svg';
 
-export const CloseButton: React.FC = () => {
+interface CloseButtonProps {
+  handleClose: () => void;
+}
+
+export const CloseButton: React.FC<CloseButtonProps> = ({ handleClose }) => {
   return (
-    <button id="closeButton">
+    <button type="button" id="closeButton" onClick={handleClose}>
       <img src={closeIcon} alt="Ícone fechar" />
     </button>
   );

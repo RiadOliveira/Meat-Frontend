@@ -10,8 +10,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { palette } from 'assets/colors/palette';
 
-interface EditBatchProps {
-  handleCancel: () => void;
+interface EditBatchModalProps {
+  handleCloseModal: () => void;
 }
 
 interface IState {
@@ -26,7 +26,9 @@ interface ICity {
 
 const ANIMAL_ICONS_ENTRIES = Object.entries(animalIcons);
 
-export const EditBatch: React.FC<EditBatchProps> = ({ handleCancel }) => {
+export const EditBatchModal: React.FC<EditBatchModalProps> = ({
+  handleCloseModal,
+}) => {
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
   const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
@@ -60,7 +62,7 @@ export const EditBatch: React.FC<EditBatchProps> = ({ handleCancel }) => {
 
   return (
     <Container>
-      <button onClick={handleCancel} id="close-button">
+      <button onClick={handleCloseModal} id="close-button">
         <img src={close} alt="botão de fechar" />
       </button>
 

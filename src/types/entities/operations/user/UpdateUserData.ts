@@ -1,6 +1,9 @@
+import { AccountType } from 'types/AccountType';
+
 export interface UpdateUserData {
   name: string;
   email: string;
-  oldPassword: string;
-  newPassword: string;
+  accountType: AccountType;
+  oldPassword?: string;
+  password?: string;
 }
