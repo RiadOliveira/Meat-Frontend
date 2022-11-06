@@ -9,7 +9,7 @@ export const NewMember: React.FC = () => {
   return (
     <Container>
       <CloseButton />
-      <img src={newMember} alt="Icone novo membro" />
+      <img src={newMember} alt="Ícone novo membro" />
       <label>Cadastre um novo membro</label>
       <form>
         <FormField label="Nome" />

@@ -11,7 +11,7 @@ export const EditMember: React.FC = () => {
   return (
     <Container>
       <CloseButton />
-      <img src={iconUser} alt="Icone novo membro" />
+      <img src={iconUser} alt="Ícone novo membro" />
       <label>Alterar dados</label>
       <form>
         <FormField label="Novo nome" />
@@ -20,11 +20,11 @@ export const EditMember: React.FC = () => {
         <FormField label="Confirme sua nova senha" />
       </form>
       <Button type="submit" id="updateMemberInfo">
-        <img src={iconEditWhite} alt="Icone alterar" />
+        <img src={iconEditWhite} alt="Ícone alterar" />
         Alterar
       </Button>
       <Button type="submit" id="deleteMemberConfirm">
-        <img src={thrashWhite} alt="Icone alterar" />
+        <img src={thrashWhite} alt="Ícone alterar" />
         Excluir conta
       </Button>
     </Container>

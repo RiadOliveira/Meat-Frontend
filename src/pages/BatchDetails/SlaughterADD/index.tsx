@@ -16,7 +16,7 @@ export const SlaughterADD: React.FC<SlaughterADDProps> = ({ handleCancel }) => {
         <img src={close} alt="botão de fechar" />
       </button>
       <div id="header">
-        <img id="image" src={iconSlaughter} alt="Icone Forma de Abate" />
+        <img id="image" src={iconSlaughter} alt="Ícone Forma de Abate" />
         <span id="title">Editar Forma de Abate</span>
       </div>
       <form>

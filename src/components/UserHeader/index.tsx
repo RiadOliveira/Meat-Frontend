@@ -50,7 +50,7 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
               type="button"
               onClick={() => setIsVisible(isVisible => !isVisible)}
             >
-              <img src={iconUser} alt="Icone do usuario"></img>
+              <img src={iconUser} alt="Ícone do usuario"></img>
               <div>
                 <span id="user-name">{userData!.name}</span>
                 <h2 id="user-role">

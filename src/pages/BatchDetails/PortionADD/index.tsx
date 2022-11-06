@@ -16,7 +16,7 @@ export const PortionADD: React.FC<PortionADDProps> = ({ handleCancel }) => {
         <img src={close} alt="botão de fechar" />
       </button>
       <div id="header">
-        <img id="image" src={iconPortion} alt="Icone Rações" />
+        <img id="image" src={iconPortion} alt="Ícone Rações" />
         <span id="title">Adicionar Rações</span>
       </div>
       <form>

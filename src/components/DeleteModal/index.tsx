@@ -12,7 +12,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({ handleCancel }) => {
     <Container>
       <main>
         <div>
-          <img src={iconDelete} alt="Icone Deletar"></img>
+          <img src={iconDelete} alt="Ícone Deletar"></img>
           <span>Tem certeza que deseja excluir?</span>
         </div>
         <div>

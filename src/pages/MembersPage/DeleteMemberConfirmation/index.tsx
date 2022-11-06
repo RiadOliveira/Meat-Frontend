@@ -6,9 +6,9 @@ export const DeleteMemberConfirmation: React.FC = () => {
   return (
     <Container>
       <div id="labelInfo">
-          <img src={iconThrash} alt="Icone lixeira" />
-          <label>Tem certeza que deseja excluir essa conta?</label>
-        </div>
+        <img src={iconThrash} alt="Ícone lixeira" />
+        <label>Tem certeza que deseja excluir essa conta?</label>
+      </div>
       <form>
         <div id="buttons">
           <Button type="submit">Cancelar</Button>

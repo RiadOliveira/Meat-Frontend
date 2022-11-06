@@ -157,7 +157,7 @@ export const NewBatchModal: React.FC<NewBatchModalProps> = ({
           <img
             id="image"
             src={animalIcons[selectedAnimalType].icon}
-            alt="Icone Animal"
+            alt="Ícone Animal"
           />
           <button
             type="button"
@@ -166,7 +166,7 @@ export const NewBatchModal: React.FC<NewBatchModalProps> = ({
               setIsVisibleOptions(isVisibleOptions => !isVisibleOptions)
             }
           >
-            <img id="image" src={downArrow} alt="Icone seta" />
+            <img id="image" src={downArrow} alt="Ícone seta" />
           </button>
           <ImgSelectOptions isVisibleOptions={isVisibleOptions}>
             {ANIMAL_ICONS_ENTRIES.map(([key, { icon }]) => (

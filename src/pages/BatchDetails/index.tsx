@@ -101,7 +101,7 @@ export const BatchDetails: React.FC = () => {
       <UserHeader pageBatch></UserHeader>
       <main>
         <Button id="finish-batch">
-          <img src={iconBatch} alt="Icone Lote" />
+          <img src={iconBatch} alt="Ícone Lote" />
           Finalizar Lote
         </Button>
         <CardBatch>
@@ -124,7 +124,7 @@ export const BatchDetails: React.FC = () => {
                     <img
                       id="image"
                       src={animalIcons[animal].icon}
-                      alt="Icone de Porco"
+                      alt="Ícone de Porco"
                     />
                     <BatchTextTitle id="header-title">
                       <div>
@@ -132,7 +132,7 @@ export const BatchDetails: React.FC = () => {
                           {name}
                         </Title>
                         <button onClick={() => setsetEditBatchIsVisible(true)}>
-                          <img src={iconEdit} alt="Icone Editar"></img>
+                          <img src={iconEdit} alt="Ícone Editar"></img>
                         </button>
                       </div>
                       <BatchSpacingTextLine>
@@ -176,7 +176,7 @@ export const BatchDetails: React.FC = () => {
 
           <BatchAtributeTable id="portion">
             <TitleBatchTable backgroundcolor={palette.yellow}>
-              <img src={iconPortion} alt="Icone Rações" />
+              <img src={iconPortion} alt="Ícone Rações" />
               <span id="title">Rações</span>
             </TitleBatchTable>
             {Portion.map(({ id, name, portionBatch, batchId }) => (
@@ -186,10 +186,10 @@ export const BatchDetails: React.FC = () => {
                 <span>{portionBatch}</span>
                 <div>
                   <button>
-                    <img src={iconEdit} alt="Icone Editar"></img>
+                    <img src={iconEdit} alt="Ícone Editar"></img>
                   </button>
                   <button onClick={() => setDeleteModalIsVisible(true)}>
-                    <img src={iconDelete} alt="Icone Deletar"></img>
+                    <img src={iconDelete} alt="Ícone Deletar"></img>
                   </button>
                 </div>
               </LineBatchTable>
@@ -211,7 +211,7 @@ export const BatchDetails: React.FC = () => {
 
           <BatchAtributeTable id="vaccination">
             <TitleBatchTable backgroundcolor={palette.green}>
-              <img src={iconVaccination} alt="Icone Vacinas" />
+              <img src={iconVaccination} alt="Ícone Vacinas" />
               <span id="title">Vacinas</span>
             </TitleBatchTable>
             {Vaccination.map(({ id, name, vaccinationBatch, batchId }) => (
@@ -221,10 +221,10 @@ export const BatchDetails: React.FC = () => {
                 <span>{vaccinationBatch}</span>
                 <div>
                   <button>
-                    <img src={iconEdit} alt="Icone Editar"></img>
+                    <img src={iconEdit} alt="Ícone Editar"></img>
                   </button>
                   <button onClick={() => setDeleteModalIsVisible(true)}>
-                    <img src={iconDelete} alt="Icone Deletar"></img>
+                    <img src={iconDelete} alt="Ícone Deletar"></img>
                   </button>
                 </div>
               </LineBatchTable>
@@ -236,7 +236,7 @@ export const BatchDetails: React.FC = () => {
 
           <BatchAtributeTable id="slaughter">
             <TitleBatchTable backgroundcolor={palette.pink}>
-              <img src={iconSlaughter} alt="Icone Abate" />
+              <img src={iconSlaughter} alt="Ícone Abate" />
               <span id="title">Abate</span>
             </TitleBatchTable>
             {Slaughter.map(
@@ -249,7 +249,7 @@ export const BatchDetails: React.FC = () => {
                         <span>{slaughterDate}</span>
                       </BatchTextLine>
                       <button onClick={() => setSlaughterADDIsVisible(true)}>
-                        <img src={iconEdit} alt="Icone Editar"></img>
+                        <img src={iconEdit} alt="Ícone Editar"></img>
                       </button>
                     </div>
                     <BatchTextLine id="slaughter-data">

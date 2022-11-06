@@ -1,9 +1,9 @@
-import x from 'assets/img/x.svg';
+import closeIcon from 'assets/img/close.svg';
 
 export const CloseButton: React.FC = () => {
-  return(
+  return (
     <button id="closeButton">
-        <img src={x} alt="closeIcon" />
-      </button>
+      <img src={closeIcon} alt="Ícone fechar" />
+    </button>
   );
-}
+};

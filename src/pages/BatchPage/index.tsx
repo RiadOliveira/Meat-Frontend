@@ -65,7 +65,7 @@ export const BatchPage: React.FC = () => {
           id="new-batch"
           onClick={() => setIsModalVisible(true)}
         >
-          <img src={iconBatch} alt="Icone Lote" />
+          <img src={iconBatch} alt="Ícone Lote" />
           Novo Lote
         </Button>
         <CardsBatch>
@@ -91,7 +91,7 @@ export const BatchPage: React.FC = () => {
                     <img
                       id="image"
                       src={animalIcons[animal].icon}
-                      alt="Icone Animal"
+                      alt="Ícone Animal"
                     />
                     <BatchTextTitle>
                       <Title id="title" fontColor={animalIcons[animal].color}>

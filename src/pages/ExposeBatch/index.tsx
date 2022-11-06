@@ -107,7 +107,7 @@ export const ExposeBatch: React.FC = () => {
                     <img
                       id="image"
                       src={animalIcons[animal].icon}
-                      alt="Icone de Porco"
+                      alt="Ícone de Porco"
                     />
                     <BatchTextTitle id="header-title">
                       <Title id="title" fontColor={animalIcons[animal].color}>
@@ -154,7 +154,7 @@ export const ExposeBatch: React.FC = () => {
 
           <BatchAtributeTable id="portion">
             <TitleBatchTable backgroundcolor={palette.yellow}>
-              <img src={iconPortion} alt="Icone Rações" />
+              <img src={iconPortion} alt="Ícone Rações" />
               <span id="title">Rações</span>
             </TitleBatchTable>
             {Portion.map(({ id, name, portionBatch, batchId }) => (
@@ -168,7 +168,7 @@ export const ExposeBatch: React.FC = () => {
 
           <BatchAtributeTable id="vaccination">
             <TitleBatchTable backgroundcolor={palette.green}>
-              <img src={iconVaccination} alt="Icone Vacinas" />
+              <img src={iconVaccination} alt="Ícone Vacinas" />
               <span id="title">Vacinas</span>
             </TitleBatchTable>
             {Vaccination.map(({ id, name, vaccinationBatch, batchId }) => (
@@ -182,7 +182,7 @@ export const ExposeBatch: React.FC = () => {
 
           <BatchAtributeTable id="slaughter">
             <TitleBatchTable backgroundcolor={palette.pink}>
-              <img src={iconSlaughter} alt="Icone Abate" />
+              <img src={iconSlaughter} alt="Ícone Abate" />
               <span id="title">Abate</span>
             </TitleBatchTable>
             {Slaughter.map(

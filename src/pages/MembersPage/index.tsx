@@ -51,7 +51,7 @@ export const MembersPage: React.FC = () => {
       <UserHeader />
       <main>
         <Button id="new-member">
-          <img src={iconMember} alt="Icone Membro" />
+          <img src={iconMember} alt="Ícone Membro" />
           Novo Membro
         </Button>
         <MembersTable>
@@ -59,7 +59,7 @@ export const MembersPage: React.FC = () => {
             <span id="companyName">{HeaderInfo.companyName}</span>
           </MembersHeader>
           <MembersLine id="producer">
-            <img src={iconUser} alt="Icone do usuario"></img>
+            <img src={iconUser} alt="Ícone do usuario"></img>
             <MembersLineText>
               <span id="name">{HeaderInfo.producer}</span>
               <span id="accountType">{HeaderInfo.producerAccountType}</span>
@@ -68,14 +68,14 @@ export const MembersPage: React.FC = () => {
           {Members.map(({ id, name, accountType }) => (
             <MembersLine key={id}>
               <div id="member">
-                <img src={iconUser} alt="Icone do usuario"></img>
+                <img src={iconUser} alt="Ícone do usuario"></img>
                 <MembersLineText>
                   <span id="name">{name}</span>
                   <span id="accountType">{accountType}</span>
                 </MembersLineText>
               </div>
               <button>
-                <img src={iconEdit} alt="Icone Editar" />
+                <img src={iconEdit} alt="Ícone Editar" />
               </button>
             </MembersLine>
           ))}
