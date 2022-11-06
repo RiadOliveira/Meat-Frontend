@@ -43,22 +43,20 @@ export const HeaderBar = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (min-width: 1064px) {
-    margin-left: 10vw;
-    margin-right: 10vw;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0px;
-  }
-
   #logo-meat {
     width: 200px;
     height: 100px;
     margin-top: 2vh;
   }
 
-  #logo {
-    @media (min-width: 1064px) {
+  @media (min-width: 1064px) {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0px;
+
+    #logo {
       min-width: calc(50% - 170px);
     }
   }
@@ -69,20 +67,21 @@ export const HeaderToolsBar = styled.div`
   flex-direction: column;
   align-items: center;
 
+  #tools-button {
+    width: 340px;
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
   @media (min-width: 1064px) {
     width: calc(50% + 170px);
     min-width: 640px;
     flex-direction: row-reverse;
     justify-content: space-between;
     margin-top: -16px;
-  }
 
-  #tools-button {
-    width: 340px;
-    display: flex;
-    justify-content: center;
-    margin-top: 8px;
-    @media (min-width: 1064px) {
+    #tools-button {
       justify-content: space-between;
     }
   }
@@ -106,6 +105,7 @@ export const UserButton = styled.button`
     height: 54px;
     margin-top: 0;
   }
+
   &:hover {
     background-color: ${shade(0.1, palette.white)};
   }

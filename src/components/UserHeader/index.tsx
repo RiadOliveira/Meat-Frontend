@@ -1,7 +1,7 @@
-//import { Container, HeaderBar, HeaderToolsBar, ToolsBarButton, UserOptionsButton } from './styles';
 import logoMeat from 'assets/img/logoMeat.svg';
 import returnArrow from 'assets/img/returnArrow.svg';
 import iconUser from 'assets/img/iconUser.svg';
+
 import { palette } from 'assets/colors/palette';
 import { routesAddresses } from 'routes/routesAddresses';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +16,8 @@ import {
 import { useState } from 'react';
 import { Modal } from 'components/Modal';
 import { ChangePasswordModal } from './ChangePasswordModal';
+import { useAuth } from 'hooks/auth';
+import { getBrazilianAccountType } from 'utils/getBrazilianAccountType';
 
 interface PageBatch {
   pageBatch?: boolean;
@@ -23,6 +25,8 @@ interface PageBatch {
 
 export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
   const history = useHistory();
+  const { userData, signOut } = useAuth();
+
   const [isVisible, setIsVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -48,19 +52,18 @@ export const UserHeader: React.FC<PageBatch> = ({ pageBatch }) => {
             >
               <img src={iconUser} alt="Icone do usuario"></img>
               <div>
-                <span id="user-name">Mari Fernandez</span>
-
-                <h2 id="user-role">Responsável</h2>
+                <span id="user-name">{userData!.name}</span>
+                <h2 id="user-role">
+                  {getBrazilianAccountType(userData!.accountType)}
+                </h2>
               </div>
             </UserButton>
             <UserOptions isVisible={isVisible}>
               <button onClick={() => setIsModalVisible(true)}>
                 Trocar Senha
               </button>
-              <button
-                id="logout"
-                onClick={() => history.push(routesAddresses.homePage)}
-              >
+
+              <button id="logout" onClick={signOut}>
                 Sair
               </button>
             </UserOptions>
