@@ -32,6 +32,7 @@ import { Modal } from 'components/Modal';
 import { DeleteModal } from 'components/DeleteModal';
 import { useState } from 'react';
 import { EditBatch } from './EditBatch';
+import { SlaughterADD } from './SlaughterADD';
 
 const Batch = [
   {
@@ -83,14 +84,15 @@ const Slaughter = [
 
 export const BatchDetails: React.FC = () => {
   const [DeleteModalIsVisible, setDeleteModalIsVisible] = useState(false);
-  const [setEditBatchIsVisible, setsetEditBatchIsVisible] = useState(false);
+  const [editBatchIsVisible, setsetEditBatchIsVisible] = useState(false);
+  const [slaughterADDIsVisible, setSlaughterADDIsVisible] = useState(false);
 
   return (
     <Container>
       <Modal isVisible={DeleteModalIsVisible}>
         <DeleteModal handleCancel={() => setDeleteModalIsVisible(false)} />
       </Modal>
-      <Modal isVisible={setEditBatchIsVisible}>
+      <Modal isVisible={editBatchIsVisible}>
         <EditBatch handleCancel={() => setsetEditBatchIsVisible(false)} />
       </Modal>
       <UserHeader pageBatch></UserHeader>
@@ -228,13 +230,18 @@ export const BatchDetails: React.FC = () => {
               ({ id, method, slaughterDate, description, batchId }) => (
                 <div key={id}>
                   <SlaughterData>
+                    <div id="separate">
+                      <BatchTextLine id="slaughter-data">
+                        <span id="topic">Data do Abate: &nbsp;</span>
+                        <span>{slaughterDate}</span>
+                      </BatchTextLine>
+                      <button onClick={() => setSlaughterADDIsVisible(true)}>
+                        <img src={iconEdit} alt="Icone Editar"></img>
+                      </button>
+                    </div>
                     <BatchTextLine id="slaughter-data">
                       <span id="topic">Metodo de Abate: &nbsp;</span>
                       <span>{method}</span>
-                    </BatchTextLine>
-                    <BatchTextLine id="slaughter-data">
-                      <span id="topic">Data do Abate: &nbsp;</span>
-                      <span>{slaughterDate}</span>
                     </BatchTextLine>
                     <div id="slaughter-data">
                       <span id="topic">Descrição: &nbsp;</span>
@@ -244,9 +251,11 @@ export const BatchDetails: React.FC = () => {
                 </div>
               ),
             )}
-            <ButtonAdd>
-              <Button backgroundColor={palette.beige}>Adicionar</Button>
-            </ButtonAdd>
+            <Modal isVisible={slaughterADDIsVisible}>
+              <SlaughterADD
+                handleCancel={() => setSlaughterADDIsVisible(false)}
+              ></SlaughterADD>
+            </Modal>
           </BatchAtributeTable>
         </CardBatch>
       </main>

@@ -161,7 +161,7 @@ export const BatchTextTitle = styled.div`
     justify-content: space-between;
   }
   button {
-    width: 40px;
+    width: 28px;
     height: 40px;
 
     display: flex;
@@ -313,12 +313,10 @@ export const ButtonAdd = styled.div`
 `;
 
 export const SlaughterData = styled.div`
-  padding-left: 32px;
-  padding-right: 32px;
-  padding-top: 8px;
-
+  padding: 8px 32px 24px 32px;
   span {
     color: ${palette.blue};
+    text-align: center;
   }
 
   #slaughter-data {
@@ -328,5 +326,36 @@ export const SlaughterData = styled.div`
   #topic {
     color: ${palette.blueHigh};
     font-weight: 500;
+  }
+
+  #separate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  button {
+    width: 28px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+
+    &:hover {
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    img {
+      width: 28px;
+      height: 28px;
+
+      transition: 0.2s;
+    }
   }
 `;

@@ -8,6 +8,7 @@ import close from 'assets/img/close.svg';
 import { FormSelect } from 'components/FormField/FormSelect/styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import iconUser from 'assets/img/iconUser.svg';
 
 interface NewBatchProps {
   handleCancel: () => void;
@@ -85,16 +86,17 @@ export const NewBatch: React.FC<NewBatchProps> = ({ handleCancel }) => {
                 key={key}
                 id="optionButton"
                 type="button"
-                onClick={() =>
-                  setIsVisibleOptions(
-                    false,
-                    setSelectedAnimalType(key as unknown as AnimalType),
-                  )
-                }
+                onClick={() => {
+                  setIsVisibleOptions(false);
+                  setSelectedAnimalType(key as unknown as AnimalType);
+                }}
               >
                 <img src={icon} alt={key} />
               </button>
             ))}
+            <button id="optionButton" type="button">
+              <img src={iconUser} />
+            </button>
           </ImgSelectOptions>
         </ImgSelect>
         <FormField label="Nome" />

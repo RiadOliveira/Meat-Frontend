@@ -8,8 +8,6 @@ import close from 'assets/img/close.svg';
 import { FormSelect } from 'components/FormField/FormSelect/styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import iconEdit from 'assets/img/iconEdit.svg';
-import iconDelete from 'assets/img/iconDelete.svg';
 import { palette } from 'assets/colors/palette';
 
 interface EditBatchProps {
@@ -88,12 +86,10 @@ export const EditBatch: React.FC<EditBatchProps> = ({ handleCancel }) => {
                 key={key}
                 id="optionButton"
                 type="button"
-                onClick={() =>
-                  setIsVisibleOptions(
-                    false,
-                    setSelectedAnimalType(key as unknown as AnimalType),
-                  )
-                }
+                onClick={() => {
+                  setIsVisibleOptions(false);
+                  setSelectedAnimalType(key as unknown as AnimalType);
+                }}
               >
                 <img src={icon} alt={key} />
               </button>
