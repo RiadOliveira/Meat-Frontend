@@ -1,5 +1,5 @@
 import { palette } from 'assets/colors/palette';
-import styled, { css, withTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.section`
@@ -19,13 +19,7 @@ export const Container = styled.section`
   input {
     width: 288px;
   }
-  form {
-    max-width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
+
   #close-button {
     position: absolute;
     background-color: transparent;
@@ -61,6 +55,14 @@ export const Container = styled.section`
       }
     }
   }
+`;
+
+export const FormContainer = styled.div`
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 `;
 
 export const ImgSelect = styled.section`

@@ -9,8 +9,12 @@ const servicesPrefix = '/batch';
 
 export const createBatch = async (
   createBatchData: CreateBatchData,
-): Promise<IBatch> => {
-  const { data } = await api.post<IBatch>(servicesPrefix, createBatchData);
+): Promise<BatchDataListedFromCompany> => {
+  const { data } = await api.post<BatchDataListedFromCompany>(
+    servicesPrefix,
+    createBatchData,
+  );
+
   return data;
 };
 

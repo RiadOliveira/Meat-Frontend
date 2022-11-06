@@ -6,6 +6,7 @@ type BatchData = Omit<
   'endingDate' | 'idOfUserThatMadeLastChange' | 'companyId'
 >;
 
-export interface CreateBatchData extends BatchData {
+export interface CreateBatchData extends Omit<BatchData, 'creationDate'> {
   userId: string;
+  creationDate: Date;
 }

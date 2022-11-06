@@ -1,5 +1,5 @@
 import { palette } from 'assets/colors/palette';
-import { InputHTMLAttributes, useCallback, useRef } from 'react';
+import { InputHTMLAttributes, useCallback } from 'react';
 import { ReactInputState } from 'types/ReactInputState';
 import { InputErrorMessageStyle, InputStyles } from './styles';
 
@@ -16,8 +16,6 @@ export const Input: React.FC<InputProps> = ({
   style,
   ...props
 }) => {
-  const inputContainerRef = useRef<HTMLDivElement>(null);
-
   const handleOnChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
       mainFunction(value);
@@ -27,7 +25,7 @@ export const Input: React.FC<InputProps> = ({
   );
 
   return (
-    <div ref={inputContainerRef} style={style}>
+    <div style={style}>
       <InputErrorMessageStyle>{errorValue}</InputErrorMessageStyle>
 
       <InputStyles

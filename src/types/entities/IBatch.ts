@@ -9,6 +9,6 @@ export interface IBatch extends IEntity {
   animal: AnimalType;
   idOfUserThatMadeLastChange: string;
   companyId: string;
-  creationDate: Date;
-  endingDate?: Date;
+  creationDate: string;
+  endingDate?: string;
 }

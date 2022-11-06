@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { palette } from 'assets/colors/palette';
 
 interface InputStyleProps {
@@ -16,18 +16,11 @@ export const InputStyles = styled.input<InputStyleProps>`
   font-size: 20px;
   display: inline-block;
   transition: 0.3s;
+  border: 2px solid ${({ borderColor }) => borderColor || 'transparent'};
 
-  ${({ borderColor }) => {
-    const borderStyle = `border: 2px solid ${borderColor || 'transparent'};`;
-
-    return css`
-      ${borderStyle}
-
-      &:hover {
-        border: 2px solid ${palette.pink};
-      }
-    `;
-  }}
+  &:hover {
+    border: 2px solid ${palette.pink};
+  }
 
   &::placeholder {
     color: ${palette.blueHigh};

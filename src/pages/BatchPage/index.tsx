@@ -17,92 +17,59 @@ import iconBatch from 'assets/img/iconBatch.svg';
 import { UserHeader } from 'components/UserHeader';
 import { routesAddresses } from 'routes/routesAddresses';
 import { animalIcons } from 'assets/animalIcons/animalIcons';
-import { AnimalType } from 'types/AnimalType';
 import { Modal } from 'components/Modal';
-import { NewBatch } from 'pages/BatchPage/NewBatch';
-import { DeleteModal } from '../../components/DeleteModal';
-import { useState } from 'react';
-
-const TESTE = [
-  {
-    id: 1,
-    animal: AnimalType.PIG,
-    name: 'Fazenda Feliz - Porcos 24',
-    race: 'Suino',
-    city: 'Limoeiro',
-    state: 'PE',
-    lastModification: 'João Gomes',
-    updatedAt: '13/12/2022',
-    createDate: '05/04/2022',
-    endingDate: '11/12/2022',
-  },
-  {
-    id: 2,
-    animal: AnimalType.COW,
-    name: 'peixe',
-    race: 'Suino',
-    city: 'Limoeiro',
-    state: 'PE',
-    lastModification: 'João Gomes',
-    updatedAt: '13/12/2022',
-    createDate: '05/04/2022',
-    endingDate: '13/12/2022',
-  },
-  {
-    id: 2,
-    animal: AnimalType.CHICKEN,
-    name: 'Fazenda Feliz - Porcos 69',
-    race: 'Suino',
-    city: 'Limoeiro',
-    state: 'PE',
-    lastModification: 'João Gomes',
-    updatedAt: '13/12/2022',
-    createDate: '05/04/2022',
-    endingDate: '13/12/2022',
-  },
-  {
-    id: 2,
-    animal: AnimalType.FISH,
-    name: 'Fazenda Feliz - Porcos 69',
-    race: 'Suino',
-    city: 'Limoeiro',
-    state: 'PE',
-    lastModification: 'João Gomes',
-    updatedAt: '13/12/2022',
-    createDate: '05/04/2022',
-    endingDate: '13/12/2022',
-  },
-  {
-    id: 2,
-    animal: AnimalType.OTHER,
-    name: 'Fazenda Feliz - Porcos 69',
-    race: 'Suino',
-    city: 'Limoeiro',
-    state: 'PE',
-    lastModification: 'João Gomes',
-    updatedAt: '13/12/2022',
-    createDate: '05/04/2022',
-    endingDate: '13/12/2022',
-  },
-];
+import { NewBatchModal } from 'pages/BatchPage/NewBatchModal';
+import { useCallback, useEffect, useState } from 'react';
+import { createBatch, listBatchesFromCompany } from 'services/batchServices';
+import { useAuth } from 'hooks/auth';
+import { format } from 'date-fns';
+import { BatchDataListedFromCompany } from 'types/entities/operations/batch/BatchDataListedFromCompany';
+import { CreateBatchData } from 'types/entities/operations/batch/CreateBatchData';
 
 export const BatchPage: React.FC = () => {
   const history = useHistory();
+  const { userData } = useAuth();
+
+  const [batches, setBatches] = useState<BatchDataListedFromCompany[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    listBatchesFromCompany(userData?.companyId as string).then(setBatches);
+  }, [userData?.companyId]);
+
+  const handleCreateNewBatch = useCallback(
+    async (newBatchData: Omit<CreateBatchData, 'userId'>) => {
+      const createdBatch = await createBatch({
+        ...newBatchData,
+        userId: userData!.id,
+      });
+      setBatches(previousBatches => [...previousBatches, createdBatch]);
+    },
+    [userData],
+  );
 
   return (
     <Container>
       <Modal isVisible={isModalVisible}>
-        <NewBatch handleCancel={() => setIsModalVisible(false)} />
+        <NewBatchModal
+          handleCreateNewBatch={handleCreateNewBatch}
+          handleCloseModal={() => setIsModalVisible(false)}
+          handleCancel={() => setIsModalVisible(false)}
+        />
       </Modal>
       <UserHeader pageBatch />
+
       <main>
-        <Button id="new-batch" onClick={() => setIsModalVisible(true)}>
+        <Button
+          type="button"
+          id="new-batch"
+          onClick={() => setIsModalVisible(true)}
+        >
           <img src={iconBatch} alt="Icone Lote" />
           Novo Lote
         </Button>
         <CardsBatch>
-          {TESTE.map(
+          {batches.map(
             ({
               id,
               animal,
@@ -110,10 +77,10 @@ export const BatchPage: React.FC = () => {
               race,
               city,
               state,
-              lastModification,
               updatedAt,
-              createDate,
+              creationDate,
               endingDate,
+              userThatMadeLastChange: { name: nameUserThatMadeLastChange },
             }) => (
               <button
                 key={id}
@@ -140,25 +107,32 @@ export const BatchPage: React.FC = () => {
                       </BatchSpacingTextLine>
                     </BatchTextTitle>
                   </BatchCardsHeader>
+
                   <BatchModification>
                     <BatchSubtitle>
                       <span id="subtitle">Ultima Alteração:</span>
                     </BatchSubtitle>
                     <BatchSpacingTextLine>
-                      <span id="data">{lastModification}</span>
-                      <span id="data">{updatedAt}</span>
+                      <span id="data">{nameUserThatMadeLastChange}</span>
+                      <span id="data">
+                        {format(new Date(updatedAt), 'dd/MM/yyyy')}
+                      </span>
                     </BatchSpacingTextLine>
                   </BatchModification>
+
                   <BatchStatus>
                     <BatchSpacingTextLine>
                       <BatchTextLine>
                         <span id="subtitle">Inicio: &nbsp; </span>
-                        <span id="data"> {createDate}</span>
+                        <span id="data">{creationDate}</span>
                       </BatchTextLine>
-                      <BatchTextLine>
-                        <span id="subtitle">Fim: &nbsp; </span>
-                        <span id="data">{endingDate}</span>
-                      </BatchTextLine>
+
+                      {!!endingDate && (
+                        <BatchTextLine>
+                          <span id="subtitle">Fim: &nbsp; </span>
+                          <span id="data">{endingDate}</span>
+                        </BatchTextLine>
+                      )}
                     </BatchSpacingTextLine>
                   </BatchStatus>
                 </BatchData>

@@ -90,7 +90,7 @@ export const HomePage: React.FC = () => {
           </Button>
 
           <Button
-            type="submit"
+            type="button"
             backgroundColor={palette.pink}
             onClick={handleSubmitLogin}
           >
