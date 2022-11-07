@@ -146,6 +146,7 @@ export const BatchCardsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 16px;
+
   @media (min-width: 960px) {
     gap: 32px;
   }
@@ -160,6 +161,7 @@ export const BatchTextTitle = styled.div`
     display: flex;
     justify-content: space-between;
   }
+
   button {
     width: 28px;
     height: 40px;
@@ -186,6 +188,12 @@ export const BatchTextTitle = styled.div`
     }
   }
 `;
+
+export const BatchOperationButtons = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
 export const BatchSpacingTextLine = styled.div`
   display: flex;
   justify-content: space-between;
@@ -197,11 +205,13 @@ export const BatchSpacingTextLine = styled.div`
     }
   }
 `;
+
 export const BatchSubtitle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `;
+
 export const BatchTextLine = styled.div`
   display: flex;
 `;

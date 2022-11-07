@@ -19,7 +19,7 @@ import { UserHeader } from 'components/UserHeader';
 import { routesAddresses } from 'routes/routesAddresses';
 import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { Modal } from 'components/Modal';
-import { CreateBatchModal } from 'pages/BatchPage/CreateBatchModal';
+import { CreateBatchModal } from 'pages/BatchesPage/CreateBatchModal';
 import { useCallback, useEffect, useState } from 'react';
 import { createBatch, listBatchesFromCompany } from 'services/batchServices';
 import { useAuth } from 'hooks/auth';
@@ -27,7 +27,7 @@ import { format } from 'date-fns';
 import { BatchDataListedFromCompany } from 'types/entities/operations/batch/BatchDataListedFromCompany';
 import { CreateBatchData } from 'types/entities/operations/batch/CreateBatchData';
 
-export const BatchPage: React.FC = () => {
+export const BatchesPage: React.FC = () => {
   const history = useHistory();
   const { userData } = useAuth();
 

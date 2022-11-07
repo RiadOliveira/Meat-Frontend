@@ -24,6 +24,7 @@ import {
   SlaughterData,
   Title,
   TitleBatchTable,
+  BatchOperationButtons,
 } from './styles';
 import { format } from 'date-fns';
 import { UserHeader } from 'components/UserHeader';
@@ -33,16 +34,33 @@ import { Button } from 'components/Button/styles';
 import { Modal } from 'components/Modal';
 import { DeleteModal } from 'components/DeleteModal';
 import { useCallback, useEffect, useState } from 'react';
-import { CreatePortionModal } from './CreatePortionModal';
-import { CreateSlaughterModal } from './CreateSlaughterModal';
+import { HandlePortionModal } from './HandlePortionModal';
+import { HandleSlaughterModal } from './HandleSlaughterModal';
 import { EditBatchModal } from './EditBatchModal';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { routesAddresses } from 'routes/routesAddresses';
 import { IBatchWithRelatedEntities } from 'types/entities/IBatchWithRelatedEntities';
-import { findBatchById, updateBatch } from 'services/batchServices';
+import {
+  deleteBatch,
+  findBatchById,
+  updateBatch,
+} from 'services/batchServices';
 import { AnimalType } from 'types/AnimalType';
 import { UpdateBatchData } from 'types/entities/operations/batch/UpdateBatchData';
 import { useAuth } from 'hooks/auth';
+import { deleteVaccination } from 'services/vaccinationServices';
+import {
+  createPortion,
+  deletePortion,
+  updatePortion,
+} from 'services/portionServices';
+import { HandleVaccinationModal } from './HandleVaccinationModal';
+import { CreatePortionData } from 'types/entities/operations/portion/CreatePortionData';
+import { UpdatePortionData } from 'types/entities/operations/portion/UpdatePortionData';
+
+const DEFAULT_MODAL_DELETE_FUNCTION = async () => {
+  null;
+};
 
 export const BatchDetails: React.FC = () => {
   const { batchId } = useParams() as { batchId: string };
@@ -53,12 +71,28 @@ export const BatchDetails: React.FC = () => {
 
   const [batch, setBatch] = useState<IBatchWithRelatedEntities | null>(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [modalDeleteFunction, setModalDeleteFunction] = useState<
+    () => Promise<void>
+  >(DEFAULT_MODAL_DELETE_FUNCTION);
   const [isEditBatchModalVisible, setIsEditBatchModalVisible] = useState(false);
 
-  const [isCreatePortionModalVisible, setIsCreatePortionModalVisible] =
+  const [isHandleVaccinationModalVisible, setIsHandleVaccinationModalVisible] =
     useState(false);
-  const [isCreateSlaughterModalVisible, setIsCreateSlaughterModalVisible] =
+  const [selectedVaccinationIndex, setSelectedVaccinationIndex] = useState<
+    number | null
+  >(null);
+
+  const [isHandlePortionModalVisible, setIsHandlePortionModalVisible] =
     useState(false);
+  const [selectedPortionIndex, setSelectedPortionIndex] = useState<
+    number | null
+  >(null);
+
+  const [isHandleSlaughterModalVisible, setIsHandleSlaughterModalVisible] =
+    useState(false);
+  const [selectedSlaughterIndex, setSelectedSlaughterIndex] = useState<
+    number | null
+  >(null);
 
   useEffect(() => {
     findBatchById(batchId)
@@ -83,14 +117,91 @@ export const BatchDetails: React.FC = () => {
     [batchId, userData],
   );
 
+  const handleCreatePortion = useCallback(
+    async (portionData: Omit<CreatePortionData, 'userId' | 'batchId'>) => {
+      const createdPortion = await createPortion({
+        ...portionData,
+        userId: userData!.id,
+        batchId,
+      });
+
+      setBatch(previousBatch => {
+        if (previousBatch === null) return null;
+
+        const { portions } = previousBatch;
+        return { ...previousBatch, portions: [...portions, createdPortion] };
+      });
+    },
+    [batchId, userData],
+  );
+
+  const handleUpdatePortion = useCallback(
+    async (
+      portionId: string,
+      portionData: Omit<UpdatePortionData, 'userId'>,
+    ) => {
+      const updatedPortion = await updatePortion(portionId, {
+        ...portionData,
+        userId: userData!.id,
+      });
+
+      setBatch(previousBatch => {
+        if (previousBatch === null) return null;
+
+        const { portions } = previousBatch;
+        const parsedPortions = portions.map(portion =>
+          portion.id === portionId ? updatedPortion : portion,
+        );
+
+        return { ...previousBatch, portions: parsedPortions };
+      });
+    },
+    [userData],
+  );
+
+  const handleDeletePortion = useCallback(
+    async (portionId: string) => {
+      await deletePortion(portionId, userData!.id);
+      setBatch(previousValue => {
+        if (previousValue === null) return null;
+
+        const { portions } = previousValue;
+        const parsedPortions = portions.filter(({ id }) => id !== portionId);
+
+        return { ...previousValue, portions: parsedPortions };
+      });
+    },
+    [userData],
+  );
+
+  const handleDeleteVaccination = useCallback(
+    async (vaccinationId: string) => {
+      await deleteVaccination(vaccinationId, userData!.id);
+      setBatch(previousValue => {
+        if (previousValue === null) return null;
+
+        const { vaccinations } = previousValue;
+        const parsedVaccinations = vaccinations.filter(
+          ({ id }) => id !== vaccinationId,
+        );
+
+        return { ...previousValue, vaccinations: parsedVaccinations };
+      });
+    },
+    [userData],
+  );
+
+  const handleDeleteBatch = useCallback(async () => {
+    await deleteBatch(batchId, userData!.id);
+    history.push(routesAddresses.batch);
+  }, [batchId, history, userData]);
+
   if (batch === null) return null;
   return (
     <Container>
       <Modal isVisible={isDeleteModalVisible}>
         <DeleteModal
-          handleDelete={async () => {
-            console.log('');
-          }}
+          handleDelete={modalDeleteFunction}
           handleCloseModal={() => setIsDeleteModalVisible(false)}
         />
       </Modal>
@@ -103,18 +214,38 @@ export const BatchDetails: React.FC = () => {
         />
       </Modal>
 
-      <Modal isVisible={isCreateSlaughterModalVisible}>
-        <CreateSlaughterModal
-          handleCloseModal={() => setIsCreateSlaughterModalVisible(false)}
+      <Modal isVisible={isHandleVaccinationModalVisible}>
+        <HandleVaccinationModal
+          handleCloseModal={() => setIsHandleVaccinationModalVisible(false)}
         />
       </Modal>
-      <UserHeader pageBatch></UserHeader>
+
+      <Modal isVisible={isHandleSlaughterModalVisible}>
+        <HandleSlaughterModal
+          handleCloseModal={() => setIsHandleSlaughterModalVisible(false)}
+        />
+      </Modal>
+
+      <Modal isVisible={isHandlePortionModalVisible}>
+        <HandlePortionModal
+          portionToChange={
+            selectedPortionIndex === null
+              ? undefined
+              : batch.portions[selectedPortionIndex]
+          }
+          handleCreatePortion={handleCreatePortion}
+          handleUpdatePortion={handleUpdatePortion}
+          handleCloseModal={() => setIsHandlePortionModalVisible(false)}
+        />
+      </Modal>
+      <UserHeader pageBatch />
 
       <main>
         <Button id="finish-batch">
           <img src={iconBatch} alt="Ícone Lote" />
           Finalizar Lote
         </Button>
+
         <CardBatch>
           <BatchDetailsHeader>
             <BatchData>
@@ -122,7 +253,7 @@ export const BatchDetails: React.FC = () => {
                 <img
                   id="image"
                   src={animalIcons[batch.animal ?? AnimalType.OTHER].icon}
-                  alt="Ícone de Porco"
+                  alt="Ícone animal"
                 />
                 <BatchTextTitle id="header-title">
                   <div>
@@ -134,10 +265,18 @@ export const BatchDetails: React.FC = () => {
                     >
                       {batch.name}
                     </Title>
-                    <button onClick={() => setIsEditBatchModalVisible(true)}>
-                      <img src={iconEdit} alt="Ícone Editar"></img>
-                    </button>
+
+                    <BatchOperationButtons>
+                      <button onClick={() => setIsEditBatchModalVisible(true)}>
+                        <img src={iconEdit} alt="Ícone Editar" />
+                      </button>
+
+                      <button onClick={() => setIsEditBatchModalVisible(true)}>
+                        <img src={iconDelete} alt="Ícone Deletar" />
+                      </button>
+                    </BatchOperationButtons>
                   </div>
+
                   <BatchSpacingTextLine>
                     <span id="data">{batch.race}</span>
                     <BatchTextLine>
@@ -148,6 +287,7 @@ export const BatchDetails: React.FC = () => {
                   </BatchSpacingTextLine>
                 </BatchTextTitle>
               </BatchCardsHeader>
+
               <div id="desktopAdjustment">
                 <BatchModification>
                   <BatchSubtitle>
@@ -185,34 +325,44 @@ export const BatchDetails: React.FC = () => {
               <img src={iconPortion} alt="Ícone Rações" />
               <span id="title">Rações</span>
             </TitleBatchTable>
-            {batch.portions.map(({ id, name, portionBatch }) => (
+
+            {batch.portions.map(({ id, name, portionBatch }, index) => (
               <LineBatchTable key={id}>
                 <span>{name}</span>
                 <span>-</span>
                 <span>{portionBatch}</span>
+
                 <div>
-                  <button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPortionIndex(index);
+                      setIsHandlePortionModalVisible(true);
+                    }}
+                  >
                     <img src={iconEdit} alt="Ícone Editar"></img>
                   </button>
-                  <button onClick={() => setIsDeleteModalVisible(true)}>
+                  <button
+                    type="button"
+                    onClick={() => setIsDeleteModalVisible(true)}
+                  >
                     <img src={iconDelete} alt="Ícone Deletar"></img>
                   </button>
                 </div>
               </LineBatchTable>
             ))}
+
             <ButtonAdd>
               <Button
                 backgroundColor={palette.beige}
-                onClick={() => setIsCreatePortionModalVisible(true)}
+                onClick={() => {
+                  setSelectedPortionIndex(null);
+                  setIsHandlePortionModalVisible(true);
+                }}
               >
                 Adicionar
               </Button>
             </ButtonAdd>
-            <Modal isVisible={isCreatePortionModalVisible}>
-              <CreatePortionModal
-                handleCloseModal={() => setIsCreatePortionModalVisible(false)}
-              />
-            </Modal>
           </BatchTableAttribute>
 
           <BatchTableAttribute id="vaccination">
@@ -220,23 +370,37 @@ export const BatchDetails: React.FC = () => {
               <img src={iconVaccination} alt="Ícone Vacinas" />
               <span id="title">Vacinas</span>
             </TitleBatchTable>
+
             {batch.vaccinations.map(({ id, name, vaccinationBatch }) => (
               <LineBatchTable key={id}>
                 <span>{name}</span>
                 <span>-</span>
                 <span>{vaccinationBatch}</span>
                 <div>
-                  <button>
-                    <img src={iconEdit} alt="Ícone Editar"></img>
+                  <button
+                    type="button"
+                    onClick={() => setIsHandleVaccinationModalVisible(true)}
+                  >
+                    <img src={iconEdit} alt="Ícone Editar" />
                   </button>
-                  <button onClick={() => setIsDeleteModalVisible(true)}>
-                    <img src={iconDelete} alt="Ícone Deletar"></img>
+                  <button
+                    type="button"
+                    onClick={() => setIsDeleteModalVisible(true)}
+                  >
+                    <img src={iconDelete} alt="Ícone Deletar" />
                   </button>
                 </div>
               </LineBatchTable>
             ))}
+
             <ButtonAdd>
-              <Button backgroundColor={palette.beige}>Adicionar</Button>
+              <Button
+                type="button"
+                backgroundColor={palette.beige}
+                onClick={() => setIsHandleVaccinationModalVisible(true)}
+              >
+                Adicionar
+              </Button>
             </ButtonAdd>
           </BatchTableAttribute>
 
@@ -247,29 +411,30 @@ export const BatchDetails: React.FC = () => {
             </TitleBatchTable>
 
             {batch.slaughter && (
-              <div>
-                <SlaughterData>
-                  <div id="separate">
-                    <BatchTextLine id="slaughter-data">
-                      <span id="topic">Data do Abate: &nbsp;</span>
-                      <span>{batch.slaughter.slaughterDate}</span>
-                    </BatchTextLine>
-                    <button
-                      onClick={() => setIsCreateSlaughterModalVisible(true)}
-                    >
-                      <img src={iconEdit} alt="Ícone Editar" />
-                    </button>
-                  </div>
+              <SlaughterData>
+                <div id="separate">
                   <BatchTextLine id="slaughter-data">
-                    <span id="topic">Metodo de Abate: &nbsp;</span>
-                    <span>{batch.slaughter.method}</span>
+                    <span id="topic">Data do Abate: &nbsp;</span>
+                    <span>{batch.slaughter.slaughterDate}</span>
                   </BatchTextLine>
-                  <div id="slaughter-data">
-                    <span id="topic">Descrição: &nbsp;</span>
-                    <span>{batch.slaughter.description}</span>
-                  </div>
-                </SlaughterData>
-              </div>
+
+                  <button
+                    onClick={() => setIsHandleSlaughterModalVisible(true)}
+                  >
+                    <img src={iconEdit} alt="Ícone Editar" />
+                  </button>
+                </div>
+
+                <BatchTextLine id="slaughter-data">
+                  <span id="topic">Metodo de Abate: &nbsp;</span>
+                  <span>{batch.slaughter.method}</span>
+                </BatchTextLine>
+
+                <div id="slaughter-data">
+                  <span id="topic">Descrição: &nbsp;</span>
+                  <span>{batch.slaughter.description}</span>
+                </div>
+              </SlaughterData>
             )}
           </BatchTableAttribute>
         </CardBatch>

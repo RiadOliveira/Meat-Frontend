@@ -1,6 +1,6 @@
 import { HomePage } from 'pages/HomePage';
 import { SignUpPage } from 'pages/SignUpPage';
-import { BatchPage } from 'pages/BatchPage';
+import { BatchesPage } from 'pages/BatchesPage';
 import { BatchDetails } from 'pages/BatchDetails';
 import { MembersPage } from 'pages/MembersPage';
 import { ExposeBatch } from 'pages/ExposeBatch';
@@ -22,7 +22,7 @@ export const Routes: React.FC = () => {
           exact
           isPrivate
           path={routesAddresses.batch}
-          component={BatchPage}
+          component={BatchesPage}
         />
         <Route
           exact

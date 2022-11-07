@@ -23,10 +23,12 @@ export const Container = styled.section`
     justify-content: space-between;
     gap: 16px;
   }
+
   img {
     width: 72px;
     height: 72px;
   }
+
   span {
     text-align: center;
 

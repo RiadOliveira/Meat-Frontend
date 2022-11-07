@@ -2,19 +2,20 @@ import { Container } from './styles';
 import { palette } from 'assets/colors/palette';
 import { FormField } from 'components/FormField';
 import { Button } from 'components/Button/styles';
-import iconPortion from 'assets/img/iconPortion.svg';
+import iconSlaughter from 'assets/img/iconSlaughter.svg';
 import close from 'assets/img/close.svg';
 import { useInputStates } from 'utils/useInputStates';
 
-interface CreatePortionModalProps {
+interface HandleSlaughterModalProps {
   handleCloseModal: () => void;
 }
 
-export const CreatePortionModal: React.FC<CreatePortionModalProps> = ({
+export const HandleSlaughterModal: React.FC<HandleSlaughterModalProps> = ({
   handleCloseModal,
 }) => {
-  const nameStates = useInputStates('name');
-  const portionBatchStates = useInputStates('portionBatch');
+  const slaughterDateStates = useInputStates('slaughterDate');
+  const methodStates = useInputStates('method');
+  const descriptionStates = useInputStates('description');
 
   return (
     <Container>
@@ -22,12 +23,17 @@ export const CreatePortionModal: React.FC<CreatePortionModalProps> = ({
         <img src={close} alt="botão de fechar" />
       </button>
       <div id="header">
-        <img id="image" src={iconPortion} alt="Ícone Rações" />
-        <span id="title">Adicionar Rações</span>
+        <img id="image" src={iconSlaughter} alt="Ícone Forma de Abate" />
+        <span id="title">Editar Forma de Abate</span>
       </div>
       <form>
-        <FormField states={nameStates} label="Nome" />
-        <FormField states={portionBatchStates} label="Lote Ração" />
+        <FormField
+          states={slaughterDateStates}
+          type="date"
+          label="Data do Abate"
+        />
+        <FormField states={methodStates} label="Forma de Abate" />
+        <FormField states={descriptionStates} label="Descrição" />
         <div id="separator" />
         <div id="in-line">
           <Button
