@@ -2,16 +2,16 @@ import { ICompany } from 'types/entities/ICompany';
 import { IUser } from 'types/entities/IUser';
 import { OmitDefaultEntityProperties } from 'types/entities/OmitDefaultEntityProperties';
 
-type CreationCompany = Omit<
+export type CompanyCreationData = Omit<
   OmitDefaultEntityProperties<ICompany>,
   'producerId'
 >;
 
-type CreationProducer = Omit<
+export type ProducerCreationData = Omit<
   OmitDefaultEntityProperties<IUser>,
   'companyId' | 'accountType'
 >;
 
-export interface CreateCompanyData extends CreationCompany {
-  producer: CreationProducer;
+export interface CreateCompanyData extends CompanyCreationData {
+  producer: ProducerCreationData;
 }

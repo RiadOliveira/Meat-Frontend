@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-router-dom": "^5.2.0",
+    "remask": "^0.1.0-alpha.5",
     "styled-components": "^5.3.5",
     "yup": "^0.32.11"
   },
