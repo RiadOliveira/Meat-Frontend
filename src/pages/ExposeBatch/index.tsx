@@ -25,6 +25,11 @@ import { palette } from 'assets/colors/palette';
 import iconPortion from 'assets/img/iconPortion.svg';
 import iconVaccination from 'assets/img/iconVaccination.svg';
 import iconSlaughter from 'assets/img/iconSlaughter.svg';
+import qrCodeIcon from 'assets/img/QRCodeIcon.svg';
+import { Button } from 'components/Button/styles';
+import { Modal } from 'components/Modal';
+import QrCode from 'components/QrCode';
+import { CloseButton } from 'components/CloseButton';
 
 const Batch = [
   {
@@ -78,6 +83,12 @@ const Slaughter = [
 export const ExposeBatch: React.FC = () => {
   return (
     <Container>
+      <Modal isVisible>
+        <section id="modalQRCode">
+          <h2>QR Code gerado!</h2>
+          <QrCode />
+        </section>
+      </Modal>
       <Header hasArrow />
       <main>
         <CardBatch>
@@ -207,6 +218,10 @@ export const ExposeBatch: React.FC = () => {
             )}
           </BatchAtributeTable>
         </CardBatch>
+        <Button>
+          <img src={qrCodeIcon} alt="QR code icon" />
+          Gerar QR Code
+        </Button>
       </main>
       <Footer />
     </Container>

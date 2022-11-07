@@ -2,19 +2,16 @@ import { palette } from 'assets/colors/palette';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: ${palette.blueLow};
-  width: 100%;
-  font-size: 10px;
-
-  main {
+  .qr-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    min-height: 85vh;
-  }
+    gap: 0px;
 
-  #qrCode{
-    margin-top: 50px;
+    Button{
+      color: ${palette.white};
+      margin-top: 20px;
+    }
   }
-
 `;

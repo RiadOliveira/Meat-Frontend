@@ -10,6 +10,23 @@ export const Container = styled.div`
   color: ${palette.blueHigh};
   background: ${palette.blueLow};
 
+  #modalQRCode{
+    width: 320px;
+    height: 68%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: ${palette.white};
+    border-radius: 12px;  
+
+    h2{
+      color: ${palette.blueHigh}; 
+    }
+  }
+
+
   main {
     min-height: calc(100% - 269px);
     display: flex;
@@ -17,6 +34,19 @@ export const Container = styled.div`
     align-items: center;
     margin: 24px;
     margin-bottom: 56px;
+  }
+
+  Button{
+    width: 240px;
+    height: 60px;
+    padding: 10px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 17pt;
+    color: black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 `;
 
