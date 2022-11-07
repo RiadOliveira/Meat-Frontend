@@ -72,7 +72,7 @@ export const Container = styled.div`
       align-items: center;
       gap: 36px;
       font-size: 32px;
-      margin: 24px;
+      margin-top: 24px;
 
       img {
         width: 72px;
@@ -82,7 +82,7 @@ export const Container = styled.div`
       @media (min-width: 960px) {
         width: 340px;
         height: 64px;
-        margin: 20px;
+        margin-top: 20px;
         font-size: 24px;
 
         img {
@@ -100,6 +100,7 @@ export const CardBatch = styled.div`
 
   background-color: ${palette.white};
   border-radius: 12px;
+  margin-top: 24px;
 
   display: flex;
   flex-direction: column;
@@ -107,6 +108,7 @@ export const CardBatch = styled.div`
   flex: 1;
 
   @media (min-width: 960px) {
+    margin-top: 20px;
     min-width: 80vw;
   }
 

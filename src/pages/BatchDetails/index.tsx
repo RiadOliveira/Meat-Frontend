@@ -83,6 +83,8 @@ export const BatchDetails: React.FC = () => {
   const { userData } = useAuth();
 
   const [batch, setBatch] = useState<IBatchWithRelatedEntities | null>(null);
+  const batchIsFinished = !!batch?.endingDate;
+
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isQRCodeModalVisible, setIsQRCodeModalVisible] = useState(false);
 
@@ -307,6 +309,36 @@ export const BatchDetails: React.FC = () => {
     [userData],
   );
 
+  const handleFinishBatch = useCallback(async () => {
+    if (batch === null) return;
+    if (batch.portions.length === 0) {
+      alert('Necessário informar ao menos uma ração!');
+      return;
+    }
+
+    if (batch.vaccinations.length === 0) {
+      alert('Necessário informar ao menos uma vacinação!');
+      return;
+    }
+
+    if (!batch.slaughter) {
+      alert('Forma de abate não especificada!');
+      return;
+    }
+
+    const { endingDate } = await updateBatch(batchId, {
+      ...batch,
+      endingDate: new Date(),
+      userId: userData!.id,
+    });
+
+    setBatch(previousValue => {
+      if (previousValue === null) return null;
+      return { ...previousValue, endingDate };
+    });
+    alert('Lote finalizado com sucesso!');
+  }, [batch, batchId, userData]);
+
   const handleDeleteBatch = useCallback(async () => {
     await deleteBatch(batchId, userData!.id);
     history.push(routesAddresses.batch);
@@ -383,10 +415,12 @@ export const BatchDetails: React.FC = () => {
       <UserHeader pageBatch />
 
       <main>
-        <Button id="finish-batch">
-          <img src={iconBatch} alt="Ícone Lote" />
-          Finalizar Lote
-        </Button>
+        {!batchIsFinished && (
+          <Button id="finish-batch" type="button" onClick={handleFinishBatch}>
+            <img src={iconBatch} alt="Ícone Lote" />
+            Finalizar Lote
+          </Button>
+        )}
 
         <CardBatch>
           <BatchDetailsHeader>
@@ -409,11 +443,17 @@ export const BatchDetails: React.FC = () => {
                     </Title>
 
                     <BatchOperationButtons>
-                      <button onClick={() => setIsEditBatchModalVisible(true)}>
-                        <img src={iconEdit} alt="Ícone Editar" />
-                      </button>
+                      {!batchIsFinished && (
+                        <button
+                          type="button"
+                          onClick={() => setIsEditBatchModalVisible(true)}
+                        >
+                          <img src={iconEdit} alt="Ícone Editar" />
+                        </button>
+                      )}
 
                       <button
+                        type="button"
                         onClick={() => handleShowDeleteModal(handleDeleteBatch)}
                       >
                         <img src={iconDelete} alt="Ícone Deletar" />
@@ -478,30 +518,40 @@ export const BatchDetails: React.FC = () => {
                 <span>-</span>
                 <span>{portionBatch}</span>
 
-                <div>
-                  <button type="button" onClick={() => showPortionModal(index)}>
-                    <img src={iconEdit} alt="Ícone Editar"></img>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleShowDeleteModal(async () => handleDeletePortion(id))
-                    }
-                  >
-                    <img src={iconDelete} alt="Ícone Deletar"></img>
-                  </button>
-                </div>
+                {!batchIsFinished && (
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => showPortionModal(index)}
+                    >
+                      <img src={iconEdit} alt="Ícone Editar"></img>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleShowDeleteModal(async () =>
+                          handleDeletePortion(id),
+                        )
+                      }
+                    >
+                      <img src={iconDelete} alt="Ícone Deletar"></img>
+                    </button>
+                  </div>
+                )}
               </LineBatchTable>
             ))}
 
-            <ButtonAdd>
-              <Button
-                backgroundColor={palette.beige}
-                onClick={() => showPortionModal()}
-              >
-                Adicionar
-              </Button>
-            </ButtonAdd>
+            {!batchIsFinished && (
+              <ButtonAdd>
+                <Button
+                  type="button"
+                  backgroundColor={palette.beige}
+                  onClick={() => showPortionModal()}
+                >
+                  Adicionar
+                </Button>
+              </ButtonAdd>
+            )}
           </BatchTableAttribute>
 
           <BatchTableAttribute id="vaccination">
@@ -515,36 +565,41 @@ export const BatchDetails: React.FC = () => {
                 <span>{name}</span>
                 <span>-</span>
                 <span>{vaccinationBatch}</span>
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => showVaccinationModal(index)}
-                  >
-                    <img src={iconEdit} alt="Ícone Editar" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleShowDeleteModal(async () =>
-                        handleDeleteVaccination(id),
-                      )
-                    }
-                  >
-                    <img src={iconDelete} alt="Ícone Deletar" />
-                  </button>
-                </div>
+
+                {!batchIsFinished && (
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => showVaccinationModal(index)}
+                    >
+                      <img src={iconEdit} alt="Ícone Editar" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleShowDeleteModal(async () =>
+                          handleDeleteVaccination(id),
+                        )
+                      }
+                    >
+                      <img src={iconDelete} alt="Ícone Deletar" />
+                    </button>
+                  </div>
+                )}
               </LineBatchTable>
             ))}
 
-            <ButtonAdd>
-              <Button
-                type="button"
-                backgroundColor={palette.beige}
-                onClick={() => showVaccinationModal()}
-              >
-                Adicionar
-              </Button>
-            </ButtonAdd>
+            {!batchIsFinished && (
+              <ButtonAdd>
+                <Button
+                  type="button"
+                  backgroundColor={palette.beige}
+                  onClick={() => showVaccinationModal()}
+                >
+                  Adicionar
+                </Button>
+              </ButtonAdd>
+            )}
           </BatchTableAttribute>
 
           <BatchTableAttribute id="slaughter">
@@ -561,12 +616,14 @@ export const BatchDetails: React.FC = () => {
                     <span>{batch.slaughter.slaughterDate}</span>
                   </BatchTextLine>
 
-                  <button
-                    type="button"
-                    onClick={() => setIsHandleSlaughterModalVisible(true)}
-                  >
-                    <img src={iconEdit} alt="Ícone Editar" />
-                  </button>
+                  {!batchIsFinished && (
+                    <button
+                      type="button"
+                      onClick={() => setIsHandleSlaughterModalVisible(true)}
+                    >
+                      <img src={iconEdit} alt="Ícone Editar" />
+                    </button>
+                  )}
                 </div>
 
                 <BatchTextLine id="slaughter-data">
