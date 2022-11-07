@@ -55,7 +55,6 @@ export const BatchPage: React.FC = () => {
         <CreateBatchModal
           handleCreateNewBatch={handleCreateNewBatch}
           handleCloseModal={() => setIsModalVisible(false)}
-          handleCancel={() => setIsModalVisible(false)}
         />
       </Modal>
       <UserHeader pageBatch />

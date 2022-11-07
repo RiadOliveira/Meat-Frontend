@@ -2,16 +2,31 @@ import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { Button } from 'components/Button/styles';
 import { FormField } from 'components/FormField';
 import { AnimalType } from 'types/AnimalType';
-import { Container, ImgSelect, ImgSelectOptions } from './styles';
-import downArrow from 'assets/img/downArrow.svg';
-import close from 'assets/img/close.svg';
+import {
+  Container,
+  FormContainer,
+  ImgSelect,
+  ImgSelectOptions,
+} from './styles';
 import { FormSelect } from 'components/FormField/FormSelect/styles';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { palette } from 'assets/colors/palette';
+import { useCallback, useEffect, useState } from 'react';
 import { useInputStates } from 'utils/useInputStates';
 
+import * as yup from 'yup';
+import downArrow from 'assets/img/downArrow.svg';
+import close from 'assets/img/close.svg';
+import axios from 'axios';
+import { yupRequiredStringField } from 'types/yupRequiredStringField';
+import { getInputStateValue } from 'utils/getInputStateValue';
+import { useFormError } from 'errors/useFormError';
+import { IBatch } from 'types/entities/IBatch';
+import { UpdateBatchData } from 'types/entities/operations/batch/UpdateBatchData';
+
 interface EditBatchModalProps {
+  batchToEdit: IBatch;
+  handleUpdateBatch: (
+    updatedBatch: Omit<UpdateBatchData, 'userId'>,
+  ) => Promise<void>;
   handleCloseModal: () => void;
 }
 
@@ -28,20 +43,32 @@ interface ICity {
 const ANIMAL_ICONS_ENTRIES = Object.entries(animalIcons);
 
 export const EditBatchModal: React.FC<EditBatchModalProps> = ({
+  batchToEdit,
+  handleUpdateBatch,
   handleCloseModal,
 }) => {
-  const nameStates = useInputStates('name');
-  const raceStates = useInputStates('race');
+  const { handleFormError } = useFormError();
 
   const [states, setStates] = useState<IState[]>([]);
   const [cities, setCities] = useState<ICity[]>([]);
-  const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
+  const [isOptionsVisible, setIsOptionsVisible] = useState(false);
+  const [selectedStateIndex, setSelectedStateIndex] = useState<number>(-1);
+  const [selectedCityIndex, setSelectedCityIndex] = useState<number>(-1);
 
   const [selectedAnimalType, setSelectedAnimalType] = useState<AnimalType>(
     AnimalType.OTHER,
   );
 
-  const [isVisibleOptions, setIsVisibleOptions] = useState(false);
+  const nameStates = useInputStates('name');
+  const raceStates = useInputStates('race');
+
+  useEffect(() => {
+    nameStates.mainState.setFunction(batchToEdit.name);
+    raceStates.mainState.setFunction(batchToEdit.race);
+    raceStates.mainState.setFunction(batchToEdit.race);
+    setSelectedAnimalType(batchToEdit.animal);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [batchToEdit]);
 
   useEffect(() => {
     axios
@@ -49,20 +76,72 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
         'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
       )
       .then(({ data }) => {
+        const stateIndex = data.findIndex(
+          ({ sigla }) => sigla === batchToEdit.state,
+        );
+        setSelectedStateIndex(stateIndex);
         setStates(data);
-        setSelectedStateId(data[0].id);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (states.length === 0) return;
+    const selectedStateId = states[selectedStateIndex].id;
 
     axios
       .get<ICity[]>(
         `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedStateId}/municipios`,
       )
-      .then(({ data }) => setCities(data));
-  }, [selectedStateId, states]);
+      .then(({ data }) => {
+        const cityIndex = data.findIndex(
+          ({ nome }) => nome === batchToEdit.city,
+        );
+        setSelectedCityIndex(cityIndex);
+        setCities(data);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedStateIndex, states]);
+
+  const handleUpdateBatchButtonClick = useCallback(async () => {
+    const schema = yup.object().shape({
+      name: yupRequiredStringField,
+      race: yupRequiredStringField,
+      state: yupRequiredStringField,
+      city: yupRequiredStringField,
+    });
+
+    const parsedBatchData = {
+      name: getInputStateValue(nameStates),
+      race: getInputStateValue(raceStates),
+      state: states[selectedStateIndex].sigla,
+      city: cities[selectedCityIndex].nome,
+      animal: selectedAnimalType,
+    };
+
+    try {
+      await schema.validate(parsedBatchData, { abortEarly: false });
+      await handleUpdateBatch(parsedBatchData);
+
+      handleCloseModal();
+    } catch (error) {
+      handleFormError(error as Error | yup.ValidationError, [
+        nameStates,
+        raceStates,
+      ]);
+    }
+  }, [
+    cities,
+    handleCloseModal,
+    handleFormError,
+    handleUpdateBatch,
+    nameStates,
+    raceStates,
+    selectedAnimalType,
+    selectedCityIndex,
+    selectedStateIndex,
+    states,
+  ]);
 
   return (
     <Container>
@@ -70,7 +149,7 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
         <img src={close} alt="botão de fechar" />
       </button>
 
-      <form>
+      <FormContainer>
         <ImgSelect>
           <img
             id="image"
@@ -79,21 +158,21 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
           />
           <button
             type="button"
-            id="openOptionButton"
+            id="OpenOptionButton"
             onClick={() =>
-              setIsVisibleOptions(isVisibleOptions => !isVisibleOptions)
+              setIsOptionsVisible(isOptionsVisible => !isOptionsVisible)
             }
           >
             <img id="image" src={downArrow} alt="Ícone seta" />
           </button>
-          <ImgSelectOptions isVisibleOptions={isVisibleOptions}>
+          <ImgSelectOptions isOptionsVisible={isOptionsVisible}>
             {ANIMAL_ICONS_ENTRIES.map(([key, { icon }]) => (
               <button
                 key={key}
                 className="optionButton"
                 type="button"
                 onClick={() => {
-                  setIsVisibleOptions(false);
+                  setIsOptionsVisible(false);
                   setSelectedAnimalType(key as unknown as AnimalType);
                 }}
               >
@@ -102,17 +181,19 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
             ))}
           </ImgSelectOptions>
         </ImgSelect>
+
         <FormField states={nameStates} label="Nome" />
         <FormField states={raceStates} label="Raça" />
         <div id="in-line">
           <FormSelect id="state">
             <select
+              value={selectedStateIndex}
               onChange={({ target: { value } }) =>
-                setSelectedStateId(Number(value))
+                setSelectedStateIndex(Number(value))
               }
             >
-              {states.map(({ id, sigla }) => (
-                <option key={id} value={id}>
+              {states.map(({ id, sigla }, index) => (
+                <option key={id} value={index}>
                   {sigla}
                 </option>
               ))}
@@ -120,9 +201,14 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
             <label>Estado</label>
           </FormSelect>
           <FormSelect id="city">
-            <select>
-              {cities.map(({ id, nome }) => (
-                <option key={id} value={id}>
+            <select
+              value={selectedCityIndex}
+              onChange={({ target: { value } }) =>
+                setSelectedCityIndex(Number(value))
+              }
+            >
+              {cities.map(({ id, nome }, index) => (
+                <option key={id} value={index}>
                   {nome}
                 </option>
               ))}
@@ -130,15 +216,12 @@ export const EditBatchModal: React.FC<EditBatchModalProps> = ({
             <label>Cidade</label>
           </FormSelect>
         </div>
-        <div id="separator" />
 
-        <div id="in-line">
-          <Button type="submit" backgroundColor={palette.pink}>
-            Excluir
-          </Button>
-          <Button type="submit">Alterar</Button>
-        </div>
-      </form>
+        <div id="separator" />
+        <Button type="button" onClick={handleUpdateBatchButtonClick}>
+          Alterar
+        </Button>
+      </FormContainer>
     </Container>
   );
 };

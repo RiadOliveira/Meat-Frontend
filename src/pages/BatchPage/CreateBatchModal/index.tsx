@@ -26,7 +26,6 @@ interface CreateBatchModalProps {
     newBatchData: Omit<CreateBatchData, 'userId'>,
   ) => Promise<void>;
   handleCloseModal: () => void;
-  handleCancel: () => void;
 }
 
 interface IState {
@@ -43,7 +42,6 @@ const ANIMAL_ICONS_ENTRIES = Object.entries(animalIcons);
 
 export const CreateBatchModal: React.FC<CreateBatchModalProps> = ({
   handleCreateNewBatch,
-  handleCancel,
   handleCloseModal,
 }) => {
   const { handleFormError } = useFormError();
@@ -148,7 +146,7 @@ export const CreateBatchModal: React.FC<CreateBatchModalProps> = ({
 
   return (
     <Container>
-      <button onClick={handleCancel} id="close-button">
+      <button onClick={handleCloseModal} id="close-button">
         <img src={close} alt="botão de fechar" />
       </button>
 

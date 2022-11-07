@@ -2,6 +2,10 @@ import { palette } from 'assets/colors/palette';
 import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
+interface ImgSelectOptionsProps {
+  isOptionsVisible: boolean;
+}
+
 export const Container = styled.section`
   width: 400px;
   min-height: 400px;
@@ -19,13 +23,7 @@ export const Container = styled.section`
   input {
     width: 288px;
   }
-  form {
-    max-width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
+
   #close-button {
     position: absolute;
     background-color: transparent;
@@ -44,6 +42,7 @@ export const Container = styled.section`
   #separator {
     height: 18px;
   }
+
   #in-line {
     display: flex;
     align-items: center;
@@ -62,6 +61,14 @@ export const Container = styled.section`
   }
 `;
 
+export const FormContainer = styled.div`
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+`;
+
 export const ImgSelect = styled.section`
   width: 96px;
   height: 96px;
@@ -77,7 +84,7 @@ export const ImgSelect = styled.section`
     width: 96px;
     height: 96px;
   }
-  #openOptionButton {
+  #OpenOptionButton {
     width: 36px;
     height: 36px;
 
@@ -109,11 +116,7 @@ export const ImgSelect = styled.section`
   }
 `;
 
-interface SelectOptionsProps {
-  isVisibleOptions: boolean;
-}
-
-export const ImgSelectOptions = styled.div<SelectOptionsProps>`
+export const ImgSelectOptions = styled.div<ImgSelectOptionsProps>`
   width: 300px;
   height: 200px;
   background: ${palette.white};
@@ -156,8 +159,8 @@ export const ImgSelectOptions = styled.div<SelectOptionsProps>`
   transition: 0.5s;
   z-index: 10;
 
-  ${({ isVisibleOptions }) =>
-    isVisibleOptions
+  ${({ isOptionsVisible }) =>
+    isOptionsVisible
       ? css`
           visibility: visible;
           opacity: 1;

@@ -32,21 +32,25 @@ import { palette } from 'assets/colors/palette';
 import { Button } from 'components/Button/styles';
 import { Modal } from 'components/Modal';
 import { DeleteModal } from 'components/DeleteModal';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { CreatePortionModal } from './CreatePortionModal';
 import { CreateSlaughterModal } from './CreateSlaughterModal';
 import { EditBatchModal } from './EditBatchModal';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { routesAddresses } from 'routes/routesAddresses';
 import { IBatchWithRelatedEntities } from 'types/entities/IBatchWithRelatedEntities';
-import { findBatchById } from 'services/batchServices';
+import { findBatchById, updateBatch } from 'services/batchServices';
 import { AnimalType } from 'types/AnimalType';
+import { UpdateBatchData } from 'types/entities/operations/batch/UpdateBatchData';
+import { useAuth } from 'hooks/auth';
 
 export const BatchDetails: React.FC = () => {
   const { batchId } = useParams() as { batchId: string };
   if (!batchId) return <Redirect to={routesAddresses.homePage} />;
 
   const history = useHistory();
+  const { userData } = useAuth();
+
   const [batch, setBatch] = useState<IBatchWithRelatedEntities | null>(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isEditBatchModalVisible, setIsEditBatchModalVisible] = useState(false);
@@ -62,6 +66,23 @@ export const BatchDetails: React.FC = () => {
       .catch(() => history.push(routesAddresses.homePage));
   }, [batchId, history]);
 
+  const handleUpdateBatch = useCallback(
+    async (updatedBatchData: Omit<UpdateBatchData, 'userId'>) => {
+      const updatedBatch = await updateBatch(batchId, {
+        ...updatedBatchData,
+        userId: userData!.id,
+      });
+
+      setBatch(previousValue => ({
+        ...previousValue!,
+        ...updatedBatch,
+        creationDate: previousValue!.creationDate,
+      }));
+      setIsEditBatchModalVisible(false);
+    },
+    [batchId, userData],
+  );
+
   if (batch === null) return null;
   return (
     <Container>
@@ -76,6 +97,8 @@ export const BatchDetails: React.FC = () => {
 
       <Modal isVisible={isEditBatchModalVisible}>
         <EditBatchModal
+          batchToEdit={batch}
+          handleUpdateBatch={handleUpdateBatch}
           handleCloseModal={() => setIsEditBatchModalVisible(false)}
         />
       </Modal>
