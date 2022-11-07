@@ -33,9 +33,9 @@ import { deleteUser, updateUser } from 'services/userServices';
 export const MembersPage: React.FC = () => {
   const { userData } = useAuth();
 
-  const [selectedMemberIndex, setSelectedMemberIndex] = useState<number | null>(
-    null,
-  );
+  const [selectedMemberIndex, setSelectedMemberIndex] = useState<
+    number | undefined
+  >(undefined);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isHandleMemberModalVisible, setIsHandleMemberModalVisible] =
     useState(false);
@@ -56,7 +56,7 @@ export const MembersPage: React.FC = () => {
   }, [userData]);
 
   useEffect(() => {
-    setSelectedMemberIndex(null);
+    setSelectedMemberIndex(undefined);
     setIsDeleteModalVisible(false);
     setIsHandleMemberModalVisible(false);
   }, [companyMembers]);
@@ -87,7 +87,7 @@ export const MembersPage: React.FC = () => {
   );
 
   const handleDeleteMember = useCallback(async () => {
-    if (selectedMemberIndex === null) return;
+    if (selectedMemberIndex === undefined) return;
 
     const { id: memberToDeleteId } = companyMembers[selectedMemberIndex];
     await deleteUser(memberToDeleteId);
@@ -111,7 +111,7 @@ export const MembersPage: React.FC = () => {
           handleCreateMember={handleCreateMember}
           handleUpdateMember={handleUpdateMember}
           memberToChange={
-            selectedMemberIndex === null
+            selectedMemberIndex === undefined
               ? undefined
               : companyMembers[selectedMemberIndex]
           }
@@ -125,7 +125,7 @@ export const MembersPage: React.FC = () => {
           id="new-member"
           type="button"
           onClick={() => {
-            setSelectedMemberIndex(null);
+            setSelectedMemberIndex(undefined);
             setIsHandleMemberModalVisible(true);
           }}
         >

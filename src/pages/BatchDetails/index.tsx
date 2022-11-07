@@ -48,7 +48,11 @@ import {
 import { AnimalType } from 'types/AnimalType';
 import { UpdateBatchData } from 'types/entities/operations/batch/UpdateBatchData';
 import { useAuth } from 'hooks/auth';
-import { deleteVaccination } from 'services/vaccinationServices';
+import {
+  createVaccination,
+  deleteVaccination,
+  updateVaccination,
+} from 'services/vaccinationServices';
 import {
   createPortion,
   deletePortion,
@@ -57,6 +61,8 @@ import {
 import { HandleVaccinationModal } from './HandleVaccinationModal';
 import { CreatePortionData } from 'types/entities/operations/portion/CreatePortionData';
 import { UpdatePortionData } from 'types/entities/operations/portion/UpdatePortionData';
+import { CreateVaccinationData } from 'types/entities/operations/vaccination/CreateVaccinationData';
+import { UpdateVaccinationData } from 'types/entities/operations/vaccination/UpdateVaccinationData';
 
 const DEFAULT_MODAL_DELETE_FUNCTION = async () => {
   null;
@@ -79,20 +85,20 @@ export const BatchDetails: React.FC = () => {
   const [isHandleVaccinationModalVisible, setIsHandleVaccinationModalVisible] =
     useState(false);
   const [selectedVaccinationIndex, setSelectedVaccinationIndex] = useState<
-    number | null
-  >(null);
+    number | undefined
+  >(undefined);
 
   const [isHandlePortionModalVisible, setIsHandlePortionModalVisible] =
     useState(false);
   const [selectedPortionIndex, setSelectedPortionIndex] = useState<
-    number | null
-  >(null);
+    number | undefined
+  >(undefined);
 
   const [isHandleSlaughterModalVisible, setIsHandleSlaughterModalVisible] =
     useState(false);
   const [selectedSlaughterIndex, setSelectedSlaughterIndex] = useState<
-    number | null
-  >(null);
+    number | undefined
+  >(undefined);
 
   useEffect(() => {
     findBatchById(batchId)
@@ -116,6 +122,12 @@ export const BatchDetails: React.FC = () => {
     },
     [batchId, userData],
   );
+
+  // Portions
+  const showPortionModal = useCallback((indexToSelect?: number) => {
+    setSelectedPortionIndex(indexToSelect);
+    setIsHandlePortionModalVisible(true);
+  }, []);
 
   const handleCreatePortion = useCallback(
     async (portionData: Omit<CreatePortionData, 'userId' | 'batchId'>) => {
@@ -174,6 +186,59 @@ export const BatchDetails: React.FC = () => {
     [userData],
   );
 
+  // Vaccinations
+  const showVaccinationModal = useCallback((indexToSelect?: number) => {
+    setSelectedVaccinationIndex(indexToSelect);
+    setIsHandleVaccinationModalVisible(true);
+  }, []);
+
+  const handleCreateVaccination = useCallback(
+    async (
+      vaccinationData: Omit<CreateVaccinationData, 'userId' | 'batchId'>,
+    ) => {
+      const createdVaccination = await createVaccination({
+        ...vaccinationData,
+        userId: userData!.id,
+        batchId,
+      });
+
+      setBatch(previousBatch => {
+        if (previousBatch === null) return null;
+
+        const { vaccinations } = previousBatch;
+        return {
+          ...previousBatch,
+          vaccinations: [...vaccinations, createdVaccination],
+        };
+      });
+    },
+    [batchId, userData],
+  );
+
+  const handleUpdateVaccination = useCallback(
+    async (
+      vaccinationId: string,
+      vaccinationData: Omit<UpdateVaccinationData, 'userId'>,
+    ) => {
+      const updatedVaccination = await updateVaccination(vaccinationId, {
+        ...vaccinationData,
+        userId: userData!.id,
+      });
+
+      setBatch(previousBatch => {
+        if (previousBatch === null) return null;
+
+        const { vaccinations } = previousBatch;
+        const parsedVaccinations = vaccinations.map(vaccination =>
+          vaccination.id === vaccinationId ? updatedVaccination : vaccination,
+        );
+
+        return { ...previousBatch, vaccinations: parsedVaccinations };
+      });
+    },
+    [userData],
+  );
+
   const handleDeleteVaccination = useCallback(
     async (vaccinationId: string) => {
       await deleteVaccination(vaccinationId, userData!.id);
@@ -216,6 +281,13 @@ export const BatchDetails: React.FC = () => {
 
       <Modal isVisible={isHandleVaccinationModalVisible}>
         <HandleVaccinationModal
+          vaccinationToChange={
+            selectedVaccinationIndex === undefined
+              ? undefined
+              : batch.vaccinations[selectedVaccinationIndex]
+          }
+          handleCreateVaccination={handleCreateVaccination}
+          handleUpdateVaccination={handleUpdateVaccination}
           handleCloseModal={() => setIsHandleVaccinationModalVisible(false)}
         />
       </Modal>
@@ -229,7 +301,7 @@ export const BatchDetails: React.FC = () => {
       <Modal isVisible={isHandlePortionModalVisible}>
         <HandlePortionModal
           portionToChange={
-            selectedPortionIndex === null
+            selectedPortionIndex === undefined
               ? undefined
               : batch.portions[selectedPortionIndex]
           }
@@ -333,13 +405,7 @@ export const BatchDetails: React.FC = () => {
                 <span>{portionBatch}</span>
 
                 <div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedPortionIndex(index);
-                      setIsHandlePortionModalVisible(true);
-                    }}
-                  >
+                  <button type="button" onClick={() => showPortionModal(index)}>
                     <img src={iconEdit} alt="Ícone Editar"></img>
                   </button>
                   <button
@@ -355,10 +421,7 @@ export const BatchDetails: React.FC = () => {
             <ButtonAdd>
               <Button
                 backgroundColor={palette.beige}
-                onClick={() => {
-                  setSelectedPortionIndex(null);
-                  setIsHandlePortionModalVisible(true);
-                }}
+                onClick={() => showPortionModal()}
               >
                 Adicionar
               </Button>
@@ -371,7 +434,7 @@ export const BatchDetails: React.FC = () => {
               <span id="title">Vacinas</span>
             </TitleBatchTable>
 
-            {batch.vaccinations.map(({ id, name, vaccinationBatch }) => (
+            {batch.vaccinations.map(({ id, name, vaccinationBatch }, index) => (
               <LineBatchTable key={id}>
                 <span>{name}</span>
                 <span>-</span>
@@ -379,7 +442,7 @@ export const BatchDetails: React.FC = () => {
                 <div>
                   <button
                     type="button"
-                    onClick={() => setIsHandleVaccinationModalVisible(true)}
+                    onClick={() => showVaccinationModal(index)}
                   >
                     <img src={iconEdit} alt="Ícone Editar" />
                   </button>
@@ -397,7 +460,7 @@ export const BatchDetails: React.FC = () => {
               <Button
                 type="button"
                 backgroundColor={palette.beige}
-                onClick={() => setIsHandleVaccinationModalVisible(true)}
+                onClick={() => showVaccinationModal()}
               >
                 Adicionar
               </Button>

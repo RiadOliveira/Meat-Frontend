@@ -1,31 +1,103 @@
 import iconVaccination from 'assets/img/iconVaccination.svg';
 import close from 'assets/img/close.svg';
 
+import * as yup from 'yup';
 import { Container } from './styles';
 import { palette } from 'assets/colors/palette';
 import { FormField } from 'components/FormField';
 import { Button } from 'components/Button/styles';
 import { useInputStates } from 'utils/useInputStates';
+import { useCallback, useEffect } from 'react';
+import { yupRequiredStringField } from 'types/yupRequiredStringField';
+import { generateFormObjectFromStates } from 'utils/generateFormObjectFromStates';
+import { useFormError } from 'errors/useFormError';
+import { IVaccination } from 'types/entities/IVaccination';
+import { CreateVaccinationData } from 'types/entities/operations/vaccination/CreateVaccinationData';
+import { UpdateVaccinationData } from 'types/entities/operations/vaccination/UpdateVaccinationData';
 
 interface HandleVaccinationModalProps {
+  vaccinationToChange?: IVaccination;
+  handleCreateVaccination: (
+    vaccination: Omit<CreateVaccinationData, 'userId' | 'batchId'>,
+  ) => Promise<void>;
+  handleUpdateVaccination: (
+    vaccinationId: string,
+    vaccination: Omit<UpdateVaccinationData, 'userId'>,
+  ) => Promise<void>;
   handleCloseModal: () => void;
 }
 
 export const HandleVaccinationModal: React.FC<HandleVaccinationModalProps> = ({
+  vaccinationToChange,
+  handleCreateVaccination,
+  handleUpdateVaccination,
   handleCloseModal,
 }) => {
+  const { handleFormError } = useFormError();
+  const isUpdateModal = !!vaccinationToChange;
+
   const nameStates = useInputStates('name');
   const vaccinationBatchStates = useInputStates('vaccinationBatch');
+
+  useEffect(() => {
+    nameStates.mainState.setFunction(vaccinationToChange?.name ?? '');
+    vaccinationBatchStates.mainState.setFunction(
+      vaccinationToChange?.vaccinationBatch ?? '',
+    );
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vaccinationToChange]);
+
+  const handleSubmit = useCallback(async () => {
+    const formStates = [nameStates, vaccinationBatchStates];
+    const formObject = generateFormObjectFromStates(formStates);
+
+    const schema = yup.object().shape({
+      name: yupRequiredStringField,
+      vaccinationBatch: yupRequiredStringField,
+    });
+
+    try {
+      await schema.validate(formObject, { abortEarly: false });
+
+      if (isUpdateModal) {
+        await handleUpdateVaccination(vaccinationToChange.id, {
+          ...vaccinationToChange,
+          ...formObject,
+        });
+      } else {
+        await handleCreateVaccination(
+          formObject as unknown as CreateVaccinationData,
+        );
+      }
+
+      handleCloseModal();
+      formStates.forEach(({ mainState: { setFunction } }) => setFunction(''));
+    } catch (error) {
+      handleFormError(error as yup.ValidationError, formStates);
+    }
+  }, [
+    nameStates,
+    vaccinationBatchStates,
+    isUpdateModal,
+    handleCloseModal,
+    handleUpdateVaccination,
+    vaccinationToChange,
+    handleCreateVaccination,
+    handleFormError,
+  ]);
 
   return (
     <Container>
       <button onClick={handleCloseModal} id="close-button">
-        <img src={close} alt="Botão de fechar" />
+        <img src={close} alt="botão de fechar" />
       </button>
 
       <div id="header">
-        <img id="image" src={iconVaccination} alt="Ícone Vacinações" />
-        <span id="title">Adicionar Vacinação</span>
+        <img id="image" src={iconVaccination} alt="Ícone Vacinação" />
+        <span id="title">
+          {isUpdateModal ? 'Atualizar' : 'Adicionar'} Vacinação
+        </span>
       </div>
 
       <form>
@@ -40,7 +112,9 @@ export const HandleVaccinationModal: React.FC<HandleVaccinationModalProps> = ({
           >
             Cancelar
           </Button>
-          <Button type="submit">Adicionar</Button>
+          <Button type="button" onClick={handleSubmit}>
+            {isUpdateModal ? 'Atualizar' : 'Adicionar'}
+          </Button>
         </div>
       </form>
     </Container>

@@ -34,6 +34,7 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
   handleCloseModal,
 }) => {
   const { handleFormError } = useFormError();
+  const isUpdateModal = !!portionToChange;
 
   const nameStates = useInputStates('name');
   const portionBatchStates = useInputStates('portionBatch');
@@ -59,7 +60,7 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
     try {
       await schema.validate(formObject, { abortEarly: false });
 
-      if (portionToChange) {
+      if (isUpdateModal) {
         await handleUpdatePortion(portionToChange.id, {
           ...portionToChange,
           ...formObject,
@@ -78,6 +79,7 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
     handleCreatePortion,
     handleFormError,
     handleUpdatePortion,
+    isUpdateModal,
     nameStates,
     portionBatchStates,
     portionToChange,
@@ -90,8 +92,10 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
       </button>
 
       <div id="header">
-        <img id="image" src={iconPortion} alt="Ícone Rações" />
-        <span id="title">Adicionar Rações</span>
+        <img id="image" src={iconPortion} alt="Ícone Ração" />
+        <span id="title">
+          {isUpdateModal ? 'Atualizar' : 'Adicionar'} Ração
+        </span>
       </div>
 
       <form>
@@ -107,7 +111,7 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
             Cancelar
           </Button>
           <Button type="button" onClick={handleSubmit}>
-            Adicionar
+            {isUpdateModal ? 'Atualizar' : 'Adicionar'}
           </Button>
         </div>
       </form>
