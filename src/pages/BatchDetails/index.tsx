@@ -174,6 +174,7 @@ export const BatchDetails: React.FC = () => {
   const handleDeletePortion = useCallback(
     async (portionId: string) => {
       await deletePortion(portionId, userData!.id);
+
       setBatch(previousValue => {
         if (previousValue === null) return null;
 
@@ -182,6 +183,8 @@ export const BatchDetails: React.FC = () => {
 
         return { ...previousValue, portions: parsedPortions };
       });
+      setIsDeleteModalVisible(false);
+      setModalDeleteFunction(() => DEFAULT_MODAL_DELETE_FUNCTION);
     },
     [userData],
   );
@@ -242,6 +245,7 @@ export const BatchDetails: React.FC = () => {
   const handleDeleteVaccination = useCallback(
     async (vaccinationId: string) => {
       await deleteVaccination(vaccinationId, userData!.id);
+
       setBatch(previousValue => {
         if (previousValue === null) return null;
 
@@ -252,6 +256,8 @@ export const BatchDetails: React.FC = () => {
 
         return { ...previousValue, vaccinations: parsedVaccinations };
       });
+      setIsDeleteModalVisible(false);
+      setModalDeleteFunction(() => DEFAULT_MODAL_DELETE_FUNCTION);
     },
     [userData],
   );
@@ -299,6 +305,14 @@ export const BatchDetails: React.FC = () => {
     await deleteBatch(batchId, userData!.id);
     history.push(routesAddresses.batch);
   }, [batchId, history, userData]);
+
+  const handleShowDeleteModal = useCallback(
+    (handleDeleteFunction: () => Promise<void>) => {
+      setModalDeleteFunction(() => handleDeleteFunction);
+      setIsDeleteModalVisible(true);
+    },
+    [],
+  );
 
   if (batch === null) return null;
   return (
@@ -385,7 +399,9 @@ export const BatchDetails: React.FC = () => {
                         <img src={iconEdit} alt="Ícone Editar" />
                       </button>
 
-                      <button onClick={() => setIsEditBatchModalVisible(true)}>
+                      <button
+                        onClick={() => handleShowDeleteModal(handleDeleteBatch)}
+                      >
                         <img src={iconDelete} alt="Ícone Deletar" />
                       </button>
                     </BatchOperationButtons>
@@ -452,7 +468,9 @@ export const BatchDetails: React.FC = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setIsDeleteModalVisible(true)}
+                    onClick={() =>
+                      handleShowDeleteModal(async () => handleDeletePortion(id))
+                    }
                   >
                     <img src={iconDelete} alt="Ícone Deletar"></img>
                   </button>
@@ -490,7 +508,11 @@ export const BatchDetails: React.FC = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setIsDeleteModalVisible(true)}
+                    onClick={() =>
+                      handleShowDeleteModal(async () =>
+                        handleDeleteVaccination(id),
+                      )
+                    }
                   >
                     <img src={iconDelete} alt="Ícone Deletar" />
                   </button>
