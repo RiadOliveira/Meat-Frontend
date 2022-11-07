@@ -5,7 +5,7 @@ import { Footer } from 'components/Footer';
 import { useHistory } from 'react-router-dom';
 import { routesAddresses } from 'routes/routesAddresses';
 import { Header } from 'components/Header';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import * as yup from 'yup';
 import { useInputStates } from 'utils/useInputStates';
@@ -24,6 +24,7 @@ export const HomePage: React.FC = () => {
   const { setUserLocalData } = useAuth();
   const { handleFormError } = useFormError();
 
+  const [searchCode, setSearchCode] = useState('');
   const emailStates = useInputStates('email');
   const passwordStates = useInputStates('password');
 
@@ -62,19 +63,25 @@ export const HomePage: React.FC = () => {
   return (
     <Container>
       <Header />
+
       <main>
         <Section backgroundColor={palette.blueLow}>
           <h2>Rastreie o que você está CONSUMINDO!</h2>
           <SearchInput>
-            <InputStyles placeholder="Digite seu código" />
+            <InputStyles
+              value={searchCode}
+              placeholder="Digite seu código"
+              onChange={({ target: { value } }) => setSearchCode(value)}
+            />
             <Button
-              type="submit"
-              onClick={() => history.push(routesAddresses.exposeBatch)}
+              type="button"
+              onClick={() => history.push(`/exposeBatch/${searchCode}`)}
             >
               Buscar
             </Button>
           </SearchInput>
         </Section>
+
         <Section backgroundColor={palette.beige}>
           <h2>Faça seu login</h2>
 

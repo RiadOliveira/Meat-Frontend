@@ -4,6 +4,6 @@ export const routesAddresses = {
   batch: '/dashboard/batch',
   batchDetails: '/dashboard/batch/:batchId',
   members: '/dashboard/members',
-  exposeBatch: '/exposeBatch',
+  exposeBatch: '/exposeBatch/:batchId',
   qrCodePage: '/qrCode',
 };

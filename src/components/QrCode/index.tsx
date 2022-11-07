@@ -1,45 +1,39 @@
-import * as React from 'react';
 import QRCode from 'qrcode.react';
-import {Container} from './styles.ts';
+
 import { Button } from 'components/Button/styles';
+import { Container } from './styles';
+import { useCallback, useRef } from 'react';
 
-export default function QrCode() {
-  const qrRef = React.useRef();
+interface QrCodeProps {
+  redirectUrl: string;
+}
 
-  const downloadQRCode = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    // @ts-ignore
-    let canvas = qrRef.current.querySelector('canvas');
-    let image = canvas.toDataURL('image/png');
-    let anchor = document.createElement('a');
+export const QrCode: React.FC<QrCodeProps> = ({ redirectUrl }) => {
+  const qrRef = useRef<HTMLDivElement>(null);
+
+  const downloadQRCode = useCallback(() => {
+    if (!qrRef.current) return;
+
+    const canvas = qrRef.current.querySelector('canvas')!;
+    const image = canvas.toDataURL('image/png');
+    const anchor = document.createElement('a');
+
     anchor.href = image;
     anchor.download = `batchInfo.png`;
-    document.body.appendChild(anchor);
     anchor.click();
-    document.body.removeChild(anchor);
-  };
-
-  const qrCode = (
-    <QRCode
-      id="qrCodeElToRender"
-      size={200}
-      value="AQUI VEM O VALOR DO QR CODE"
-      bgColor="white"
-      fgColor={"#141926"}
-      level="H"
-    />
-  );
+  }, []);
 
   return (
     <Container>
-    <div className="qr-container">
-      <div className="qr-container__qr-code" ref={qrRef}>
-        {qrCode}
+      <div className="qr-container">
+        <div ref={qrRef}>
+          <QRCode size={200} value={redirectUrl} />
+        </div>
+
+        <Button type="button" onClick={downloadQRCode}>
+          Baixar o QR Code
+        </Button>
       </div>
-      <form onSubmit={downloadQRCode} className="qr-container__form">
-        <Button>Baixar o QR Code</Button>
-      </form>
-    </div>
     </Container>
   );
-}
+};

@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import qrCodeIcon from 'assets/img/QRCodeIcon.svg';
 import iconPortion from 'assets/img/iconPortion.svg';
 import iconVaccination from 'assets/img/iconVaccination.svg';
 import iconSlaughter from 'assets/img/iconSlaughter.svg';
@@ -66,9 +67,9 @@ import { UpdateVaccinationData } from 'types/entities/operations/vaccination/Upd
 import { CreateSlaughterData } from 'types/entities/operations/slaughter/CreateSlaughterData';
 import { createSlaughter, updateSlaughter } from 'services/slaughterServices';
 import { UpdateSlaughterData } from 'types/entities/operations/slaughter/UpdateSlaughterData';
-import QrCode from 'components/QrCode';
 import { CloseButton } from 'components/CloseButton';
-import qrCodeIcon from 'assets/img/QRCodeIcon.svg';
+import { QrCode } from 'components/QrCode';
+import { frontendUrl } from 'constants/baseUrls';
 
 const DEFAULT_MODAL_DELETE_FUNCTION = async () => {
   null;
@@ -324,9 +325,9 @@ export const BatchDetails: React.FC = () => {
     <Container>
       <Modal isVisible={isQRCodeModalVisible}>
         <section id="modalQRCode">
-          <CloseButton handleClose={()=>setIsQRCodeModalVisible(false)}/>
+          <CloseButton handleClose={() => setIsQRCodeModalVisible(false)} />
           <h2>QR Code gerado!</h2>
-          <QrCode />
+          <QrCode redirectUrl={`${frontendUrl}/exposeBatch/${batchId}`} />
         </section>
       </Modal>
 
@@ -436,6 +437,7 @@ export const BatchDetails: React.FC = () => {
                   <BatchSubtitle>
                     <span id="subtitle">Ultima Alteração:</span>
                   </BatchSubtitle>
+
                   <BatchSpacingTextLine>
                     <span id="data">{batch.userThatMadeLastChange.name}</span>
                     <span>-</span>
@@ -444,6 +446,7 @@ export const BatchDetails: React.FC = () => {
                     </span>
                   </BatchSpacingTextLine>
                 </BatchModification>
+
                 <BatchStatus>
                   <BatchSpacingTextLine id="desktopAdjustment">
                     <BatchTextLine id="desktopAdjustment">
@@ -589,7 +592,12 @@ export const BatchDetails: React.FC = () => {
             )}
           </BatchTableAttribute>
         </CardBatch>
-        <Button type="button" onClick={()=>setIsQRCodeModalVisible(true)} id="generateQR">
+
+        <Button
+          type="button"
+          onClick={() => setIsQRCodeModalVisible(true)}
+          id="generateQR"
+        >
           <img src={qrCodeIcon} alt="QR code icon" />
           Gerar QR Code
         </Button>

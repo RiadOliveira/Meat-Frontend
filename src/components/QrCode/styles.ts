@@ -1,4 +1,3 @@
-import { palette } from 'assets/colors/palette';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -7,6 +6,5 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0px;
   }
 `;

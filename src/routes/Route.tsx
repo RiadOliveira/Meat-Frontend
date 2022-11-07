@@ -9,11 +9,13 @@ import { routesAddresses } from './routesAddresses';
 interface RouteProps extends ReactRouteProps {
   component: React.ComponentType;
   isPrivate?: boolean;
+  isFreeRoute?: boolean;
 }
 
 export const Route: React.FC<RouteProps> = ({
   component: Component,
   isPrivate = false,
+  isFreeRoute = false,
   ...props
 }) => {
   const { userData } = useAuth();
@@ -23,7 +25,7 @@ export const Route: React.FC<RouteProps> = ({
     <ReactRoute
       {...props}
       render={({ location }) => {
-        if (userIsValid === isPrivate) return <Component />;
+        if (userIsValid === isPrivate || isFreeRoute) return <Component />;
 
         return (
           <Redirect

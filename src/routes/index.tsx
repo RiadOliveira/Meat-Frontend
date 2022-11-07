@@ -38,6 +38,7 @@ export const Routes: React.FC = () => {
           path={routesAddresses.exposeBatch}
           exact
           component={ExposeBatch}
+          isFreeRoute
         />
         <Route path="*" exact component={MissingRoute} />
       </Switch>

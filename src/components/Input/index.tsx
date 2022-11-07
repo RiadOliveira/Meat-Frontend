@@ -5,6 +5,7 @@ import { InputErrorMessageStyle, InputStyles } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   states: ReactInputState;
+  notHasError?: boolean;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -12,6 +13,7 @@ export const Input: React.FC<InputProps> = ({
     mainState: { setFunction: mainFunction, value: mainValue },
     errorMessageState: { setFunction: errorFunction, value: errorValue },
   },
+  notHasError = false,
   disabled,
   style,
   ...props
@@ -26,7 +28,9 @@ export const Input: React.FC<InputProps> = ({
 
   return (
     <div style={style}>
-      <InputErrorMessageStyle>{errorValue}</InputErrorMessageStyle>
+      {!notHasError && (
+        <InputErrorMessageStyle>{errorValue}</InputErrorMessageStyle>
+      )}
 
       <InputStyles
         borderColor={errorValue ? palette.pinkHigh : 'transparent'}
