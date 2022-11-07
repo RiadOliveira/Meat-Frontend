@@ -50,7 +50,9 @@ export const HandleVaccinationModal: React.FC<HandleVaccinationModalProps> = ({
 
   const handleSubmit = useCallback(async () => {
     const formStates = [nameStates, vaccinationBatchStates];
-    const formObject = generateFormObjectFromStates(formStates);
+    const formObject = generateFormObjectFromStates(
+      formStates,
+    ) as unknown as UpdateVaccinationData;
 
     const schema = yup.object().shape({
       name: yupRequiredStringField,
@@ -65,11 +67,7 @@ export const HandleVaccinationModal: React.FC<HandleVaccinationModalProps> = ({
           ...vaccinationToChange,
           ...formObject,
         });
-      } else {
-        await handleCreateVaccination(
-          formObject as unknown as CreateVaccinationData,
-        );
-      }
+      } else await handleCreateVaccination(formObject);
 
       handleCloseModal();
       formStates.forEach(({ mainState: { setFunction } }) => setFunction(''));
@@ -96,7 +94,7 @@ export const HandleVaccinationModal: React.FC<HandleVaccinationModalProps> = ({
       <div id="header">
         <img id="image" src={iconVaccination} alt="Ícone Vacinação" />
         <span id="title">
-          {isUpdateModal ? 'Atualizar' : 'Adicionar'} Vacinação
+          {isUpdateModal ? 'Editar' : 'Adicionar'} Vacinação
         </span>
       </div>
 

@@ -50,7 +50,9 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
 
   const handleSubmit = useCallback(async () => {
     const formStates = [nameStates, portionBatchStates];
-    const formObject = generateFormObjectFromStates(formStates);
+    const formObject = generateFormObjectFromStates(
+      formStates,
+    ) as unknown as UpdatePortionData;
 
     const schema = yup.object().shape({
       name: yupRequiredStringField,
@@ -65,9 +67,7 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
           ...portionToChange,
           ...formObject,
         });
-      } else {
-        await handleCreatePortion(formObject as unknown as CreatePortionData);
-      }
+      } else await handleCreatePortion(formObject);
 
       handleCloseModal();
       formStates.forEach(({ mainState: { setFunction } }) => setFunction(''));
@@ -93,9 +93,7 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
 
       <div id="header">
         <img id="image" src={iconPortion} alt="Ícone Ração" />
-        <span id="title">
-          {isUpdateModal ? 'Atualizar' : 'Adicionar'} Ração
-        </span>
+        <span id="title">{isUpdateModal ? 'Editar' : 'Adicionar'} Ração</span>
       </div>
 
       <form>

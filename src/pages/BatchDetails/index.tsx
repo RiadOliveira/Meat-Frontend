@@ -63,6 +63,9 @@ import { CreatePortionData } from 'types/entities/operations/portion/CreatePorti
 import { UpdatePortionData } from 'types/entities/operations/portion/UpdatePortionData';
 import { CreateVaccinationData } from 'types/entities/operations/vaccination/CreateVaccinationData';
 import { UpdateVaccinationData } from 'types/entities/operations/vaccination/UpdateVaccinationData';
+import { CreateSlaughterData } from 'types/entities/operations/slaughter/CreateSlaughterData';
+import { createSlaughter, updateSlaughter } from 'services/slaughterServices';
+import { UpdateSlaughterData } from 'types/entities/operations/slaughter/UpdateSlaughterData';
 
 const DEFAULT_MODAL_DELETE_FUNCTION = async () => {
   null;
@@ -79,7 +82,7 @@ export const BatchDetails: React.FC = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [modalDeleteFunction, setModalDeleteFunction] = useState<
     () => Promise<void>
-  >(DEFAULT_MODAL_DELETE_FUNCTION);
+  >(() => DEFAULT_MODAL_DELETE_FUNCTION);
   const [isEditBatchModalVisible, setIsEditBatchModalVisible] = useState(false);
 
   const [isHandleVaccinationModalVisible, setIsHandleVaccinationModalVisible] =
@@ -96,9 +99,6 @@ export const BatchDetails: React.FC = () => {
 
   const [isHandleSlaughterModalVisible, setIsHandleSlaughterModalVisible] =
     useState(false);
-  const [selectedSlaughterIndex, setSelectedSlaughterIndex] = useState<
-    number | undefined
-  >(undefined);
 
   useEffect(() => {
     findBatchById(batchId)
@@ -256,6 +256,45 @@ export const BatchDetails: React.FC = () => {
     [userData],
   );
 
+  // Slaughter
+  const handleCreateSlaughter = useCallback(
+    async (slaughterData: Omit<CreateSlaughterData, 'userId' | 'batchId'>) => {
+      const createdSlaughter = await createSlaughter({
+        ...slaughterData,
+        userId: userData!.id,
+        batchId,
+      });
+
+      setBatch(previousBatch => {
+        if (previousBatch === null) return null;
+
+        return {
+          ...previousBatch,
+          slaughter: createdSlaughter,
+        };
+      });
+    },
+    [batchId, userData],
+  );
+
+  const handleUpdateSlaughter = useCallback(
+    async (
+      slaughterId: string,
+      slaughterData: Omit<UpdateSlaughterData, 'userId'>,
+    ) => {
+      const updatedSlaughter = await updateSlaughter(slaughterId, {
+        ...slaughterData,
+        userId: userData!.id,
+      });
+
+      setBatch(previousBatch => {
+        if (previousBatch === null) return null;
+        return { ...previousBatch, slaughter: updatedSlaughter };
+      });
+    },
+    [userData],
+  );
+
   const handleDeleteBatch = useCallback(async () => {
     await deleteBatch(batchId, userData!.id);
     history.push(routesAddresses.batch);
@@ -294,6 +333,9 @@ export const BatchDetails: React.FC = () => {
 
       <Modal isVisible={isHandleSlaughterModalVisible}>
         <HandleSlaughterModal
+          slaughter={batch.slaughter === null ? undefined : batch.slaughter}
+          handleCreateSlaughter={handleCreateSlaughter}
+          handleUpdateSlaughter={handleUpdateSlaughter}
           handleCloseModal={() => setIsHandleSlaughterModalVisible(false)}
         />
       </Modal>
@@ -473,7 +515,7 @@ export const BatchDetails: React.FC = () => {
               <span id="title">Abate</span>
             </TitleBatchTable>
 
-            {batch.slaughter && (
+            {batch.slaughter ? (
               <SlaughterData>
                 <div id="separate">
                   <BatchTextLine id="slaughter-data">
@@ -482,6 +524,7 @@ export const BatchDetails: React.FC = () => {
                   </BatchTextLine>
 
                   <button
+                    type="button"
                     onClick={() => setIsHandleSlaughterModalVisible(true)}
                   >
                     <img src={iconEdit} alt="Ícone Editar" />
@@ -498,6 +541,16 @@ export const BatchDetails: React.FC = () => {
                   <span>{batch.slaughter.description}</span>
                 </div>
               </SlaughterData>
+            ) : (
+              <ButtonAdd>
+                <Button
+                  type="button"
+                  backgroundColor={palette.beige}
+                  onClick={() => setIsHandleSlaughterModalVisible(true)}
+                >
+                  Adicionar
+                </Button>
+              </ButtonAdd>
             )}
           </BatchTableAttribute>
         </CardBatch>
