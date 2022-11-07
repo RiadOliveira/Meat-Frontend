@@ -10,36 +10,6 @@ export const Container = styled.div`
   color: ${palette.blueHigh};
   background: ${palette.blueLow};
 
-  #modalQRCode{
-    width: 320px;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    background-color: ${palette.white};
-    border-radius: 12px; 
-    
-    #closeButton {
-    height: 24px;
-    width: 24px;
-    border: none;
-    background-color: transparent;
-    margin: 0px 0px 0px 260px;
-
-    img {
-      height: 24px;
-      width: 24px;
-    }
-
-    h2{
-      color: ${palette.blueHigh}; 
-    }
-    }
-  }
-
-
   main {
     min-height: calc(100% - 269px);
     display: flex;
@@ -49,7 +19,7 @@ export const Container = styled.div`
     margin-bottom: 56px;
   }
 
-  Button{
+  Button {
     width: 240px;
     height: 60px;
     padding: 10px;

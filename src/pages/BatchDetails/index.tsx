@@ -66,6 +66,9 @@ import { UpdateVaccinationData } from 'types/entities/operations/vaccination/Upd
 import { CreateSlaughterData } from 'types/entities/operations/slaughter/CreateSlaughterData';
 import { createSlaughter, updateSlaughter } from 'services/slaughterServices';
 import { UpdateSlaughterData } from 'types/entities/operations/slaughter/UpdateSlaughterData';
+import QrCode from 'components/QrCode';
+import { CloseButton } from 'components/CloseButton';
+import qrCodeIcon from 'assets/img/QRCodeIcon.svg';
 
 const DEFAULT_MODAL_DELETE_FUNCTION = async () => {
   null;
@@ -80,6 +83,8 @@ export const BatchDetails: React.FC = () => {
 
   const [batch, setBatch] = useState<IBatchWithRelatedEntities | null>(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isQRCodeModalVisible, setIsQRCodeModalVisible] = useState(false);
+
   const [modalDeleteFunction, setModalDeleteFunction] = useState<
     () => Promise<void>
   >(() => DEFAULT_MODAL_DELETE_FUNCTION);
@@ -317,6 +322,14 @@ export const BatchDetails: React.FC = () => {
   if (batch === null) return null;
   return (
     <Container>
+      <Modal isVisible={isQRCodeModalVisible}>
+        <section id="modalQRCode">
+          <CloseButton handleClose={()=>setIsQRCodeModalVisible(false)}/>
+          <h2>QR Code gerado!</h2>
+          <QrCode />
+        </section>
+      </Modal>
+
       <Modal isVisible={isDeleteModalVisible}>
         <DeleteModal
           handleDelete={modalDeleteFunction}
@@ -576,6 +589,10 @@ export const BatchDetails: React.FC = () => {
             )}
           </BatchTableAttribute>
         </CardBatch>
+        <Button type="button" onClick={()=>setIsQRCodeModalVisible(true)} id="generateQR">
+          <img src={qrCodeIcon} alt="QR code icon" />
+          Gerar QR Code
+        </Button>
       </main>
     </Container>
   );

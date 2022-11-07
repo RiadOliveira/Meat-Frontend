@@ -10,6 +10,54 @@ export const Container = styled.div`
   color: ${palette.blueHigh};
   background: ${palette.blueLow};
 
+  #generateQR{
+    width: 240px;
+    height: 60px;
+    padding: 10px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 17pt;
+    color: ${palette.white};
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  #modalQRCode{
+    width: 320px;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: ${palette.white};
+    border-radius: 12px; 
+    
+    #closeButton {
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: transparent;
+    margin: -15px 0px 0px 260px;
+
+    img {
+      height: 24px;
+      width: 24px;
+    }
+
+    h2{
+      color: ${palette.blueHigh}; 
+    }
+    }
+
+    Button{
+      width: 250px;
+      margin-top: 20px;
+    }
+  }
+
+
   main {
     min-height: calc(100% - 269px);
     display: flex;
