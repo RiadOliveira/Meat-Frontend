@@ -8,10 +8,5 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     gap: 0px;
-
-    Button{
-      color: ${palette.white};
-      margin-top: 20px;
-    }
   }
 `;

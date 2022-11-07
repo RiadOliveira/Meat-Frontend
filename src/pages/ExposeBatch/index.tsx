@@ -85,6 +85,7 @@ export const ExposeBatch: React.FC = () => {
     <Container>
       <Modal isVisible>
         <section id="modalQRCode">
+          <CloseButton/>
           <h2>QR Code gerado!</h2>
           <QrCode />
         </section>
