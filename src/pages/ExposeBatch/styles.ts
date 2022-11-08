@@ -18,19 +18,6 @@ export const Container = styled.div`
     margin: 24px;
     margin-bottom: 56px;
   }
-
-  Button {
-    width: 240px;
-    height: 60px;
-    padding: 10px;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-size: 17pt;
-    color: black;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
 `;
 
 export const CardBatch = styled.div`

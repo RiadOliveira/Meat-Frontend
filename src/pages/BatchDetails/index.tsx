@@ -361,7 +361,7 @@ export const BatchDetails: React.FC = () => {
           <div id="header">
             <h2>Use o código</h2>
             <span>
-              <u>XXXXXXXXXXXXXXXXXXXXXX</u>
+              <u>{batch.id}</u>
             </span>
             <h2>ou</h2>
             <h2>O QR Code</h2>

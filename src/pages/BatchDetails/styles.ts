@@ -24,7 +24,7 @@ export const Container = styled.div`
   }
 
   #modalQRCode {
-    width: 320px;
+    width: 400px;
     height: 480px;
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@ export const Container = styled.div`
       border: none;
       background-color: transparent;
       position: absolute;
-      margin: -420px 0px 0px 260px;
+      margin: -420px 0px 0px 340px;
 
       img {
         height: 18px;

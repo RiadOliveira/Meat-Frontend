@@ -126,6 +126,7 @@ interface TitleProps {
 export const Title = styled.span<TitleProps>`
   font-size: 22px;
   font-weight: 700;
+  text-align: start;
   color: ${({ fontColor }) => fontColor || palette.pink};
 `;
 
@@ -134,6 +135,7 @@ export const BatchData = styled.div`
   flex-direction: column;
   align-items: stretch;
   width: 90%;
+  color: ${palette.blueHigh};
 `;
 
 export const BatchCardsHeader = styled.div`
