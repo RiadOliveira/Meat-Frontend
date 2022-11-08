@@ -45,4 +45,10 @@ export const InputErrorMessageStyle = styled.p`
   text-align: center;
   color: ${palette.pinkHigh};
   font-size: 12px;
+  line-height: 12px;
+  margin-bottom: -12px;
+
+  &:empty {
+    display: none;
+  }
 `;

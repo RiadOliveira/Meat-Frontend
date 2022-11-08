@@ -15,7 +15,6 @@ export const Input: React.FC<InputProps> = ({
   },
   notHasError = false,
   disabled,
-  style,
   ...props
 }) => {
   const handleOnChange = useCallback(
@@ -27,7 +26,7 @@ export const Input: React.FC<InputProps> = ({
   );
 
   return (
-    <div style={style}>
+    <>
       {!notHasError && (
         <InputErrorMessageStyle>{errorValue}</InputErrorMessageStyle>
       )}
@@ -38,9 +37,8 @@ export const Input: React.FC<InputProps> = ({
         onChange={handleOnChange}
         value={mainValue}
         disabled={disabled}
-        style={style}
         {...props}
       />
-    </div>
+    </>
   );
 };
