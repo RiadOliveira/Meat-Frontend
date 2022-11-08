@@ -192,16 +192,17 @@ export const BatchDetailsHeader = styled.section`
 `;
 
 export const BatchData = styled.section`
+  min-width: 95%;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
 
+  #header-title {
+    flex: 1;
+  }
   @media (min-width: 960px) {
-    min-width: 95%;
     gap: 8px;
-    #header-title {
-      flex: 1;
-    }
   }
 `;
 
@@ -390,6 +391,8 @@ export const SlaughterData = styled.div`
   span {
     color: ${palette.blue};
     text-align: center;
+    word-wrap: break-word;
+    white-space: pre-line;
   }
 
   #slaughter-data {

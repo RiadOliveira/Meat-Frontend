@@ -22,7 +22,7 @@ export const Container = styled.div`
 
 export const CardBatch = styled.div`
   width: 400px;
-  min-height: 960px;
+  height: 960px;
   margin-top: 48px;
 
   background-color: ${palette.white};
@@ -131,6 +131,7 @@ export const BatchData = styled.section`
   display: flex;
   flex-direction: column;
   align-items: stretch;
+
   @media (min-width: 960px) {
     gap: 8px;
     #header-title {
@@ -273,6 +274,8 @@ export const SlaughterData = styled.div`
 
   span {
     color: ${palette.blue};
+    word-wrap: break-word;
+    white-space: pre-line;
   }
 
   #slaughter-data {
