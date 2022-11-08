@@ -22,7 +22,8 @@ export const Container = styled.div`
 
 export const CardBatch = styled.div`
   width: 400px;
-  min-height: 640px;
+  min-height: 960px;
+  margin-top: 48px;
 
   background-color: ${palette.white};
   border-radius: 12px;
@@ -116,17 +117,21 @@ export const BatchDetailsHeader = styled.section`
       color: ${palette.white};
       font-size: 24px;
       font-weight: 700;
+
+      @media (max-width: 960px) {
+        font-size: 18px;
+      }
     }
   }
 `;
 
 export const BatchData = styled.section`
+  min-width: 95%;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-
   @media (min-width: 960px) {
-    min-width: 95%;
     gap: 8px;
     #header-title {
       flex: 1;
@@ -147,7 +152,9 @@ export const BatchTextTitle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 `;
+
 export const BatchSpacingTextLine = styled.div`
   display: flex;
   justify-content: space-between;
@@ -159,11 +166,13 @@ export const BatchSpacingTextLine = styled.div`
     }
   }
 `;
+
 export const BatchSubtitle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `;
+
 export const BatchTextLine = styled.div`
   display: flex;
 `;
@@ -171,9 +180,7 @@ export const BatchTextLine = styled.div`
 export const BatchModification = styled.div``;
 
 export const BatchStatus = styled.div`
-  @media (min-width: 960px) {
-    width: 50%;
-  }
+  margin-bottom: 8px;
 `;
 
 export const BatchAtributeTable = styled.section`
@@ -188,6 +195,7 @@ interface BatchTableProps {
 
 export const TitleBatchTable = styled.div<BatchTableProps>`
   height: 64px;
+  min-height: 48px;
   background: ${({ backgroundcolor }) => backgroundcolor || palette.yellow};
 
   display: flex;
@@ -196,12 +204,12 @@ export const TitleBatchTable = styled.div<BatchTableProps>`
   gap: 16px;
   padding-left: 32px;
 
+  text-align: center;
   img {
     width: 48px;
     height: 48px;
   }
-
-  #title {
+  #card-code-title #title {
     color: ${palette.blueHigh};
     font-size: 24px;
     font-weight: 500;
@@ -256,6 +264,7 @@ export const LineBatchTable = styled.div`
     }
   }
 `;
+
 export const SlaughterData = styled.div`
   padding-left: 32px;
   padding-right: 32px;
