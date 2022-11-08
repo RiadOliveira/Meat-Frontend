@@ -21,14 +21,15 @@ import {
   createMember,
   findCompanyById,
   listMembersFromCompany,
+  updateMember,
 } from 'services/companiesServices';
 import { useAuth } from 'hooks/auth';
 import { getBrazilianAccountType } from 'utils/getBrazilianAccountType';
 import { ICompany } from 'types/entities/ICompany';
 import { AccountType } from 'types/AccountType';
 import { IUser } from 'types/entities/IUser';
-import { UpdateUserData } from 'types/entities/operations/user/UpdateUserData';
-import { deleteUser, updateUser } from 'services/userServices';
+import { deleteUser } from 'services/userServices';
+import { UpdateMemberData } from 'types/entities/operations/company/UpdateMemberData';
 
 export const MembersPage: React.FC = () => {
   const { userData } = useAuth();
@@ -74,16 +75,16 @@ export const MembersPage: React.FC = () => {
   );
 
   const handleUpdateMember = useCallback(
-    async (memberId: string, updatedMemberData: UpdateUserData) => {
-      const updatedMember = await updateUser(memberId, updatedMemberData);
+    async (updateMemberData: UpdateMemberData) => {
+      const updatedMember = await updateMember(userData!.id, updateMemberData);
 
       setCompanyMembers(previousMembers =>
         previousMembers.map(member =>
-          member.id === memberId ? updatedMember : member,
+          member.id === updatedMember.id ? updatedMember : member,
         ),
       );
     },
-    [],
+    [userData],
   );
 
   const handleDeleteMember = useCallback(async () => {

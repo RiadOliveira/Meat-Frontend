@@ -15,14 +15,11 @@ import { yupRequiredStringField } from 'types/yupRequiredStringField';
 import { generateFormObjectFromStates } from 'utils/generateFormObjectFromStates';
 import { useFormError } from 'errors/useFormError';
 import { IUser } from 'types/entities/IUser';
-import { UpdateUserData } from 'types/entities/operations/user/UpdateUserData';
+import { UpdateMemberData } from 'types/entities/operations/company/UpdateMemberData';
 
 interface HandleMemberModalProps {
   handleCreateMember: (memberData: IUser) => Promise<void>;
-  handleUpdateMember: (
-    memberId: string,
-    memberData: UpdateUserData,
-  ) => Promise<void>;
+  handleUpdateMember: (memberData: UpdateMemberData) => Promise<void>;
   handleCloseModal: () => void;
   memberToChange?: UserWithoutPassword;
 }
@@ -38,7 +35,6 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
 
   const nameStates = useInputStates('name');
   const emailStates = useInputStates('email');
-  const oldPasswordStates = useInputStates('oldPassword');
   const passwordStates = useInputStates('password');
   const confirmPasswordStates = useInputStates('confirmPassword');
 
@@ -56,7 +52,6 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
     const schema = yup.object().shape({
       name: yupRequiredStringField,
       email: yupRequiredStringField.email('Formato de e-mail inválido'),
-      oldPassword: yup.string(),
       password: !isUpdateModal
         ? yupRequiredStringField.min(8, 'Mínimo de 8 dígitos')
         : yup.string(),
@@ -68,7 +63,6 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
     const formStates = [
       nameStates,
       emailStates,
-      oldPasswordStates,
       passwordStates,
       confirmPasswordStates,
     ];
@@ -82,10 +76,10 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
 
       if (!memberToChange) await handleCreateMember(formObject as IUser);
       else {
-        await handleUpdateMember(
-          memberToChange.id,
-          formObject as UpdateUserData,
-        );
+        await handleUpdateMember({
+          ...(formObject as UpdateMemberData),
+          memberId: memberToChange.id,
+        });
       }
 
       formStates.forEach(({ mainState: { setFunction } }) => setFunction(''));
@@ -101,7 +95,6 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
     isUpdateModal,
     memberToChange,
     nameStates,
-    oldPasswordStates,
     passwordStates,
     selectedAccountType,
   ]);
@@ -137,13 +130,6 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
           </select>
           <label>Cargo</label>
         </FormSelect>
-        {memberToChange && (
-          <FormField
-            type="password"
-            states={oldPasswordStates}
-            label="Senha antiga"
-          />
-        )}
 
         <FormField type="password" states={passwordStates} label="Senha" />
         <FormField

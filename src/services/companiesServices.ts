@@ -2,6 +2,7 @@ import { ICompany } from 'types/entities/ICompany';
 import { CreateCompanyData } from 'types/entities/operations/company/CreateCompanyData';
 import { CreateMemberData } from 'types/entities/operations/company/CreateMemberData';
 import { UpdateCompanyData } from 'types/entities/operations/company/UpdateCompanyData';
+import { UpdateMemberData } from 'types/entities/operations/company/UpdateMemberData';
 import { UserWithoutPassword } from 'types/entities/UserWithoutPassword';
 import { api } from './api';
 
@@ -36,6 +37,18 @@ export const listMembersFromCompany = async (
   const { data } = await api.get<UserWithoutPassword[]>(
     `${servicesPrefix}/list-members/${companyId}`,
   );
+  return data;
+};
+
+export const updateMember = async (
+  producerId: string,
+  { memberId, ...updateMemberData }: UpdateMemberData,
+): Promise<UserWithoutPassword> => {
+  const { data } = await api.put<UserWithoutPassword>(
+    `${servicesPrefix}/update-member/${memberId}`,
+    { ...updateMemberData, producerId },
+  );
+
   return data;
 };
 

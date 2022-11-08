@@ -14,24 +14,22 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
 }) => {
   return (
     <Container>
-      <main>
-        <div>
-          <img src={iconDelete} alt="Ícone Deletar"></img>
-          <span>Tem certeza que deseja excluir?</span>
-        </div>
-        <div>
-          <Button type="button" onClick={handleCloseModal}>
-            Cancelar
-          </Button>
-          <Button
-            type="button"
-            backgroundColor={palette.pink}
-            onClick={handleDelete}
-          >
-            Excluir
-          </Button>
-        </div>
-      </main>
+      <div>
+        <img src={iconDelete} alt="Ícone Deletar"></img>
+        <span>Tem certeza que deseja excluir?</span>
+      </div>
+      <div>
+        <Button type="button" onClick={handleCloseModal}>
+          Cancelar
+        </Button>
+        <Button
+          type="button"
+          backgroundColor={palette.pink}
+          onClick={handleDelete}
+        >
+          Excluir
+        </Button>
+      </div>
     </Container>
   );
 };
