@@ -99,7 +99,6 @@ export const HandlePortionModal: React.FC<HandlePortionModalProps> = ({
       <form>
         <FormField states={nameStates} label="Nome" />
         <FormField states={portionBatchStates} label="Lote Ração" />
-        <div id="separator" />
         <div id="in-line">
           <Button
             type="button"

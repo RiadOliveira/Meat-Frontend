@@ -63,21 +63,6 @@ export const Container = styled.section<ButtonProps>`
     width: 320px;
   }
 
-  Button {
-    display: flex;
-    font-size: 20pt;
-    margin-top: 15px;
-    align-items: center;
-    justify-content: space-around;
-    width: 320px;
-    height: 60px;
-    background-color: ${palette.pink};
-    &:hover {
-      background-color: ${({ backgroundColor }) =>
-        shade(0.1, backgroundColor || palette.pinkHigh)};
-    }
-  }
-
   #closeButton {
     height: 24px;
     width: 24px;

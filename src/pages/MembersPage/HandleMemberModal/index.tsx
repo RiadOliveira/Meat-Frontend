@@ -1,4 +1,5 @@
 import newMember from 'assets/img/newMember.svg';
+import iconUser from 'assets/img/iconUser.svg';
 import * as yup from 'yup';
 
 import { Container } from './styles';
@@ -103,7 +104,10 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
     <Container>
       <CloseButton handleClose={handleCloseModal} />
       <div id="header">
-        <img src={newMember} alt="Ícone novo membro" />
+        <img
+          src={memberToChange ? iconUser : newMember}
+          alt="Ícone novo membro"
+        />
         <span id="title">
           {memberToChange ? 'Atualizar membro' : 'Cadastre um novo membro'}
         </span>

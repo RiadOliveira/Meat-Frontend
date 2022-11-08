@@ -101,7 +101,6 @@ export const HandleVaccinationModal: React.FC<HandleVaccinationModalProps> = ({
       <form>
         <FormField states={nameStates} label="Nome" />
         <FormField states={vaccinationBatchStates} label="Lote Vacinação" />
-        <div id="separator" />
         <div id="in-line">
           <Button
             type="button"

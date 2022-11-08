@@ -49,13 +49,11 @@ export const Container = styled.section`
       }
     }
   }
-  #separator {
-    height: 18px;
-  }
   #in-line {
     display: flex;
     align-items: center;
     gap: 28px;
     max-width: 320;
+    margin-top: 24px;
   }
 `;

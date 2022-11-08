@@ -3,13 +3,14 @@ import styled, { css, withTheme } from 'styled-components';
 
 export const Container = styled.section`
   width: 400px;
-  min-height: 400px;
+  min-height: 320px;
   background: ${palette.white};
   border-radius: 12px;
   padding: 36px 0px 36px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 32px;
 
   button {
@@ -49,13 +50,11 @@ export const Container = styled.section`
       }
     }
   }
-  #separator {
-    height: 18px;
-  }
   #in-line {
     display: flex;
     align-items: center;
     gap: 28px;
     max-width: 320;
+    margin-top: 24px;
   }
 `;

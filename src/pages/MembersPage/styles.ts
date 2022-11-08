@@ -55,7 +55,7 @@ export const MembersLine = styled.section<MembersLineProps>`
   padding: 5px 10px 5px 30px;
 
   background-color: ${({ isProducer }) =>
-    isProducer ? palette.beige : '#ffffff'};
+    isProducer ? palette.beige : palette.white};
 
   span {
     color: ${palette.blue};

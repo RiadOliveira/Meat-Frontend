@@ -115,7 +115,6 @@ export const HandleSlaughterModal: React.FC<HandleSlaughterModalProps> = ({
         />
         <FormField states={methodStates} label="Forma de Abate" />
         <FormField states={descriptionStates} label="Descrição" />
-        <div id="separator" />
         <div id="in-line">
           <Button
             type="button"
