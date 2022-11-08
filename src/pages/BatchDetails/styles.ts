@@ -25,7 +25,7 @@ export const Container = styled.div`
 
   #modalQRCode {
     width: 320px;
-    height: 44vh;
+    height: 480px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,16 +34,30 @@ export const Container = styled.div`
     background-color: ${palette.white};
     border-radius: 12px;
 
+    #header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
     #closeButton {
       height: 24px;
       width: 24px;
       border: none;
       background-color: transparent;
-      margin: -15px 0px 0px 260px;
+      position: absolute;
+      margin: -420px 0px 0px 260px;
 
       img {
-        height: 24px;
-        width: 24px;
+        height: 18px;
+        width: 18px;
+      }
+      :hover {
+        img {
+          height: 24px;
+          width: 24px;
+        }
       }
 
       h2 {

@@ -358,7 +358,14 @@ export const BatchDetails: React.FC = () => {
       <Modal isVisible={isQRCodeModalVisible}>
         <section id="modalQRCode">
           <CloseButton handleClose={() => setIsQRCodeModalVisible(false)} />
-          <h2>QR Code gerado!</h2>
+          <div id="header">
+            <h2>Use o código</h2>
+            <span>
+              <u>XXXXXXXXXXXXXXXXXXXXXX</u>
+            </span>
+            <h2>ou</h2>
+            <h2>O QR Code</h2>
+          </div>
           <QrCode redirectUrl={`${frontendUrl}/exposeBatch/${batchId}`} />
         </section>
       </Modal>
@@ -656,7 +663,7 @@ export const BatchDetails: React.FC = () => {
           id="generateQR"
         >
           <img src={qrCodeIcon} alt="QR code icon" />
-          Gerar QR Code
+          Gerar Código
         </Button>
       </main>
     </Container>
