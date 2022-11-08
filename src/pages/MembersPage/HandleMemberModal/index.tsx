@@ -109,10 +109,13 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
   return (
     <Container>
       <CloseButton handleClose={handleCloseModal} />
-      <img src={newMember} alt="Ícone novo membro" />
-      <label>
-        {memberToChange ? 'Atualizar membro' : 'Cadastre um novo membro'}
-      </label>
+      <div id="header">
+        <img src={newMember} alt="Ícone novo membro" />
+        <span id="title">
+          {memberToChange ? 'Atualizar membro' : 'Cadastre um novo membro'}
+        </span>
+      </div>
+
       <form>
         <FormField states={nameStates} label="Nome" />
         <FormField type="email" states={emailStates} label="Email" />
@@ -132,6 +135,7 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
                 ),
             )}
           </select>
+          <label>Cargo</label>
         </FormSelect>
         {memberToChange && (
           <FormField
@@ -145,7 +149,7 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
         <FormField
           type="password"
           states={confirmPasswordStates}
-          label="Confirme sua senha"
+          label="Confirmar senha"
         />
       </form>
       <Button type="button" onClick={handleSubmit}>

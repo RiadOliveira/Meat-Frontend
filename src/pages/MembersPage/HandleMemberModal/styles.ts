@@ -31,6 +31,16 @@ export const Container = styled.section<ButtonProps>`
   font-size: 16pt;
   gap: 10px;
 
+  #header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #title {
+    font-weight: 700;
+    font-size: 24px;
+    color: ${palette.blueHigh};
+  }
   img {
     height: 72px;
   }
@@ -46,12 +56,11 @@ export const Container = styled.section<ButtonProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
   }
 
   select {
     width: 320px;
-    margin: 10px 0px 0px 0px;
   }
 
   Button {
@@ -66,6 +75,26 @@ export const Container = styled.section<ButtonProps>`
     &:hover {
       background-color: ${({ backgroundColor }) =>
         shade(0.1, backgroundColor || palette.pinkHigh)};
+    }
+  }
+
+  #closeButton {
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    margin: -16px 0px 0px 340px;
+
+    img {
+      height: 18px;
+      width: 18px;
+    }
+    :hover {
+      img {
+        height: 24px;
+        width: 24px;
+      }
     }
   }
 `;

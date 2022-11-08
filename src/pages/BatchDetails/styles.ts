@@ -59,10 +59,10 @@ export const Container = styled.div`
           width: 24px;
         }
       }
+    }
 
-      h2 {
-        color: ${palette.blueHigh};
-      }
+    h2 {
+      color: ${palette.blueHigh};
     }
 
     Button {
