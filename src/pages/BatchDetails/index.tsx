@@ -82,6 +82,7 @@ export const BatchDetails: React.FC = () => {
 
   const history = useHistory();
   const { userData } = useAuth();
+  const { id: userId, name: userName } = userData!;
 
   const [batch, setBatch] = useState<IBatchWithRelatedEntities | null>(null);
   const batchIsFinished = !!batch?.endingDate;
@@ -115,6 +116,13 @@ export const BatchDetails: React.FC = () => {
       .catch(() => history.push(routesAddresses.homePage));
   }, [batchId, history]);
 
+  const userThatMadeLastChangeInformationForLoggedUser = useMemo(() => {
+    return {
+      idOfUserThatMadeLastChange: userId,
+      userThatMadeLastChange: { name: userName },
+    };
+  }, [userId, userName]);
+
   const userHasBatchesHighPermissions = useMemo(() => {
     if (!userData) return false;
     return userCanExecuteBatchHighPermissionAction(userData);
@@ -124,17 +132,17 @@ export const BatchDetails: React.FC = () => {
     async (updatedBatchData: Omit<UpdateBatchData, 'userId'>) => {
       const updatedBatch = await updateBatch(batchId, {
         ...updatedBatchData,
-        userId: userData!.id,
+        userId,
       });
 
       setBatch(previousValue => ({
         ...previousValue!,
         ...updatedBatch,
-        creationDate: previousValue!.creationDate,
+        ...userThatMadeLastChangeInformationForLoggedUser,
       }));
       setIsEditBatchModalVisible(false);
     },
-    [batchId, userData],
+    [batchId, userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   // Portions
@@ -147,7 +155,7 @@ export const BatchDetails: React.FC = () => {
     async (portionData: Omit<CreatePortionData, 'userId' | 'batchId'>) => {
       const createdPortion = await createPortion({
         ...portionData,
-        userId: userData!.id,
+        userId,
         batchId,
       });
 
@@ -155,10 +163,15 @@ export const BatchDetails: React.FC = () => {
         if (previousBatch === null) return null;
 
         const { portions } = previousBatch;
-        return { ...previousBatch, portions: [...portions, createdPortion] };
+        return {
+          ...previousBatch,
+          portions: [...portions, createdPortion],
+          updatedAt: createdPortion.updatedAt,
+          ...userThatMadeLastChangeInformationForLoggedUser,
+        };
       });
     },
-    [batchId, userData],
+    [batchId, userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   const handleUpdatePortion = useCallback(
@@ -168,7 +181,7 @@ export const BatchDetails: React.FC = () => {
     ) => {
       const updatedPortion = await updatePortion(portionId, {
         ...portionData,
-        userId: userData!.id,
+        userId,
       });
 
       setBatch(previousBatch => {
@@ -179,15 +192,20 @@ export const BatchDetails: React.FC = () => {
           portion.id === portionId ? updatedPortion : portion,
         );
 
-        return { ...previousBatch, portions: parsedPortions };
+        return {
+          ...previousBatch,
+          portions: parsedPortions,
+          updatedAt: updatedPortion.updatedAt,
+          ...userThatMadeLastChangeInformationForLoggedUser,
+        };
       });
     },
-    [userData],
+    [userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   const handleDeletePortion = useCallback(
     async (portionId: string) => {
-      await deletePortion(portionId, userData!.id);
+      await deletePortion(portionId, userId);
 
       setBatch(previousValue => {
         if (previousValue === null) return null;
@@ -195,12 +213,17 @@ export const BatchDetails: React.FC = () => {
         const { portions } = previousValue;
         const parsedPortions = portions.filter(({ id }) => id !== portionId);
 
-        return { ...previousValue, portions: parsedPortions };
+        return {
+          ...previousValue,
+          portions: parsedPortions,
+          updatedAt: new Date(),
+          ...userThatMadeLastChangeInformationForLoggedUser,
+        };
       });
       setIsDeleteModalVisible(false);
       setModalDeleteFunction(() => DEFAULT_MODAL_DELETE_FUNCTION);
     },
-    [userData],
+    [userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   // Vaccinations
@@ -215,7 +238,7 @@ export const BatchDetails: React.FC = () => {
     ) => {
       const createdVaccination = await createVaccination({
         ...vaccinationData,
-        userId: userData!.id,
+        userId,
         batchId,
       });
 
@@ -226,10 +249,12 @@ export const BatchDetails: React.FC = () => {
         return {
           ...previousBatch,
           vaccinations: [...vaccinations, createdVaccination],
+          updatedAt: createdVaccination.updatedAt,
+          ...userThatMadeLastChangeInformationForLoggedUser,
         };
       });
     },
-    [batchId, userData],
+    [batchId, userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   const handleUpdateVaccination = useCallback(
@@ -239,7 +264,7 @@ export const BatchDetails: React.FC = () => {
     ) => {
       const updatedVaccination = await updateVaccination(vaccinationId, {
         ...vaccinationData,
-        userId: userData!.id,
+        userId,
       });
 
       setBatch(previousBatch => {
@@ -250,15 +275,20 @@ export const BatchDetails: React.FC = () => {
           vaccination.id === vaccinationId ? updatedVaccination : vaccination,
         );
 
-        return { ...previousBatch, vaccinations: parsedVaccinations };
+        return {
+          ...previousBatch,
+          vaccinations: parsedVaccinations,
+          updatedAt: updatedVaccination.updatedAt,
+          ...userThatMadeLastChangeInformationForLoggedUser,
+        };
       });
     },
-    [userData],
+    [userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   const handleDeleteVaccination = useCallback(
     async (vaccinationId: string) => {
-      await deleteVaccination(vaccinationId, userData!.id);
+      await deleteVaccination(vaccinationId, userId);
 
       setBatch(previousValue => {
         if (previousValue === null) return null;
@@ -268,12 +298,18 @@ export const BatchDetails: React.FC = () => {
           ({ id }) => id !== vaccinationId,
         );
 
-        return { ...previousValue, vaccinations: parsedVaccinations };
+        return {
+          ...previousValue,
+          vaccinations: parsedVaccinations,
+          updatedAt: new Date(),
+          ...userThatMadeLastChangeInformationForLoggedUser,
+        };
       });
+
       setIsDeleteModalVisible(false);
       setModalDeleteFunction(() => DEFAULT_MODAL_DELETE_FUNCTION);
     },
-    [userData],
+    [userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   // Slaughter
@@ -281,7 +317,7 @@ export const BatchDetails: React.FC = () => {
     async (slaughterData: Omit<CreateSlaughterData, 'userId' | 'batchId'>) => {
       const createdSlaughter = await createSlaughter({
         ...slaughterData,
-        userId: userData!.id,
+        userId,
         batchId,
       });
 
@@ -291,10 +327,12 @@ export const BatchDetails: React.FC = () => {
         return {
           ...previousBatch,
           slaughter: createdSlaughter,
+          updatedAt: createdSlaughter.updatedAt,
+          ...userThatMadeLastChangeInformationForLoggedUser,
         };
       });
     },
-    [batchId, userData],
+    [batchId, userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   const handleUpdateSlaughter = useCallback(
@@ -304,15 +342,20 @@ export const BatchDetails: React.FC = () => {
     ) => {
       const updatedSlaughter = await updateSlaughter(slaughterId, {
         ...slaughterData,
-        userId: userData!.id,
+        userId,
       });
 
       setBatch(previousBatch => {
         if (previousBatch === null) return null;
-        return { ...previousBatch, slaughter: updatedSlaughter };
+        return {
+          ...previousBatch,
+          slaughter: updatedSlaughter,
+          updatedAt: updatedSlaughter.updatedAt,
+          ...userThatMadeLastChangeInformationForLoggedUser,
+        };
       });
     },
-    [userData],
+    [userId, userThatMadeLastChangeInformationForLoggedUser],
   );
 
   const handleFinishBatch = useCallback(async () => {
@@ -332,18 +375,23 @@ export const BatchDetails: React.FC = () => {
       return;
     }
 
-    const { endingDate } = await updateBatch(batchId, {
+    const { updatedAt, endingDate } = await updateBatch(batchId, {
       ...batch,
       endingDate: new Date(),
-      userId: userData!.id,
+      userId,
     });
 
     setBatch(previousValue => {
       if (previousValue === null) return null;
-      return { ...previousValue, endingDate };
+      return {
+        ...previousValue,
+        updatedAt,
+        endingDate,
+        ...userThatMadeLastChangeInformationForLoggedUser,
+      };
     });
     alert('Lote finalizado com sucesso!');
-  }, [batch, batchId, userData]);
+  }, [batch, batchId, userId, userThatMadeLastChangeInformationForLoggedUser]);
 
   const handleDeleteBatch = useCallback(async () => {
     await deleteBatch(batchId, userData!.id);
