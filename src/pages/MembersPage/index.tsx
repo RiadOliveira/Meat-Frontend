@@ -33,6 +33,7 @@ import { UpdateMemberData } from 'types/entities/operations/company/UpdateMember
 
 export const MembersPage: React.FC = () => {
   const { userData } = useAuth();
+  const userIsProducer = userData?.accountType === AccountType.PRODUCER;
 
   const [selectedMemberIndex, setSelectedMemberIndex] = useState<
     number | undefined
@@ -122,17 +123,20 @@ export const MembersPage: React.FC = () => {
       <UserHeader />
 
       <main>
-        <Button
-          id="new-member"
-          type="button"
-          onClick={() => {
-            setSelectedMemberIndex(undefined);
-            setIsHandleMemberModalVisible(true);
-          }}
-        >
-          <img src={iconMember} alt="Ícone Membro" />
-          Novo Membro
-        </Button>
+        {userIsProducer && (
+          <Button
+            id="new-member"
+            type="button"
+            onClick={() => {
+              setSelectedMemberIndex(undefined);
+              setIsHandleMemberModalVisible(true);
+            }}
+          >
+            <img src={iconMember} alt="Ícone Membro" />
+            Novo Membro
+          </Button>
+        )}
+
         <MembersTable>
           <MembersHeader>
             <span id="companyName">{company?.name}</span>

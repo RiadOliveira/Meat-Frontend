@@ -20,12 +20,13 @@ import { routesAddresses } from 'routes/routesAddresses';
 import { animalIcons } from 'assets/animalIcons/animalIcons';
 import { Modal } from 'components/Modal';
 import { CreateBatchModal } from 'pages/BatchesPage/CreateBatchModal';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createBatch, listBatchesFromCompany } from 'services/batchServices';
 import { useAuth } from 'hooks/auth';
 import { format } from 'date-fns';
 import { BatchDataListedFromCompany } from 'types/entities/operations/batch/BatchDataListedFromCompany';
 import { CreateBatchData } from 'types/entities/operations/batch/CreateBatchData';
+import { userCanExecuteBatchHighPermissionAction } from 'utils/userCanExecuteBatchHighPermissionAction';
 
 export const BatchesPage: React.FC = () => {
   const history = useHistory();
@@ -37,6 +38,11 @@ export const BatchesPage: React.FC = () => {
   useEffect(() => {
     listBatchesFromCompany(userData?.companyId as string).then(setBatches);
   }, [userData?.companyId]);
+
+  const userHasBatchesHighPermissions = useMemo(() => {
+    if (!userData) return false;
+    return userCanExecuteBatchHighPermissionAction(userData);
+  }, [userData]);
 
   const handleCreateNewBatch = useCallback(
     async (newBatchData: Omit<CreateBatchData, 'userId'>) => {
@@ -60,14 +66,17 @@ export const BatchesPage: React.FC = () => {
       <UserHeader pageBatch />
 
       <main>
-        <Button
-          type="button"
-          id="new-batch"
-          onClick={() => setIsModalVisible(true)}
-        >
-          <img src={iconBatch} alt="Ícone Lote" />
-          Novo Lote
-        </Button>
+        {userHasBatchesHighPermissions && (
+          <Button
+            type="button"
+            id="new-batch"
+            onClick={() => setIsModalVisible(true)}
+          >
+            <img src={iconBatch} alt="Ícone Lote" />
+            Novo Lote
+          </Button>
+        )}
+
         <CardsBatch>
           {batches.map(
             ({

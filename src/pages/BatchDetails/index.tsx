@@ -34,7 +34,7 @@ import { palette } from 'assets/colors/palette';
 import { Button } from 'components/Button/styles';
 import { Modal } from 'components/Modal';
 import { DeleteModal } from 'components/DeleteModal';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { HandlePortionModal } from './HandlePortionModal';
 import { HandleSlaughterModal } from './HandleSlaughterModal';
 import { EditBatchModal } from './EditBatchModal';
@@ -70,6 +70,7 @@ import { UpdateSlaughterData } from 'types/entities/operations/slaughter/UpdateS
 import { CloseButton } from 'components/CloseButton';
 import { QrCode } from 'components/QrCode';
 import { frontendUrl } from 'constants/baseUrls';
+import { userCanExecuteBatchHighPermissionAction } from 'utils/userCanExecuteBatchHighPermissionAction';
 
 const DEFAULT_MODAL_DELETE_FUNCTION = async () => {
   null;
@@ -113,6 +114,11 @@ export const BatchDetails: React.FC = () => {
       .then(setBatch)
       .catch(() => history.push(routesAddresses.homePage));
   }, [batchId, history]);
+
+  const userHasBatchesHighPermissions = useMemo(() => {
+    if (!userData) return false;
+    return userCanExecuteBatchHighPermissionAction(userData);
+  }, [userData]);
 
   const handleUpdateBatch = useCallback(
     async (updatedBatchData: Omit<UpdateBatchData, 'userId'>) => {
@@ -422,7 +428,7 @@ export const BatchDetails: React.FC = () => {
       <UserHeader pageBatch />
 
       <main>
-        {!batchIsFinished && (
+        {!batchIsFinished && userHasBatchesHighPermissions && (
           <Button id="finish-batch" type="button" onClick={handleFinishBatch}>
             <img src={iconBatch} alt="Ícone Lote" />
             Finalizar Lote
@@ -459,12 +465,16 @@ export const BatchDetails: React.FC = () => {
                         </button>
                       )}
 
-                      <button
-                        type="button"
-                        onClick={() => handleShowDeleteModal(handleDeleteBatch)}
-                      >
-                        <img src={iconDelete} alt="Ícone Deletar" />
-                      </button>
+                      {userHasBatchesHighPermissions && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleShowDeleteModal(handleDeleteBatch)
+                          }
+                        >
+                          <img src={iconDelete} alt="Ícone Deletar" />
+                        </button>
+                      )}
                     </BatchOperationButtons>
                   </div>
 

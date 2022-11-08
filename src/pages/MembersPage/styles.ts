@@ -24,7 +24,7 @@ export const Container = styled.div`
       align-items: center;
       gap: 20px;
       font-size: 32px;
-      margin: 24px;
+      margin-top: 24px;
 
       img {
         width: 72px;
@@ -34,7 +34,7 @@ export const Container = styled.div`
       @media (min-width: 960px) {
         width: 340px;
         height: 64px;
-        margin: 20px;
+        margin-top: 20px;
         font-size: 24px;
 
         img {
@@ -120,9 +120,11 @@ export const MembersTable = styled.section`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   padding-bottom: 12px;
+  margin-top: 20px;
 
   @media (max-width: 600px) {
     width: 90%;
+    margin-top: 24px;
   }
 `;
 

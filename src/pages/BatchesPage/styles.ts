@@ -19,10 +19,9 @@ export const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      /* color: ${palette.white}; */
       gap: 50px;
       font-size: 32px;
-      margin: 24px;
+      margin-top: 24px;
 
       img {
         width: 72px;
@@ -32,7 +31,7 @@ export const Container = styled.div`
       @media (min-width: 960px) {
         width: 340px;
         height: 64px;
-        margin: 20px;
+        margin-top: 20px;
         font-size: 24px;
 
         img {
@@ -48,6 +47,7 @@ export const CardsBatch = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 24px;
 
   @media (min-width: 960px) {
     min-width: 880px;
@@ -56,6 +56,7 @@ export const CardsBatch = styled.section`
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-top: 20px;
   }
 
   @media (min-width: 1320px) {

@@ -131,7 +131,11 @@ export const HandleMemberModal: React.FC<HandleMemberModalProps> = ({
           <label>Cargo</label>
         </FormSelect>
 
-        <FormField type="password" states={passwordStates} label="Senha" />
+        <FormField
+          type="password"
+          states={passwordStates}
+          label={isUpdateModal ? 'Nova senha' : 'Senha'}
+        />
         <FormField
           type="password"
           states={confirmPasswordStates}
