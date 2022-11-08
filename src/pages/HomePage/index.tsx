@@ -1,4 +1,4 @@
-import { Container, Section, SearchInput } from './styles';
+import { Container, Section } from './styles';
 import { Button } from 'components/Button/styles';
 import { palette } from 'assets/colors/palette';
 import { Footer } from 'components/Footer';
@@ -67,19 +67,18 @@ export const HomePage: React.FC = () => {
       <main>
         <Section backgroundColor={palette.blueLow}>
           <h2>Rastreie o que você está CONSUMINDO!</h2>
-          <SearchInput>
-            <InputStyles
-              value={searchCode}
-              placeholder="Digite seu código"
-              onChange={({ target: { value } }) => setSearchCode(value)}
-            />
-            <Button
-              type="button"
-              onClick={() => history.push(`/exposeBatch/${searchCode}`)}
-            >
-              Buscar
-            </Button>
-          </SearchInput>
+
+          <InputStyles
+            value={searchCode}
+            placeholder="Digite seu código"
+            onChange={({ target: { value } }) => setSearchCode(value)}
+          />
+          <Button
+            type="button"
+            onClick={() => history.push(`/exposeBatch/${searchCode}`)}
+          >
+            Buscar
+          </Button>
         </Section>
 
         <Section backgroundColor={palette.beige}>

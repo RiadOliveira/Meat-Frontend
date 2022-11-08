@@ -36,6 +36,6 @@ export const Button = styled.button<ButtonProps>`
     width: 148px;
     height: 48px;
 
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
